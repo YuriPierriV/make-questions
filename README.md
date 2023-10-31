@@ -5,7 +5,8 @@
 
 ## Alinhamentos
 
-- Siga o passo a passo para [instalar o WSL e docker](https://github.com/codeedu/wsl2-docker-quickstart)
+- Siga o passo a passo para [instalar o WSL](https://github.com/codeedu/wsl2-docker-quickstart)
+- Instale o docker via WSL2 pela [Documentação](https://docs.docker.com/desktop/install/ubuntu/)
 
 - Faça um git clone do nosso repositório:
 
