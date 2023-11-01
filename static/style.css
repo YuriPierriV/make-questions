@@ -1,8 +1,34 @@
 body{
-    background-color: hsl(210, 16%, 12%);
+    font-family: 'Sometype Mono', monospace;
 }
 
-.card{
-    color: #fff;
-    background-color: hsl(210, 24%, 8%);
+.inicio{
+    background-color: #9BB1FF;
 }
+
+#inicio{
+    height: calc(100vh);
+}
+
+.butao{
+    
+}
+
+.centro{
+    height: 100%;
+}
+
+
+.seta{
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-color: #5465FF;
+    border-radius: 50%;
+    border-width: 1px;
+    border-style: solid;
+    padding: 9px;
+    color: #5465FF;
+}
+
