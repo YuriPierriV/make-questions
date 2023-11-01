@@ -76,3 +76,15 @@ Vamos usar o github para fazer o gerenciamento, sincronização e controle do c�
  - [BootStrap](https://getbootstrap.com/docs/5.3/getting-started/introduction/)
  - [Flask](https://flask.palletsprojects.com/en/3.0.x/)
  - [Docker](https://docs.docker.com/)
+
+## Documentação de cores
+
+| Cor               | Hexadecimal                                                |
+| ----------------- | ---------------------------------------------------------------- |
+| Neon Blue       | ![#5465FF](https://via.placeholder.com/10/5465FF?text=+) #5465FF |
+| Cornflower blue   | ![#788bff](https://via.placeholder.com/10/788bff?text=+) #788bff |
+| Jordy Blue       | ![#9BB1FF](https://via.placeholder.com/10/9BB1FF?text=+) #9BB1FF |
+| Periwinkle       | ![#BFD7FF](https://via.placeholder.com/10/BFD7FF?text=+) #BFD7FF |
+| Light cyan       | ![#E2FDFF](https://via.placeholder.com/10/E2FDFF?text=+) #E2FDFF |
+
+
