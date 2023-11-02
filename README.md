@@ -81,10 +81,10 @@ Vamos usar o github para fazer o gerenciamento, sincronização e controle do c�
 
 | Cor               | Hexadecimal                                                |
 | ----------------- | ---------------------------------------------------------------- |
-| Neon Blue       | ![#5465FF](https://via.placeholder.com/10/5465FF?text=+) #5465FF |
-| Cornflower blue   | ![#788bff](https://via.placeholder.com/10/788bff?text=+) #788bff |
-| Jordy Blue       | ![#9BB1FF](https://via.placeholder.com/10/9BB1FF?text=+) #9BB1FF |
-| Periwinkle       | ![#BFD7FF](https://via.placeholder.com/10/BFD7FF?text=+) #BFD7FF |
-| Light cyan       | ![#E2FDFF](https://via.placeholder.com/10/E2FDFF?text=+) #E2FDFF |
+| Neon Blue       | ![#010A14](https://via.placeholder.com/10/010A14?text=+) #010A14 |
+| Cornflower blue   | ![#031D3A](https://via.placeholder.com/10/031D3A?text=+) #031D3A |
+| Jordy Blue       | ![#041D8B](https://via.placeholder.com/10/041D8B?text=+) #041D8B |
+| Periwinkle       | ![#0733F6](https://via.placeholder.com/10/0733F6?text=+) #0733F6 |
+| Light cyan       | ![#CCC9DC](https://via.placeholder.com/10/CCC9DC?text=+) #CCC9DC |
 
 
