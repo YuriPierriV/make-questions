@@ -4,7 +4,7 @@ body{
 
 .inicio{
     height: 100vh;
-    background-image: url(/static/img/bg.jpg);
+    background-image: url(/static/img/bg2.jpg);
     background-position:center;
     background-size: cover;
 }
@@ -19,13 +19,17 @@ body{
     box-shadow: 0px 0px 15px #0733F6;
 }
 
+.controle{
+    padding-top: 0;
+    margin-top: 0;
+}
 
-.nav-underline .nav-item .nav-link{
+.nav-up .nav-item .nav-link{
     transition: none;
 }
 
-.nav-underline .nav-item .nav-link:hover,
-.nav-underline .nav-item .nav-link:focus , .nav-underline .nav-item .nav-link:active {
+.nav-up .nav-item .nav-link:hover,
+.nav-up .nav-item .nav-link:focus , .nav-up .nav-item .nav-link:active {
     border-bottom: 0;
     border-top-style: solid;
     border-color: #0733F6;
@@ -48,6 +52,7 @@ body{
 .botao-cadastro{
     background-color: #0733F6;
     color: #fff;
+    font-size: 12px;
 }
 
 .botao-cadastro:hover{
