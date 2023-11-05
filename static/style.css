@@ -19,40 +19,90 @@ body{
     box-shadow: 0px 0px 15px #0733F6;
 }
 
+.navbar-brand{
+    font-size: 25px;
+}
 
-.nav-underline .nav-item .nav-link{
+.controle{
+    padding-top: 0;
+    margin-top: 0;
+}
+
+.nav-up .nav-item .nav-link{
     transition: none;
 }
 
-.nav-underline .nav-item .nav-link:hover,
-.nav-underline .nav-item .nav-link:focus , .nav-underline .nav-item .nav-link:active {
+.nav-link{
+    font-size: 20px;
+}
+
+.nav-up .nav-item .nav-link:hover,
+.nav-up .nav-item .nav-link:focus , .nav-up .nav-item .nav-link:active {
     border-bottom: 0;
     border-top-style: solid;
     border-color: #0733F6;
     border-width: 2px;
-}
-
-.ham{
     font-size: 20px;
 }
+
 
 .text-shadow{
     text-shadow: 0px 0px 15px #0733F6;
 }
 
-.ham:hover{
-    color: #fff;
-    text-shadow: 0px 0px 5px #0733F6;
+.text-shadow:hover{
+    text-shadow: 0px 2px 15px #0733F6;
 }
+
 
 .botao-cadastro{
     background-color: #0733F6;
     color: #fff;
+    font-size: 20px;
 }
 
 .botao-cadastro:hover{
     background-color: #041D8B;
 }
 
+.botao-cadastro:active{
+    background-color: #fff;
+    color: #0733F6;
+}
 
+.container-inicio{
+    padding-top: 200px;
+}
+
+.titulo{
+    font-size: 50px;
+}
+
+.vertical-center{
+    min-height: calc(100% - 64px);
+    max-height: calc(100% - 64px);
+
+    background: linear-gradient(to bottom, #ccc9dc4d, #010a1498 50%, #010a14d7 90%, #010A14);
+}
+
+
+.linha{
+    width: 100%;
+}
+
+.cards{
+    margin-top: -250px;
+}
+
+.functions{
+    background-color: #010A14;
+}
+
+.card{
+    background-color: #031d3a60;
+    box-shadow: 0px 0px 15px #0733F6;
+    border-width: 2px;
+    border-color: #0733f6b2;
+    border-style: solid;
+}
 
