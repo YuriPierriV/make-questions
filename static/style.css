@@ -14,7 +14,7 @@ body{
 }
 
 .navbar{
-    background-color: #010A14;
+    background-color: #010a14b2;
     border-bottom: #0733F6 solid 2px;
     box-shadow: 0px 0px 15px #0733F6;
 }
@@ -119,3 +119,57 @@ body{
     font-size: 5rem;
     
 }
+
+.menu-suspenso {
+    display: none;
+    position: absolute;
+    padding: 25px;
+    margin-left: -100px;
+    top: 100%;
+    background-color: #031d3a60;
+    border: #0733F6 solid 2px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 15px #0733F6;
+    border-top-width: 0px;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    z-index: 1;
+}
+
+.login-text{
+    font-size: 14px;
+}
+
+.cadastro-text{
+    font-size: 14px;
+    display: flex; /* CSS3 */
+    align-items: center; /* Vertical align */
+    justify-content: end;
+    color: #CCC9DC;
+}
+
+.form-control{
+    background-color: #031d3a60;
+    border: 2px solid #0733f6b2;
+    font-size: 20px;
+    color: #CCC9DC;
+}
+
+.form-control input{
+    font-size: 2px;
+}
+
+.form-control:hover, .form-control:focus, .form-control:active{
+    background-color: #031d3a60;
+    border: 2px solid #0733F6;
+    box-shadow: 0px 0px 5px #0733F6;
+    font-size: 20px;
+    color: #CCC9DC;
+}
+
+.form-control::placeholder{
+    font-size: 14px;
+    color: #CCC9DC;
+}
+
+
