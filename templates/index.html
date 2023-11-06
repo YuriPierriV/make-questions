@@ -41,10 +41,26 @@
                         </li>
                     </ul>
                 </div>
-                <div class="container justify-content-end">
-                    <ul class="nav justify-content-end align-items-center">
+                <div class="container">
+                    <ul class="nav justify-content-center">
                         <li class="nav-item">
-                            <button type="button" class="btn botao-cadastro">Cadastre-se</button>
+                            <button type="button" class="btn botao-cadastro" id="loginBtn">Entrar</button>
+                            <div class="menu-suspenso" id="loginDropdown">
+                                <h4 class="text-start login-text">Faça Login</h4>
+                                <div class="container">
+                                    <form>
+                                        <div class="row mb-3">
+                                            <label for="inputEmail" class=" visually-hidden">Email</label>
+                                            <input type="email" class="form-control" id="inputEmail " placeholder="Email">
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="inputPassword3" class="visually-hidden">Senha</label>
+                                            <input type="password" class="form-control" id="inputPassword3" placeholder="Senha">
+                                        </div>
+                                    </form>
+                                </div>
+                                <a href="#" class="text-end cadastro-text">Cadastre-se</a>
+                            </div>
                         </li>
                     </ul>
                 </div>
