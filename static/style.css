@@ -1,6 +1,13 @@
 body{
     font-family: 'Sometype Mono', monospace;
+    --sb-track-color: #010A14;
+    --sb-thumb-color: #0733F6;
+    --sb-size: 7px;
+
+    scrollbar-color: var(--sb-thumb-color) 
+                    var(--sb-track-color);
 }
+
 
 .inicio{
     height: 100vh;
@@ -9,12 +16,13 @@ body{
     background-size: cover;
 }
 
+
 .text-white{
     color: #CCC9DC;
 }
 
 .navbar{
-    background-color: #010a14b2;
+    background-color: #010a14e1;
     border-bottom: #0733F6 solid 2px;
     box-shadow: 0px 0px 15px #0733F6;
 }
@@ -98,7 +106,7 @@ body{
     background-color: #010A14;
 }
 
-.card{
+.card-inicio{
     background-color: #031d3a60;
     box-shadow: 0px 0px 5px #0733F6;
     border-width: 1px;
@@ -172,4 +180,64 @@ body{
     color: #CCC9DC;
 }
 
+.sobre{
+    background-color: #010A14;
+}
 
+.carousel-indicators{
+    margin-bottom: -30px;
+}
+
+.card-img-top{
+    width: auto;
+    height: 250px;
+}
+
+.control-p{
+    padding-left: 7rem;
+    padding-right: 7rem;
+}
+
+.sobre-nos{
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 8px;
+    color: #0733F6;
+}
+
+.text-sobrenos{
+    font-size: 20px;
+
+}
+
+.icon-sobrenos{
+    font-size: 25px;
+}
+
+.p-sobrenos{
+    font-size: 14px;
+}
+
+.card-sobre{
+    background-color: #031d3a60;
+}
+
+
+
+body::-webkit-scrollbar {
+    width: var(--sb-size);
+    
+}
+
+body::-webkit-scrollbar-track {
+    background: var(--sb-track-color);
+    border-radius: 1px;
+    text-shadow: 0px 0px 5px #0733F6;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: var(--sb-thumb-color);
+    border-radius: 1px;
+    border: 3px solid #010A14;
+    
+}
