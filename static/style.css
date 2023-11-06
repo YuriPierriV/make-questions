@@ -41,7 +41,7 @@ body{
 }
 
 .nav-link{
-    font-size: 20px;
+    font-size: 25px;
 }
 
 .nav-up .nav-item .nav-link:hover,
@@ -50,7 +50,7 @@ body{
     border-top-style: solid;
     border-color: #0733F6;
     border-width: 2px;
-    font-size: 20px;
+    font-size: 25px;
 }
 
 
@@ -64,13 +64,23 @@ body{
 
 
 .botao-cadastro{
-    background-color: #0733F6;
+    background-color: #0733f600;
     color: #fff;
-    font-size: 20px;
+    font-size: 25px;
+    border-width: 2px;
+    border-color: #0733f6b2;
+    border-style: solid;
+    box-shadow: 5px 2px 5px #0733F6;
+    
 }
 
 .botao-cadastro:hover{
-    background-color: #041D8B;
+    background-color: none;
+    
+    border-width: 2px;
+    border-color: #0733f6b2;
+    border-style: solid;
+    box-shadow: 0px 0px 10px #0733F6;
 }
 
 .botao-cadastro:active{
@@ -109,9 +119,13 @@ body{
 .card-inicio{
     background-color: #031d3a60;
     box-shadow: 0px 0px 5px #0733F6;
-    border-width: 1px;
+    border-width: 2px;
     border-color: #0733f6b2;
     border-style: solid;
+}
+
+.card-inicio:hover{
+    box-shadow: 0px 0px 15px #0733F6;
 }
 
 .card-img{
