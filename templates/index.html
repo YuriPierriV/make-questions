@@ -10,11 +10,14 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    
+    
     <link rel="shortcut icon" href="/static/img/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="../static/style.css">
     <title>Make Questions</title>
 </head>
 <body>
+
     <section id="inicio" class="inicio">
         <nav class="navbar navbar-expand-md text-center ">
             <div class="container text-white">
@@ -41,7 +44,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="container ">
+                <div class="container">
                     <ul class="nav justify-content-center">
                         <li class="nav-item">
                             <button type="button" class="btn botao-cadastro" id="loginBtn">Entrar</button>
@@ -71,7 +74,7 @@
             <p class="mensage pb-3">Construindo pesquisas, moldando dados e criando conexões</p>
         </div>
         <div class="container pb-5 ">
-            <div class="row teste">
+            <div class="row">
                 <div class="col-md-4 d-flex justify-content-center pt-5">
                     <div class="card card-inicio cards text-white text-center " style="width: 18rem;">
                         
@@ -119,8 +122,6 @@
         </div>
         
     </section>
-
-
     <section class="sobre" id="sobre">
         <div class="container pt-5 pb-5 text-white">
             <div class="row">
@@ -193,6 +194,49 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <section class="duvidas" id="duvidas">
+        <div class="container text-center pb-5 pt-5 ">
+            <div class="card card-duvidas-geral text-white">
+                <div class="container textos-duvidas">
+                    <h1 class="mesage pb-3 pt-5">Ola</h1>
+                    <p class="message pb-3">sda</p>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 text-start ps-5 pb-5 pe-5">
+                            <div class="d-grid gap-2 ">
+                                <button class="btn btn-primary" type="button">Button</button>
+                                <button class="btn btn-primary" type="button">Button</button>
+                            </div>
+                        </div>
+                        <div class="col-md-6 ps-5 pb-5 pe-5">
+                            <div class="card card-duvidas text-white p-5 text-start">
+                                <h1 class="Ola pb-3">Make Questions</h1>
+                                <form>
+                                    <div class="mb-3">
+                                        <label for="nome" class="visually-hidden">Nome</label>
+                                        <input type="text" class="form-control" id="nome" aria-describedby="nome" placeholder="Nome">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="inputEmail" class="visually-hidden">Email</label>
+                                        <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlTextarea1" class="form-label">Duvida</label>
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
         </div>
     </section>
 

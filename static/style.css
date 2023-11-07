@@ -233,6 +233,9 @@ body{
     background-color: #031d3a60;
 }
 
+#duvidas{
+    background-color: #010A14;
+}
 
 
 body::-webkit-scrollbar {
@@ -258,4 +261,20 @@ body::-webkit-scrollbar-thumb {
         padding-bottom: 2rem;
     }
     
+}
+.Ola{
+    font-size: 20px;
+}
+
+.card-duvidas{
+    background-color: #031d3a60;
+    box-shadow: 0px 0px 5px #0733F6;
+    border-width: 2px;
+    border-style: solid;
+}
+
+.card-duvidas-geral{
+    background-color: #05346900;
+    border-width: 2px;
+    border-style: solid;
 }
