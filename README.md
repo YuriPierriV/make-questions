@@ -88,3 +88,5 @@ Vamos usar o github para fazer o gerenciamento, sincronização e controle do c�
 | Light cyan       | ![#CCC9DC](https://via.placeholder.com/10/CCC9DC?text=+) #CCC9DC |
 
 
+https://developer.mozilla.org/en-US/docs/Web/API/Element/classList
+
