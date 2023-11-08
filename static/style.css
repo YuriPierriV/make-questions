@@ -338,3 +338,7 @@ body::-webkit-scrollbar-thumb {
     display: none;
     font-size: 16px;
 }
+
+.ola{
+    font-size: 20px;
+}
