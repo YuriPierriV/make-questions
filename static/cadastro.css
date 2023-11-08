@@ -2,18 +2,27 @@ body{
     background-image: linear-gradient(to bottom, #010a14a8, #010a14ad 50%, #010a14d7 90%, #010A14),url(/static/img/bg.jpg);
     background-position:center;
     background-size: cover;
+}
+
+.cadastro{
     height: 100vh;
+    
 }
 
 .card-cadastro{
     height: 100%;
+    min-height: 100%;
+    max-height: 100%;
     border: 0;
     border-radius: 25px;
+    padding: 0;
 }
 
 
 .img-fluid{
     height: 100%;
+    min-height: 100%;
+    max-height: 100%;
     border-top-left-radius: 25px;
     border-bottom-left-radius: 25px;
 }
