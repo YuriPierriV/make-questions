@@ -301,9 +301,6 @@ body::-webkit-scrollbar-thumb {
     }
     
 }
-.Ola{
-    font-size: 20px;
-}
 
 .card-duvidas{
     background-color: #011021a2;
@@ -331,4 +328,8 @@ body::-webkit-scrollbar-thumb {
     padding-right: 2rem;
     font-size: 20px;
     vertical-align: middle;
+}
+
+.text-duvidas{
+    font-size: 20px;
 }
