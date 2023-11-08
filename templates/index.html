@@ -19,8 +19,8 @@
 <body>
 
     <section id="inicio" class="inicio">
-        <nav class="navbar navbar-expand-md text-center ">
-            <div class="container text-white">
+        <nav class="navbar navbar-expand-md text-center p-0">
+            <div class="container text-white nav-bar">
                 <div class="container justify-content-start ">
                     <img src="/static/img/logo.png" alt="Bootstrap" width="90" height="85">
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,57 +69,35 @@
                 </div>
             </div>
         </nav>
-        <div class="container text-center text-white pb-5 pt-5 ">
-            <h1 class="titulo pb-2 pt-5">Make questions</h1>
-            <p class="mensage pb-3">Construindo pesquisas, moldando dados e criando conexões</p>
-        </div>
-        <div class="container pb-5 ">
-            <div class="row">
-                <div class="col-md-4 d-flex justify-content-center pt-5">
-                    <div class="card card-inicio cards text-white text-center " style="width: 18rem;">
-                        
-                        
-                        <div class="card-header">
-                            Pesquisas
-                        </div>
-                        <div class="card-body">
-                            <i class="bi bi-search icon"></i>
-                            <p class="card-text">Crie pesquisas com ferramentas simples e dinamicas</p>
-                        </div>
-                        
+        <div class="container mid-inicio d-flex justify-content-center flex-column">
+            <div class="container text-center text-white container-inicio">
+                <h1 class="titulo pb-2">Make questions</h1>
+                <p class="mensage pb-3">Construindo pesquisas, moldando dados e criando conexões</p>
+            </div>
+            <div class="container p-0 drop">
+                <div class="row text-white align-items-end">
+                    <div class="col-md-4 justify-content-center under-border bar-color p-5">
+                        <p class="text-inicio">
+                            Crie formulários de pesquisa com ferramentas simples e dinâmicas
+                        </p>
+                        <a class="btn btn-inicio" href="">Ver mais <i class="bi bi-arrow-right-short icon-inicio"></i></a>
                     </div>
-                </div>
-                <div class="col-md-4 d-flex justify-content-center pt-5">
-                    <div class="card card-inicio cards text-white text-center " style="width: 18rem;">
-                        
-                        
-                        <div class="card-header">
-                            Relatórios
-                        </div>
-                        <div class="card-body">
-                            <i class="bi bi-graph-up-arrow icon"></i>
-                            <p class="card-text">Construa relatórios profissionais com seus resultados</p>
-                        </div>
+                    <div class="col-md-4 justify-content-center under-border bar-color p-5">
+                        <p class="text-inicio">
+                            Construa relatórios profissionais com seus resultados
+                        </p>
+                        <a class="btn btn-inicio" href="">Ver mais <i class="bi bi-arrow-right-short icon-inicio"></i></a>
                     </div>
-                </div>
-                <div class="col-md-4 d-flex justify-content-center pt-5">
-                    <div class="card card-inicio cards text-white text-center " style="width: 18rem;">
-                        
-                        
-                        <div class="card-header">
-                            Seus Dados
-                        </div>
-                        <div class="card-body">
-                            <i class="bi bi-database-fill-gear icon"></i>
-                            <p class="card-text">Adicione suas proprias pesquisas e relacione com pesquisas</p>
-                        </div>
+                    <div class="col-md-4 justify-content-center under-border bar-color p-5">
+                        <p class="text-inicio">
+                            Adicione suas proprias pesquisas e relacione com pesquisas
+                        </p>
+                        <a class="btn btn-inicio" href="">Ver mais <i class="bi bi-arrow-right-short icon-inicio"></i></a>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="container text-center justify-content-center pt-5 text-white">
-            <button type="button" class="btn botao-cadastro">Comece Agora</button>
-        </div>
+        
         
     </section>
     <section class="sobre" id="sobre">
@@ -201,15 +179,33 @@
         <div class="container text-center pb-5 pt-5 ">
             <div class="card card-duvidas-geral text-white">
                 <div class="container textos-duvidas">
-                    <h1 class="mesage pb-3 pt-5">Ola</h1>
-                    <p class="message pb-3">sda</p>
+                    <h1 class="mesage pb-3 pt-5">Dúvidas frequentes</h1>
+                    <p class="message pb-3">Arruma essa porra ed,deixa as cores dos card assim, so mexe nos botoes e tals</p>
                 </div>
                 <div class="container">
                     <div class="row">
                         <div class="col-md-6 text-start ps-5 pb-5 pe-5">
                             <div class="d-grid gap-2 ">
-                                <button class="btn btn-primary" type="button">Button</button>
-                                <button class="btn btn-primary" type="button">Button</button>
+                                <button class="btn btn-duvidas" type="button">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            Button
+                                        </div>
+                                        <div class="col-md-6 text-end">
+                                            <i class="bi bi-chevron-down"></i>
+                                        </div>
+                                    </div>
+                                </button>
+                                <button class="btn btn-duvidas" type="button">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            Button
+                                        </div>
+                                        <div class="col-md-6 text-end">
+                                            <i class="bi bi-chevron-down"></i>
+                                        </div>
+                                    </div>
+                                </button>
                             </div>
                         </div>
                         <div class="col-md-6 ps-5 pb-5 pe-5">

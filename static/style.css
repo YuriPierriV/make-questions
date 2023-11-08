@@ -11,7 +11,7 @@ body{
 
 .inicio{
     min-height: 100vh;
-    background-image: linear-gradient(to bottom, #010A14, #010a1498 50%, #010a14d7 90%, #010A14),url(/static/img/bg.jpg);
+    background-image: linear-gradient(to bottom, #010a14a8, #010a14ad 50%, #010a14d7 90%, #010A14),url(/static/img/bg.jpg);
     background-position:center;
     background-size: cover;
 }
@@ -22,10 +22,52 @@ body{
     color: #CCC9DC;
 }
 
-.navbar{
-    background-color: #010a14e1;
+.nav-bar{
     border-bottom: #0733F6 solid 2px;
-    box-shadow: 0px 0px 15px #0733F6;
+    padding-bottom: 1rem;
+}
+
+.bar-color{
+    border-bottom: #0733F6 solid 2px;
+    padding-bottom: 2rem;
+    margin-bottom: 1rem;
+    transition: 1s;
+}
+
+
+
+.bar-color:hover{
+    border-bottom: #CCC9DC solid 2px;
+    padding-bottom: 2rem;
+}
+
+.mid-inicio{
+
+    min-height: calc(100vh - 119px);
+    max-height: calc(100vh - 119px);
+}
+
+.text-inicio{
+    font-size: 16px;
+    text-align: start;
+    font-weight: 100;
+}
+
+.btn-inicio{
+    color: #fff;
+    font-weight: bold;
+    text-align: start;
+    padding: 0;
+}
+
+.icon-inicio{
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+.drop{
+    position:absolute;
+    bottom: 0;
 }
 
 .navbar-brand{
@@ -65,16 +107,16 @@ body{
 
 
 .botao-cadastro{
-    background-color: #0733f600;
+    background-color: #010A14;
     color: #fff;
-    font-size: 20px;
-    padding: 15px;
+    font-size: 25px;
+    padding: 5px;
     padding-left: 20px;
     padding-right: 20px;
     border-width: 2px;
     border-color: #0733f6b2;
     border-style: solid;
-    box-shadow: 0px 0px 5px #0733F6;
+    box-shadow: 0px 0px 2px #0733F6;
     
 }
 
@@ -98,16 +140,16 @@ body{
 }
 
 
+.container-inicio{
+    margin-top: -8rem;
 
+}
 
 
 .linha{
     width: 100%;
 }
 
-.cards{
-    
-}
 
 .functions{
     background-color: #010A14;
@@ -128,10 +170,6 @@ body{
 .card-img{
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
-}
-
-.card-header{
-    border-color: #0733f628;
 }
 
 .icon{
@@ -230,12 +268,9 @@ body{
 }
 
 .card-sobre{
-    background-color: #031d3a60;
+    background-color: #011021;
 }
 
-#duvidas{
-    background-color: #010A14;
-}
 
 
 body::-webkit-scrollbar {
@@ -256,9 +291,13 @@ body::-webkit-scrollbar-thumb {
     
 }
 
-@media (max-width: 767px){
+@media (max-width: 780px){
     .ctn-entrar{
         padding-bottom: 2rem;
+    }
+
+    .bar-color{
+        display: none;
     }
     
 }
@@ -267,14 +306,29 @@ body::-webkit-scrollbar-thumb {
 }
 
 .card-duvidas{
-    background-color: #031d3a60;
-    box-shadow: 0px 0px 5px #0733F6;
-    border-width: 2px;
-    border-style: solid;
+    background-color: #011021a2;
+    border-radius: 0.375rem;
 }
 
 .card-duvidas-geral{
-    background-color: #05346900;
-    border-width: 2px;
-    border-style: solid;
+    background-color: #010a149c;
+
+    border-radius: 0.375rem;
+}
+
+#duvidas{
+    background-image: linear-gradient(to bottom, #010A14, #010a1498 50%, #010a14d7 90%, #010A14),url(/static/img/bg2.jpg);
+    background-position:center;
+    background-size: cover;
+}
+
+.btn-duvidas{
+    background-color: none;
+    border: 2px solid #0733F6;
+    color: #fff;
+    text-align: start;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    font-size: 20px;
+    vertical-align: middle;
 }
