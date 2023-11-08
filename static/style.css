@@ -333,3 +333,8 @@ body::-webkit-scrollbar-thumb {
 .text-duvidas{
     font-size: 20px;
 }
+
+.texto-oculto{
+    display: none;
+    font-size: 16px;
+}
