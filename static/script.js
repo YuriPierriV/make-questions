@@ -7,51 +7,56 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const buttons = document.querySelectorAll('.btn-duvidas');
 
-        buttons.forEach(button => {
-            button.addEventListener('click', () => {
-                // Fecha todos os textos ocultos
-                const textoId = `texto-${button.id}`;
-                const textoOculto = document.getElementById(textoId);
-                const iconBtn = button.querySelector('.icon-btn');
 
-                if (window.getComputedStyle(textoOculto).getPropertyValue("display") === 'block') {
-                    console.log(window.getComputedStyle(textoOculto).getPropertyValue("display"));
-                    textoOculto.style.display = 'none';
-                    iconBtn.classList.remove('bi-chevron-up');
-                    iconBtn.classList.add('bi-chevron-down');
-                    document.querySelectorAll('.texto-oculto').forEach(texto => {
-                        texto.style.display = 'none';
-                    });
-                } else {
-                    document.querySelectorAll('.texto-oculto').forEach(texto => {
-                        if(texto.id != textoId){
-                            texto.style.display = 'none';
-                            console.log(window.getComputedStyle(textoOculto).getPropertyValue("display"));
-                        }
-                        
-                    });
-                    console.log(window.getComputedStyle(textoOculto).getPropertyValue("display"));
-                    textoOculto.style.display = 'block';
-                    iconBtn.classList.remove('bi-chevron-down');
-                    console.log(window.getComputedStyle(textoOculto).getPropertyValue("display"));
-                    iconBtn.classList.add('bi-chevron-up');
-                    
+    loginBtn.style.borderColor = '#0733f6b2';
 
-                }
+    buttons.forEach(button => {
+        button.style.borderColor = '#0733f6b2';
 
-                
 
-                // Redefine todos os ícones para baixo
-                document.querySelectorAll('.icon-btn').forEach(icon => {
-                    icon.classList.remove('bi-chevron-up');
-                    icon.classList.add('bi-chevron-down');
-                });
-
-                
-
-                
+        button.addEventListener('click', () => {
+            const textoId = `texto-${button.id}`;
+            const textoOculto = document.getElementById(textoId);
+            const iconBtn = button.querySelector('.icon-btn');
+    
+            // Adicione estas linhas para mudar a cor da fonte do botão
+            buttons.forEach(b => {
+                b.style.color = ''; // Volta à cor padrão para todos os botões
+                b.style.backgroundColor = '';
             });
+             // Define a cor da fonte do botão clicado
+            button.style.color = '#fff';
+            button.style.backgroundColor = "#011021";
+
+            if (window.getComputedStyle(textoOculto).getPropertyValue("display") === 'block') {
+                textoOculto.style.display = 'none';
+                iconBtn.classList.remove('bi-chevron-up');
+                iconBtn.classList.add('bi-chevron-down');
+                buttons.forEach(b => {
+                    b.style.color = ''; // Volta à cor padrão para todos os botões
+                    b.style.backgroundColor = '';
+                });
+            } else {
+                document.querySelectorAll('.texto-oculto').forEach(texto => {
+                    if (texto.id != textoId) {
+                        texto.style.display = 'none';
+                        document.querySelectorAll('.bi-chevron-up').forEach(up => {
+                            up.classList.replace('bi-chevron-up', 'bi-chevron-down');
+                            
+                        })
+                        
+                        
+                    }
+                });
+                textoOculto.style.display = 'block';
+                iconBtn.classList.remove('bi-chevron-down');
+                iconBtn.classList.add('bi-chevron-up');
+            }
+            
         });
+    });
+    
+
 
 
 
