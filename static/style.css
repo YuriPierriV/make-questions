@@ -303,25 +303,25 @@ body::-webkit-scrollbar-thumb {
 }
 
 .card-duvidas{
-    background-color: #011021a2;
+    background-color: #011021;
     border-radius: 0.375rem;
 }
 
 .card-duvidas-geral{
-    background-color: #010a149c;
+    background-color: #0612209c;
 
     border-radius: 0.375rem;
 }
 
 #duvidas{
-    background-image: linear-gradient(to bottom, #010A14, #010a1498 50%, #010a14d7 90%, #010A14),url(/static/img/bg2.jpg);
+    background-image: linear-gradient(to bottom, #010A14, #010a1498 50%, #010a14d7 80%, #010A14),url(/static/img/bg2.jpg);
     background-position:center;
     background-size: cover;
 }
 
 .btn-duvidas{
     background-color: none;
-    border: 2px solid #0733F6;
+    border: 2px solid #0733f6b2;
     color: #fff;
     text-align: start;
     padding-left: 2rem;
@@ -329,6 +329,12 @@ body::-webkit-scrollbar-thumb {
     font-size: 20px;
     vertical-align: middle;
 }
+
+.btn-duvidas:hover, .btn-duvidas:focus, .btn-duvidas:active{
+    border: 2px solid #0733f6b2;
+    
+}
+
 
 .text-duvidas{
     font-size: 20px;
