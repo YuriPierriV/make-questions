@@ -19,9 +19,9 @@
     <title>Cadastre-se</title>
 </head>
 <body>
-    <div class="container p-5">
-        <div class="card card-cadastro">
-            <div class="row">
+    <div class="container p-5 cadastro">
+        <div class="card card-cadastro ">
+            <div class="row justify-content-center">
                 <div class="col-md-6 left">
                     <img src="/static/img/cadastro.jpg" class="img-fluid" alt="">
                 </div>
@@ -31,64 +31,48 @@
                         <div class="col-md-8 text-start">
                             <h4>Preencha os dados abaixo</h4>
                         </div>
-                        <div class="col-md-4 ">
+                        <div class="col-md-4 text-end">
                             <a href="" class="align-middle">Fazer Login</a>
                         </div>
-                        <div class="card">
-                            <form class="row g-3 needs-validation" novalidate>
-                                <div class="col-md-4">
-                                    <label for="validationCustom01" class="form-label">First name</label>
-                                    <input type="text" class="form-control" id="validationCustom01" value="Mark" required>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="validationCustom02" class="form-label">Last name</label>
-                                    <input type="text" class="form-control" id="validationCustom02" value="Otto" required>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="validationCustomUsername" class="form-label">Username</label>
-                                    <div class="input-group has-validation">
-                                        <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                        <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
-                                        <div class="invalid-feedback">
-                                            Please choose a username.
-                                        </div>
-                                    </div>
+                        <div class="p-3">
+                            <form class="row g-4 needs-validation  pt-2" novalidate>
+                                <div class="col-md-6">
+                                    <label for="validationCustom01" class="visually-hidden">Nome</label>
+                                    <input type="text" class="form-control" id="validationCustom01" placeholder="Nome" required>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="validationCustom03" class="form-label">City</label>
-                                    <input type="text" class="form-control" id="validationCustom03" required>
-                                    <div class="invalid-feedback">
-                                        Please provide a valid city.
+                                    <label for="validationCustom02" class="visually-hidden">Sobrenome</label>
+                                    <input type="text" class="form-control" id="validationCustom02" placeholder="Sobrenome" required>
+                                    <div class="valid-feedback">
+                                        Looks good!
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <label for="validationCustom04" class="form-label">State</label>
-                                    <select class="form-select" id="validationCustom04" required>
-                                    <option selected disabled value="">Choose...</option>
-                                    <option>...</option>
-                                    </select>
+                                <div class="col-md-12">
+                                    <label for="validationCustom03" class="visually-hidden">Celular</label>
+                                    <input type="text" class="form-control" id="validationCustom03" placeholder="Celular" required>
                                     <div class="invalid-feedback">
-                                        Please select a valid state.
+                                        Coloque um número válido
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <label for="validationCustom05" class="form-label">Zip</label>
-                                    <input type="text" class="form-control" id="validationCustom05" required>
+                                <div class="col-md-12">
+                                    <label for="validationCustom04" class="visually-hidden">Email</label>
+                                    <input type="email" class="form-control" id="validationCustom03" placeholder="Email" required>
                                     <div class="invalid-feedback">
-                                        Please provide a valid zip.
+                                        Coloque um email válido
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="validationCustom05" class="visually-hidden">Senha</label>
+                                    <input type="password" class="form-control" id="validationCustom04" placeholder="Senha" required>
+                                    <div class="invalid-feedback">
+                                        Coloque uma senha válida
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
                                         <label class="form-check-label" for="invalidCheck">
-                                        Agree to terms and conditions
+                                        Concordo com termos e condições
                                         </label>
                                         <div class="invalid-feedback">
                                             You must agree before submitting.
