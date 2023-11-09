@@ -16,4 +16,22 @@ document.addEventListener("DOMContentLoaded", function() {
             });    
     }, false);
 
+
+    var formTel = document.getElementById("validationCustom03");
+    
+
+    
+
+    formTel.addEventListener("input", function() {
+        const tamanho = formTel.value;
+        console.log(tamanho.length);
+        if(tamanho.length == 1){
+            formTel.value = `(${tamanho}`;
+        }
+        if(tamanho.length == 3){
+            formTel.value = `${tamanho}) `;
+        }
+    })
+
+
 });
