@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Obtenha o botão "Entrar" e o menu suspenso
     var loginBtn = document.getElementById("loginBtn");
     var loginDropdown = document.getElementById("loginDropdown");
+    var overlay = document.getElementById("overlay");
 
 
     const buttons = document.querySelectorAll('.btn-duvidas');
@@ -91,8 +92,10 @@ document.addEventListener("DOMContentLoaded", function() {
         // Alternar a visibilidade do menu suspenso
         if (loginDropdown.style.display === "none" || loginDropdown.style.display === "") {
             loginDropdown.style.display = "block";
+            overlay.style.display = "block";
         } else {
             loginDropdown.style.display = "none";
+            overlay.style.display = "none";
         }
     });
 
@@ -103,6 +106,7 @@ document.addEventListener("DOMContentLoaded", function() {
             var isChildOfDropdown = isDescendant(loginDropdown, e.target);
             if (!isChildOfDropdown) {
                 loginDropdown.style.display = "none";
+                overlay.style.display = "none";
             }
         }
     });

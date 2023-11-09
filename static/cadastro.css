@@ -6,6 +6,8 @@ body{
 
 .cadastro{
     height: 100vh;
+    padding-top: 8rem;
+    padding-bottom: 8rem;
     
 }
 
@@ -16,13 +18,13 @@ body{
     border: 0;
     border-radius: 25px;
     padding: 0;
+    box-shadow: 0px 0px 15px #0733F6;
 }
+
 
 
 .img-fluid{
     height: 100%;
-    min-height: 100%;
-    max-height: 100%;
-    border-top-left-radius: 25px;
-    border-bottom-left-radius: 25px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
 }
