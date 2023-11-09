@@ -9,10 +9,29 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     loginBtn.style.borderColor = '#0733f6b2';
+    
 
     buttons.forEach(button => {
-        button.style.borderColor = '#0733f6b2';
-
+        button.style.backgroundColor = '#0110219d';
+        button.style.border = '2px solid #0c248db2';
+        button.addEventListener('mouseenter', () => {
+            button.style.border = '2px solid #0733F6'; // Cor e largura da borda no hover
+            button.style.boxShadow = '0px 0px 15px #0733F6';
+        });
+        
+        button.addEventListener('mouseleave', () => {
+             // Remove a borda no mouseleave
+            
+            if (window.getComputedStyle(document.getElementById(`texto-${button.id}`)).getPropertyValue("display") === 'block') {
+                button.style.boxShadow = '0px 0px 15px #0733F6';
+                button.style.border = '2px solid #0733F6';
+            }
+            else{
+                button.style.boxShadow = '';
+                button.style.border = '2px solid #0c248db2';
+            }
+            
+        });
 
         button.addEventListener('click', () => {
             const textoId = `texto-${button.id}`;
@@ -22,11 +41,15 @@ document.addEventListener("DOMContentLoaded", function() {
             // Adicione estas linhas para mudar a cor da fonte do botão
             buttons.forEach(b => {
                 b.style.color = ''; // Volta à cor padrão para todos os botões
-                b.style.backgroundColor = '';
+                b.style.backgroundColor = '#0110219d';
+                b.style.border = '2px solid #0c248db2';
+                b.style.boxShadow = '';
             });
              // Define a cor da fonte do botão clicado
             button.style.color = '#fff';
             button.style.backgroundColor = "#011021";
+            button.style.border = '2px solid #0733F6';
+            button.style.boxShadow = '0px 0px 15px #0733F6';
 
             if (window.getComputedStyle(textoOculto).getPropertyValue("display") === 'block') {
                 textoOculto.style.display = 'none';
@@ -34,7 +57,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 iconBtn.classList.add('bi-chevron-down');
                 buttons.forEach(b => {
                     b.style.color = ''; // Volta à cor padrão para todos os botões
-                    b.style.backgroundColor = '';
+                    b.style.backgroundColor = '#0110219d';
+                    b.style.border = '2px solid #0c248db2';
+                    b.style.boxShadow = '';
                 });
             } else {
                 document.querySelectorAll('.texto-oculto').forEach(texto => {

@@ -299,42 +299,45 @@ body::-webkit-scrollbar-thumb {
     .bar-color{
         display: none;
     }
+
+    .carros{
+        display: none;
+    }
     
 }
 
 .card-duvidas{
-    background-color: #011021;
+    background-color: #0110219d;
     border-radius: 0.375rem;
 }
 
 .card-duvidas-geral{
-    background-color: #0612209c;
-
-    border-radius: 0.375rem;
+    background-color: #010a1400;
+    border: 0;
 }
 
 #duvidas{
-    background-image: linear-gradient(to bottom, #010A14, #010a1498 50%, #010a14d7 80%, #010A14),url(/static/img/bg2.jpg);
+    background-image: linear-gradient(to bottom, #010A14, #010a1498 50%, #010a14d7 80%, #010A14),url(/static/img/teste.jpg);
     background-position:center;
     background-size: cover;
 }
 
 .btn-duvidas{
-    background-color: none;
-    border: 2px solid #0733f6b2;
+    
+    border: 2px solid #0c248db2;
     color: #fff;
     text-align: start;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    font-size: 20px;
+    padding: 1.5rem;
+    
+    font-size: 15px;
     vertical-align: middle;
+    margin-bottom: 10px;
 }
 
 .btn-duvidas:hover, .btn-duvidas:focus, .btn-duvidas:active{
-    border: 2px solid #0733f6b2;
-    
+    border: 2px solid #0733F6;
+    color: #fff;
 }
-
 
 .text-duvidas{
     font-size: 20px;
@@ -343,4 +346,13 @@ body::-webkit-scrollbar-thumb {
 .texto-oculto{
     display: none;
     font-size: 16px;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+footer{
+    background-color: #011021;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+
 }
