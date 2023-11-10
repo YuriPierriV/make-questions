@@ -41,7 +41,9 @@ body{
 
 @media (max-height: 895px){
     .cadastro{
-        padding-top: 8rem;
-        padding-bottom: 8rem;
+        padding-top: 3rem;
+        padding-bottom: 3rem;
     }    
 }
+
+

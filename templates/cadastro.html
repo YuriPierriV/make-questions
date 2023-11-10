@@ -20,13 +20,13 @@
 </head>
 <body>
     <div class="container  cadastro">
-        <div class="card card-cadastro ">
+        <div class="card card-cadastro">
             <div class="row justify-content-center h-100 p-0 m-0">
                 <div class="col-md-6 left">
-                    
+
                 </div>
                 <div class="col-md-6 p-5 d-flex justify-content-center flex-column teste ">
-                    <a href="/"><img src="/static/img/logo.png" alt="Bootstrap" width="90" height="85"></a>
+                    <a href="/"><img src="/static/img/logo.png" alt="Logo" width="90" height="85"></a>
                     <div class="row ">
                         <div class="col-md-8 text-start">
                             <h4>Preencha os dados abaixo</h4>
@@ -34,7 +34,7 @@
                         <div class="col-md-4 text-end">
                             <a href="" class="align-middle">Fazer Login</a>
                         </div>
-                        <div class="p-3 ">
+                        <div class="p-3">
                             <form class="row g-4 needs-validation  pt-2 " novalidate>
                                 <div class="col-md-6">
                                     <label for="validationCustom01" class="visually-hidden">Nome</label>
@@ -46,21 +46,21 @@
                                 </div>
                                 <div class="col-md-12">
                                     <label for="validationCustom03" class="visually-hidden">Celular</label>
-                                    <input type="text" class="form-control" id="validationCustom03" placeholder="Celular" required>
+                                    <input type="text" class="form-control" id="validationCustom03" placeholder="Celular" minlength="15" maxlength="15" required>
                                     <div class="invalid-feedback">
                                         Coloque um número válido
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <label for="validationCustom04" class="visually-hidden">Email</label>
-                                    <input type="email" class="form-control" id="validationCustom03" placeholder="Email" required>
+                                    <input type="email" class="form-control" id="validationCustom04" placeholder="Email" autocomplete="username" required>
                                     <div class="invalid-feedback">
                                         Coloque um email válido
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <label for="validationCustom05" class="visually-hidden">Senha</label>
-                                    <input type="password" class="form-control" id="validationCustom04" placeholder="Senha" required>
+                                    <input type="password" class="form-control" id="validationCustom05" placeholder="Senha" autocomplete="current-password" required>
                                     <div class="invalid-feedback">
                                         Coloque uma senha válida
                                     </div>
