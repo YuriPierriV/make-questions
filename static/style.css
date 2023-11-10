@@ -226,7 +226,7 @@ body{
 }
 
 .form-duvida::placeholder{
-    font-size: 14px;
+    font-size: 1rem;
     color: #CCC9DC;
 }
 
@@ -368,4 +368,16 @@ footer{
 
 .msg-login{
     font-size: 14px;
+}
+
+.container-login {
+    position: relative;
+}
+
+.botao-x {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
 }
