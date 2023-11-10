@@ -20,26 +20,38 @@
     <main>
         <section id="inicio" class="inicio">
             <div class="overlay" id="overlay"></div>
-            <div class="menu-suspenso" id="loginDropdown">
-                <h4 class="text-start login-text">Faça Login</h4>
+            <div class="card menu-suspenso" id="loginDropdown">
+                
                 <div class="container">
-                    <form>
-                        <div class="row mb-3">
-                            <label for="inputEmail" class=" visually-hidden">Email</label>
-                            <input type="email" class="form-control" id="inputEmail " placeholder="Email">
+                    <form class="row login-forms g-3 pt-3">
+                        <div class="row ">
+                            <div class="col-md-6">
+                                <h4 class="text-start login-text text-bl ">Faça Login</h4>
+                            </div>
                         </div>
-                        <div class="row mb-3">
+                        <div class="col-md-12">
+                            <label for="inputEmail" class=" visually-hidden">Email</label>
+                            <input type="email" class="form-control form-login " id="inputEmail " placeholder="Email">
+                        </div>
+                        <div class="col-md-12">
                             <label for="inputPassword3" class="visually-hidden">Senha</label>
-                            <input type="password" class="form-control" id="inputPassword3" placeholder="Senha">
+                            <input type="password" class="form-control form-login" id="inputPassword3" placeholder="Senha">
+                        </div>
+                        <div class="col-md-12 text-start d-grid">
+                            <button type="submit" class="btn btn-primary">Entrar</button>
+                        </div>
+                        <div class="row pt-3">
+                            <div class="col-md-12 text-center">
+                                <p class="msg-login">Já tem uma conta? <a href="/cadastro" class="text-end cadastro-text">Cadastre-se</a></p>
+                            </div>
                         </div>
                     </form>
                 </div>
-                <a href="/cadastro" class="text-end cadastro-text">Cadastre-se</a>
             </div>
             <nav class="navbar navbar-expand-md text-center p-0">
                 <div class="container text-white nav-bar">
                     <div class="container justify-content-start ">
-                        <img src="/static/img/logo.png" alt="Bootstrap" width="90" height="85">
+                        <img src="/static/img/logo.png" alt="logo" width="90" height="85">
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
@@ -137,7 +149,7 @@
                             <div class="carousel-inner">
                                 <div class="carousel-item active control-p">
                                     <div class="card card-sobre" style="width: auto;">
-                                        <img src="/static/img/pesquisa.jpg" class="card-img-top" alt="...">
+                                        <img src="/static/img/pesquisa.jpg" class="card-img-top" alt="pesquisa">
                                         <div class="card-body text-white">
                                             <h5 class="card-title">Construindo Pesquisas</h5>
                                             <p class="card-text p-sobrenos">Acessando a plataforma, sera possivel criar pesquisas sob medida para as suas necessidades. Defina perguntas, escolha opções de resposta e personalize o formato da pesquisa de maneira simples e eficaz.</p>
@@ -146,7 +158,7 @@
                                 </div>
                                 <div class="carousel-item control-p">
                                     <div class="card card-sobre" style="width: auto;">
-                                        <img src="/static/img/pesquisa.jpg" class="card-img-top" alt="...">
+                                        <img src="/static/img/pesquisa.jpg" class="card-img-top" alt="pesquisa">
                                         <div class="card-body text-white">
                                             <h5 class="card-title">Moldando Dados</h5>
                                             <p class="card-text p-sobrenos">Após coletar os dados das suas pesquisas, você terá as ferramentas necessárias para moldar, organizar e analisar essas informações. Utilize nossas ferramentas de análise e visualização para obter insights valiosos e uma compreensão mais profunda dos dados coletados.</p>
@@ -155,7 +167,7 @@
                                 </div>
                                 <div class="carousel-item control-p">
                                     <div class="card card-sobre" style="width: auto;">
-                                        <img src="/static/img/pesquisa.jpg" class="card-img-top" alt="...">
+                                        <img src="/static/img/pesquisa.jpg" class="card-img-top" alt="pesquisa">
                                         <div class="card-body text-white">
                                             <h5 class="card-title">Criando Conexões</h5>
                                             <p class="card-text p-sobrenos">Além de coletar e analisar dados, nossa plataforma permite que você estabeleça conexões significativas com os resultados. Identifique tendências, compreenda as necessidades dos participantes e tome decisões informadas com base nas informações da pesquisa</p>
@@ -252,15 +264,15 @@
                                 <form>
                                     <div class="mb-3">
                                         <label for="nome" class="visually-hidden">Nome</label>
-                                        <input type="text" class="form-control" id="nome" aria-describedby="nome" placeholder="Nome">
+                                        <input type="text" class="form-control form-duvida" id="nome" aria-describedby="nome" placeholder="Nome">
                                     </div>
                                     <div class="mb-3">
                                         <label for="inputEmail" class="visually-hidden">Email</label>
-                                        <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                                        <input type="email" class="form-control form-duvida" id="inputEmail" placeholder="Email">
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleFormControlTextarea1" class="visually-hidden">Tire sua duvida</label>
-                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Escreva aqui..." ></textarea>
+                                        <textarea class="form-control form-duvida" id="exampleFormControlTextarea1" rows="3" placeholder="Escreva aqui..." ></textarea>
                                     </div>
                                     <div class="container justify-content-center text-center pt-2">
                                         <button type="submit" class="btn botao-cadastro">Enviar Dúvida</button>
