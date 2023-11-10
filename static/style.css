@@ -185,9 +185,8 @@ body{
     left: 50%;
     transform: translate( -50%, -50%);
     padding: 25px;
-    background-color: #031d3a;
-    border: #0733F6 solid 2px;
-    border-radius: 5px;
+    border: 0;
+    border-radius: 20px;
     box-shadow: 0px 0px 15px #0733F6;
     z-index: 1;
 }
@@ -204,37 +203,29 @@ body{
 }
 
 .login-text{
-    font-size: 14px;
+    font-size: 18px;
 }
 
 .cadastro-text{
     font-size: 14px;
-    display: flex; /* CSS3 */
     align-items: center; /* Vertical align */
-    justify-content: end;
-    color: #CCC9DC;
 }
 
-.form-control{
+.form-duvida{
     background-color: #031d3a60;
     border: 2px solid #0733f6b2;
-    font-size: 20px;
+    font-size: 1rem;
     color: #CCC9DC;
 }
 
-.form-control input{
-    font-size: 2px;
-}
-
-.form-control:hover, .form-control:focus, .form-control:active{
-    background-color: #031d3a60;
+.form-duvida:hover, .form-duvida:focus, .form-duvida:active{
+    background-color: rgba(3, 29, 58, 0.38);
     border: 2px solid #0733F6;
     box-shadow: 0px 0px 5px #0733F6;
-    font-size: 20px;
     color: #CCC9DC;
 }
 
-.form-control::placeholder{
+.form-duvida::placeholder{
     font-size: 14px;
     color: #CCC9DC;
 }
@@ -365,4 +356,16 @@ footer{
     padding-top: 2rem;
     padding-bottom: 2rem;
 
+}
+
+.login-forms{
+    width: 20rem;
+}
+
+.text-black{
+    color: #000;
+}
+
+.msg-login{
+    font-size: 14px;
 }
