@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var loginBtn = document.getElementById("loginBtn");
     var loginDropdown = document.getElementById("loginDropdown");
     var overlay = document.getElementById("overlay");
-
+    var xButton = document.getElementById("closeButton");
 
     const buttons = document.querySelectorAll('.btn-duvidas');
 
@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if (e.target !== loginBtn && e.target !== loginDropdown) {
             var isChildOfDropdown = isDescendant(loginDropdown, e.target);
-            if (!isChildOfDropdown) {
+            if (!isChildOfDropdown || e.target == xButton) {
                 loginDropdown.style.display = "none";
                 overlay.style.display = "none";
             }
