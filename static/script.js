@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var loginBtn = document.getElementById("loginBtn");
     var loginDropdown = document.getElementById("loginDropdown");
     var overlay = document.getElementById("overlay");
-    var xButton = document.getElementById("closeButton");
+    var xButton = document.getElementById("xButton");
 
     const buttons = document.querySelectorAll('.btn-duvidas');
 
@@ -93,9 +93,11 @@ document.addEventListener("DOMContentLoaded", function() {
         if (loginDropdown.style.display === "none" || loginDropdown.style.display === "") {
             loginDropdown.style.display = "block";
             overlay.style.display = "block";
+            document.body.style.overflow = "hidden";
         } else {
             loginDropdown.style.display = "none";
             overlay.style.display = "none";
+            document.body.style.overflow = "";
         }
     });
 
@@ -103,14 +105,15 @@ document.addEventListener("DOMContentLoaded", function() {
     document.addEventListener("click", function(e) {
 
         if (e.target !== loginBtn && e.target !== loginDropdown) {
-            var isChildOfDropdown = isDescendant(loginDropdown, e.target);
-            if (!isChildOfDropdown || e.target == xButton) {
+            if (e.target == xButton) {
                 loginDropdown.style.display = "none";
                 overlay.style.display = "none";
+                document.body.style.overflow = "";
             }
         }
     });
 
+    
     function isDescendant(parent, child) {
         var node = child.parentNode;
         while (node != null) {
