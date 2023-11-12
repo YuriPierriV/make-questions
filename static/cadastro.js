@@ -27,15 +27,24 @@ document.addEventListener("DOMContentLoaded", function() {
                 formTel.value = valor.slice(0, -1);
             }
         }
-        else if(event.inputType === "deleteContentBackward"){
-
+        else if (event.inputType === "deleteContentBackward") {
+            if (valor.length === 1 || valor.length === 3 || valor.length === 10) {
+                formTel.value = valor.slice(0, -1); // Chame a função ou método apropriado aqui
+            }
+            if(valor.length === 4){
+                formTel.value = valor.slice(0, -2);
+            }
         }
         else{
             formTel.value = valor.slice(0, -1);
             valor = formTel.value;
         }
         
-        
+        if (valor.length >= 15) {
+            formTel.setCustomValidity('');
+        } else {
+            formTel.setCustomValidity(1);
+        }
     })
 
     window.addEventListener('load', function() {

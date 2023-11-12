@@ -318,7 +318,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 #duvidas{
-    background-image: linear-gradient(to bottom, #010A14, #010a14e7 40%, #010a14d7 80%, #010A14),url(/static/img/teste.jpg);
+    background-image: linear-gradient(to bottom, #010A14, #010a14e7 40%, #010a14d7 80%, #010a14 100%),url(/static/img/teste.jpg);
     background-position:center;
     background-size: cover;
 }

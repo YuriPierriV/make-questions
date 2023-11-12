@@ -101,16 +101,11 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // Adicione um ouvinte de clique no documento para fechar o menu suspenso quando clicar em outro lugar na página
-    document.addEventListener("click", function(e) {
+    xButton.addEventListener("click", function(e) {
 
-        if (e.target !== loginBtn && e.target !== loginDropdown) {
-            if (e.target == xButton) {
-                loginDropdown.style.display = "none";
-                overlay.style.display = "none";
-                document.body.style.overflow = "";
-            }
-        }
+        loginDropdown.style.display = "none";
+        overlay.style.display = "none";
+        document.body.style.overflow = "";
     });
 
     

@@ -35,7 +35,7 @@
                             <a href="" class="align-middle">Fazer Login</a>
                         </div>
                         <div class="p-3">
-                            <form class="row g-4 needs-validation  pt-2 " novalidate>
+                            <form class="row g-4 needs-validation  pt-2 " method="post" action="{{ url_for('process_form') }}" novalidate>
                                 <div class="col-md-6">
                                     <label for="validationCustom01" class="visually-hidden">Nome</label>
                                     <input type="text" class="form-control" id="validationCustom01" placeholder="Nome" required>
@@ -46,7 +46,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <label for="validationCustom03" class="visually-hidden">Celular</label>
-                                    <input type="text" class="form-control" id="validationCustom03" placeholder="Celular" minlength="15" maxlength="15" required>
+                                    <input type="text" class="form-control" id="validationCustom03" placeholder="Celular" required>
                                     <div class="invalid-feedback">
                                         Coloque um número válido
                                     </div>
@@ -63,6 +63,9 @@
                                     <input type="password" class="form-control" id="validationCustom05" placeholder="Senha" autocomplete="current-password" required>
                                     <div class="invalid-feedback">
                                         Coloque uma senha válida
+                                        <div class="container">
+                                            Utilize pelo menos uma letra Maiuscula
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-12">

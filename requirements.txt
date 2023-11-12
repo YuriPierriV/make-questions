@@ -2,3 +2,4 @@ Flask
 Flask-Mail
 gunicorn
 python-dotenv
+Flask-PyMongo
