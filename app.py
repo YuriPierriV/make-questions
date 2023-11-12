@@ -20,11 +20,11 @@ def cadastro():
 @app.route("/process_form", methods=['POST'])
 def process_form():
     if request.method == 'POST':
-        nome = request.form.get('validationCustom01')
-        sobrenome = request.form.get('validationCustom02')
-        celular = request.form.get('validationCustom03')
-        email = request.form.get('validationCustom04')
-        senha = request.form.get('validationCustom05')
+        nome = request.form.get('nome')
+        sobrenome = request.form.get('sobrenome')
+        celular = request.form.get('celular')
+        email = request.form.get('email')
+        senha = request.form.get('senha')
 
         
         print(f"Nome: {nome}, Sobrenome: {sobrenome}, Celular: {celular}, Email: {email}, Senha: {senha}")
