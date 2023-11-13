@@ -62,10 +62,11 @@
                                     <label for="validationCustom05" class="visually-hidden">Senha</label>
                                     <input type="password" class="form-control" id="validationCustom05" placeholder="Senha" name="senha" autocomplete="current-password" required>
                                     <div class="invalid-feedback">
-                                        Coloque uma senha válida
-                                        <div class="container">
-                                            Utilize pelo menos uma letra Maiuscula
-                                        </div>
+                                        <p class="mb-0">Coloque uma senha válida:</p>
+                                        
+                                        <ol class="mb-0" id="uppercase-message">
+                                            <li class="">Utilize uma letra Maiúscula</li>
+                                        </ol>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -74,9 +75,6 @@
                                         <label class="form-check-label" for="invalidCheck">
                                         Concordo com termos e condições
                                         </label>
-                                        <div class="invalid-feedback">
-                                            Você precisa concordar com os termos e condições
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-12">
