@@ -5,7 +5,23 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     var formTel = document.getElementById("validationCustom03");
+    var formSen = document.getElementById("validationCustom05");
+    var uppercaseMessage = document.getElementById('uppercase-message');
+
+    formSen.addEventListener("input", function(){
+        var password = formSen.value;
     
+        var uppercaseRegex = /[A-Z]/;
+    
+        if (uppercaseRegex.test(password)) {
+            uppercaseMessage.style.display = 'none';
+            formSen.setCustomValidity('');
+        } else {
+            uppercaseMessage.style.display = 'block';
+            formSen.setCustomValidity(1);
+        }
+    })
+        
 
     formTel.addEventListener("input", function(event) {
         var valor = formTel.value;
