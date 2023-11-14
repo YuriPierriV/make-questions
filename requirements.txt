@@ -3,3 +3,4 @@ Flask-Mail
 gunicorn
 python-dotenv
 Flask-PyMongo
+mysql-connector-python
