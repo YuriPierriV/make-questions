@@ -12,12 +12,14 @@ document.addEventListener("DOMContentLoaded", function() {
         var password = formSen.value;
     
         var uppercaseRegex = /[A-Z]/;
-    
+        
         if (uppercaseRegex.test(password)) {
-            uppercaseMessage.style.display = 'none';
-            formSen.setCustomValidity('');
+            if (password.length >= 8) {
+                formSen.setCustomValidity('');
+            } else {
+                formSen.setCustomValidity(1);
+            }
         } else {
-            uppercaseMessage.style.display = 'block';
             formSen.setCustomValidity(1);
         }
     })
