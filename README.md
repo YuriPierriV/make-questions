@@ -1,11 +1,5 @@
 # Make Questions
 
-  Para rodar esse novo código é necessario dar os comando nessa ordem:
-```
-  chmod +x wait-for-it.sh
-  docker compose build
-  docker compose up -d
-```
 
 
 ## Alinhamentos
