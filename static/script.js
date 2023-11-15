@@ -88,24 +88,29 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Adicione um evento de clique ao botão "Entrar"
     loginBtn.addEventListener("click", function() {
-        
         // Alternar a visibilidade do menu suspenso
         if (loginDropdown.style.display === "none" || loginDropdown.style.display === "") {
             loginDropdown.style.display = "block";
             overlay.style.display = "block";
             document.body.style.overflow = "hidden";
+            
+            // Armazenar o estado no localStorage
+            localStorage.setItem("loginDropdownVisible", "true");
         } else {
             loginDropdown.style.display = "none";
             overlay.style.display = "none";
             document.body.style.overflow = "";
+            
+            // Armazenar o estado no localStorage
+            localStorage.setItem("loginDropdownVisible", "false");
         }
     });
-
     xButton.addEventListener("click", function(e) {
 
         loginDropdown.style.display = "none";
         overlay.style.display = "none";
         document.body.style.overflow = "";
+        localStorage.setItem("loginDropdownVisible", "false");
     });
 
     
@@ -124,4 +129,17 @@ document.addEventListener("DOMContentLoaded", function() {
 
 });
 
+window.addEventListener("load", function() {
+    const loginDropdownVisible = localStorage.getItem("loginDropdownVisible");
+
+    if (loginDropdownVisible === "true") {
+        loginDropdown.style.display = "block";
+        overlay.style.display = "block";
+        document.body.style.overflow = "hidden";
+    } else {
+        loginDropdown.style.display = "none";
+        overlay.style.display = "none";
+        document.body.style.overflow = "";
+    }
+});
 

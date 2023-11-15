@@ -28,14 +28,29 @@
                 <div class="col-md-6 p-5 d-flex justify-content-center flex-column teste ">
                     <a class="p-0 m-0" href="/"><img class="img-fluid" src="/static/img/logo.png" alt="Logo" width="90" height="85"></a>
                     <div class="row ">
+                        
                         <div class="col-md-8 text-start">
                             <h4>Preencha os dados abaixo</h4>
                         </div>
                         <div class="col-md-4 text-end">
                             <a href="" class="align-middle">Fazer Login</a>
                         </div>
+                        <div class="col-12 pt-2">
+                            {% with messages = get_flashed_messages() %}
+                                {% if messages %}
+                                    
+                                        {% for message in messages %}
+                                            <div class="card p-3 card-email">
+                                                {{ message }}
+                                            </div>
+                                            
+                                        {% endfor %}
+                                {% endif %}
+                            {% endwith %}
+                        </div>
                         <div class="p-3">
                             <form class="row g-4 needs-validation  pt-2 " method="post" action="{{ url_for('process_form') }}" novalidate>
+                                
                                 <div class="col-md-6">
                                     <label for="validationCustom01" class="visually-hidden">Nome</label>
                                     <input type="text" class="form-control" id="validationCustom01" placeholder="Nome" name="nome" required>
@@ -81,6 +96,7 @@
                                 <div class="col-12">
                                     <button class="btn btn-primary" type="submit">Registrar-se</button>
                                 </div>
+                                
                             </form>
                         </div>
                     </div>
