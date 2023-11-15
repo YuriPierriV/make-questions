@@ -381,3 +381,11 @@ footer{
     cursor: pointer;
     font-size: 20px;
 }
+
+.card-email{
+    background-color: #d44740;
+    color: #fff;
+    box-shadow: 0px 0px 5px #d44840;
+    border: 0;
+    font-size: 14px;
+}
