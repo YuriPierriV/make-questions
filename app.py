@@ -21,12 +21,56 @@ app.secret_key = 'toor'
 
 @app.route("/")
 def index():
-    return render_template('index.html')
+    if "user_id" in session:
+        try:
+            mydb = db()
+            meu_cursor = mydb.cursor()
+
+            meu_cursor.execute("SELECT id, nome, sobrenome, email, celular FROM usuarios WHERE id = %s", (session["user_id"],))
+            usuario_tupla = meu_cursor.fetchone()
+
+            if usuario_tupla:
+                usuario = dict(zip(['id', 'nome', 'sobrenome', 'email', 'celular'], usuario_tupla))
+
+                return render_template("painel.html", usuario=usuario)
+            else:
+                flash("Usuário não encontrado.")
+                return render_template("index.html")
+
+        except Exception as e:
+            print(str(e))
+
+        finally:
+            mydb.close()
+
+    return render_template("index.html")
 
 
 @app.route("/cadastro")
 def cadastro():
-    return render_template('cadastro.html')
+    if "user_id" in session:
+        try:
+            mydb = db()
+            meu_cursor = mydb.cursor()
+
+            meu_cursor.execute("SELECT id, nome, sobrenome, email, celular FROM usuarios WHERE id = %s", (session["user_id"],))
+            usuario_tupla = meu_cursor.fetchone()
+
+            if usuario_tupla:
+                usuario = dict(zip(['id', 'nome', 'sobrenome', 'email', 'celular'], usuario_tupla))
+
+                return redirect(url_for('index'))
+            else:
+                flash("Usuário não encontrado.")
+                return redirect(url_for('cadastro'))
+
+        except Exception as e:
+            print(str(e))
+
+        finally:
+            mydb.close()
+
+    return render_template("index.html")
 
 @app.route("/process_form", methods=['POST'])
 def process_form():
@@ -46,7 +90,7 @@ def process_form():
             resultado = meu_cursor.fetchone()
 
             if resultado:
-                flash("Este email já está cadastrado. Por favor, escolha outro")
+                flash("Este email já está cadastrado. Por favor, escolha outro","cadastro")
                 return redirect('/cadastro')  
 
             # Gere o hash da senha usando o método padrão do Werkzeug
@@ -62,12 +106,12 @@ def process_form():
 
             session["user_id"] = user_id
 
-            flash("Cadastro realizado com sucesso!")
-            return redirect(url_for("painel"))
+            flash("Cadastro realizado com sucesso!","cadastro")
+            return redirect(url_for("index"))
         except Exception as e:
             flash(str(e))
         
-        return redirect('/painel')
+        return redirect("/cadastro")
     
 @app.route("/login", methods=["POST"])
 def login():
@@ -84,37 +128,11 @@ def login():
         if user and check_password_hash(user[1], request.form["senha"]):
             session["user_id"] = user[0]
 
-            return redirect(url_for("painel"))
+            return redirect(url_for("index"))
         else:
-            flash("Email ou senha incorreto")
+            flash("Email ou senha incorreto","login")
             return render_template("index.html", error="Credenciais inválidas")
         
-@app.route("/painel")
-def painel():
-
-    if "user_id" in session:
-        try:
-            mydb = db()
-            meu_cursor = mydb.cursor()
-
-            meu_cursor.execute("SELECT id, nome, sobrenome, email, celular FROM usuarios WHERE id = %s", (session["user_id"],))
-            usuario_tupla = meu_cursor.fetchone()
-
-            if usuario_tupla:
-                usuario = dict(zip(['id', 'nome', 'sobrenome', 'email', 'celular'], usuario_tupla))
-
-                return render_template("painel.html", usuario=usuario)
-            else:
-                flash("Usuário não encontrado.")
-                return redirect(url_for("index"))
-
-        except Exception as e:
-            print(str(e))
-
-        finally:
-            mydb.close()
-
-    return redirect(url_for("index"))
 
 @app.route("/logout", methods=["POST"])
 def logout():
