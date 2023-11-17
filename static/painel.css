@@ -6,3 +6,34 @@
 h1{
     font-size: 14px;
 }
+
+#header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background: #050505;
+    overflow-y: auto;
+    width: 125px;
+    transition: all ease-in-out 0.5s;
+    padding: 0 15px;
+    z-index: 9997;
+}
+
+main{
+    margin-left: 125px;
+    margin-right: 300px;
+}
+
+.lateral-direita{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: #050505;
+    overflow-y: auto;
+    width: 300px;
+    transition: all ease-in-out 0.5s;
+    padding: 0 15px;
+    z-index: 9997;
+}
