@@ -1,7 +1,14 @@
-.card-teste{
-    border-color: #000;
-    background-color: #0733F6;
+body{
+    font-family: 'Sometype Mono', monospace;
+    --sb-track-color: #010A14;
+    --sb-thumb-color: #0733F6;
+    --sb-size: 7px;
+
+    scrollbar-color: var(--sb-thumb-color) 
+                    var(--sb-track-color);
 }
+
+
 
 h1{
     font-size: 14px;
@@ -12,17 +19,19 @@ h1{
     top: 0;
     left: 0;
     bottom: 0;
-    background: #050505;
+    background: #010A14;
     overflow-y: auto;
-    width: 125px;
+    width: 115px;
     transition: all ease-in-out 0.5s;
     padding: 0 15px;
     z-index: 9997;
 }
 
 main{
-    margin-left: 125px;
+    margin-left: 115px;
     margin-right: 300px;
+    background-color: #021932;
+    height: 100vh;
 }
 
 .lateral-direita{
@@ -30,10 +39,93 @@ main{
     top: 0;
     right: 0;
     bottom: 0;
-    background: #050505;
+    background: #010A14;
     overflow-y: auto;
     width: 300px;
     transition: all ease-in-out 0.5s;
     padding: 0 15px;
     z-index: 9997;
+}
+
+
+.baixo{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.baixo2{
+    position: absolute;
+    bottom: 0;
+    right:  0;
+}
+
+.sair{
+    color: #CCC9DC;
+    text-decoration: none;
+}
+
+.sair:hover, .sair:active, .sair:focus{
+    color: #d44740;
+} 
+
+.alto{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.alto2{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.menu .nav-item{
+    font-size: 12px;
+}
+
+.menu .nav-item {
+    font-size: 12px;
+}
+
+.menu .nav-item i{
+    font-size: 20px;
+}
+
+.text-shadow{
+    text-shadow: 0px 0px 15px #0733F6;
+}
+
+.text-shadow:hover{
+    text-shadow: 0px 2px 15px #0733F6;
+}
+
+.text-white{
+    color: #CCC9DC;
+}
+
+.nav-link{
+    color: #CCC9DC;
+}
+
+.max-width{
+    max-width: 100%;
+}
+
+.icon-right i{
+    color: #0733F6;
+    font-size: 30px;
+    padding: 10px;
+    background-color: rgba(10, 124, 255, 0.13);
+    border-radius: 25%;
+    justify-content: center;
+}
+
+.card-1{
+    background-color: #010A14;
+}
+
+.card-1 i{
+    color: #0733F6;
 }
