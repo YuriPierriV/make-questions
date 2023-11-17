@@ -36,16 +36,15 @@
                             <a href="" class="align-middle">Fazer Login</a>
                         </div>
                         <div class="col-12 pt-2">
-                            {% with messages = get_flashed_messages() %}
-                                {% if messages %}
-                                    
-                                        {% for message in messages %}
-                                            <div class="card p-3 card-email">
+                            {% with messages = get_flashed_messages(with_categories=true) %}
+                                {% for category, message in messages %}
+                                        {% if category == "cadastro" %}
+                                            <div class="card p-3 card-email d-flex justify-content-center flex-column">
                                                 {{ message }}
                                             </div>
-                                            
-                                        {% endfor %}
-                                {% endif %}
+                                        {% endif %}
+                                {% endfor %}
+                                
                             {% endwith %}
                         </div>
                         <div class="p-3">

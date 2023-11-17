@@ -32,16 +32,15 @@
                             
                         </div>
                         <div class="col-md-12">
-                            {% with messages = get_flashed_messages() %}
-                                {% if messages %}
-                                    
-                                        {% for message in messages %}
+                            {% with messages = get_flashed_messages(with_categories=true) %}
+                                {% for category, message in messages %}
+                                        {% if category == "login" %}
                                             <div class="card p-3 card-email d-flex justify-content-center flex-column">
                                                 {{ message }}
                                             </div>
-                                            
-                                        {% endfor %}
-                                {% endif %}
+                                        {% endif %}
+                                {% endfor %}
+                                
                             {% endwith %}
                         </div>
                         <div class="col-md-12">
