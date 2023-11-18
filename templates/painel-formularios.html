@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sometype+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <link rel="shortcut icon" href="/static/img/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="../static/painel.css">
+    <title>Painel Usuário</title>
+</head>
+<body>
+    <aside class="menu-lateral d-flex justify-content-center flex-column" id="header">
+        <img src="/static/img/logo.png" alt="" class="img-fluid pt-3 alto" alt="logo" >
+        <nav class="d-flex justify-content-center">
+            <ul class="nav flex-column text-center menu p-0 text-white">
+                <li class="nav-item ">
+                    <a class="nav-link ps-0 pe-0 max-width" href="#"><i class="bi bi-speedometer2"></i><br>Painel</a>
+                </li>
+                <li class="nav-item pt-4">
+                    <a class="nav-link ps-0 pe-0 max-width" href="#"><i class="bi bi-question-circle"></i><br>Formularios</a>
+                </li>
+                <li class="nav-item pt-4">
+                    <a class="nav-link ps-0 pe-0 max-width" href="#"><i class="bi bi-clipboard-data"></i><br>Relátorios</a>
+                </li>
+                <li class="nav-item pt-4">
+                    <a class="nav-link ps-0 pe-0 max-width" href="#"><i class="bi bi-person"></i><br>Usuario</a>
+                </li>
+                <li class="nav-item pt-4">
+                    
+                    <a class="nav-link ps-0 pe-0 max-width" href="#"><i class="bi bi-gear"></i><br>Configurações</a>
+                </li>
+                
+            </ul>
+        </nav>
+        <div class="container d-flex justify-content-center text-center pb-5 baixo">
+            <form action="{{ url_for('logout') }}" method="post">
+                <button class=" btn btn-padrao sair" type="submit"  href="/logout" ><i class="bi bi-door-closed"></i><br>Sair</button>
+            </form>
+            
+        </div>
+    </aside>
+
+
+
+
+
+    <main>
+        <section id="painel" class="pt-5 text-white container" >
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="row d-flex justify-content-center m-0">
+                        <div class="col-md-4 m-0 d-flex justify-content-center flex-column">
+                            <img src="/static/img/user_noimage.jpg" alt="" class="img-fluid rounded-circle img-perfil" height="150px" width="150px">
+                        </div>
+                        <div class="col-md-8 m-0 d-flex justify-content-end flex-column">
+                            <h5>Bem-vindo, {{usuario.nome}}</h5>
+                            <p style="font-size: 14px;">Este é o seu painel de usuário</p>
+                        </div>
+                        <hr class="w-100 me-auto ms-auto mt-5">
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <h4>
+                        Começe agora mesmo
+                    </h4>
+                    <div class="card card-1" style="width: 100%;">
+                        <div class="card-body text-white">
+                            <div class="row">
+                                <div class="col-md-5 d-flex justify-content-center">
+                                    <i class="bi bi-collection-play" style="font-size: 150px;"></i>
+                                </div>
+                                <div class="col-md-7 d-flex justify-content-center flex-column ">
+                                    <h6 class="pb-3">
+                                        Crie um novo formulario
+                                    </h6>
+                                    <p class="pb-3" style="font-size: 14px;">
+                                        Comece uma nova pesquisa e construa um relátorio personalizado agora mesmo
+                                    </p>
+                                    <button class=" btn btn-padrao  btn btn-padrao-primary w-10">Criar agora</button>
+
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        <section id="formularios" class="pt-5 text-white container">
+            <div class="box-conta pb-5 pt-5 ps-5">
+                <div class="row">
+                    <div class="col-md-4 ps-3 pb-4 pe-3 pt-4">
+                        <div class="avatar-conta card-painel ps-5 pb-4 pe-5 pt-3 text-center">
+                            <p style="font-size: 23px;">Olá, {{usuario.nome}}</p>
+                        <img src="/static/img/user_noimage.jpg" alt="" class="img-fluid rounded-circle img-perfil pt-2" height="200px" width="200px">
+                        <p class="text-start pt-4">Data de entrada:</p>
+                        <p class="text-start pt-4">Ultima atualização:</p>
+                        </div>
+                    </div>
+                    <div class="col-md-8 ps-3 pb-4 pe-3 pt-4">
+                        <div class="dados card-painel ps-5 pb-4 pe-5 pt-4">
+                            <form class="row g-4">
+                                <h2 style="font-size: 23px;">Meus dados</h2>
+                                <div class="col-md-6">
+                                    <label for="validationCustom01" class="form-label">Nome</label>
+                                    <input type="text" value="{{usuario.nome}}" class="form-control" id="validationCustom01"aria-describedby="emailHelp">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="validationCustom02" class="form-label">Sobrenome</label>
+                                    <input type="text" value="{{usuario.sobrenome}}" class="form-control" id="validationCustom02">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="validationCustom03" class="form-label">Celular</label>
+                                    <input type="text" value="{{usuario.celular}}" class="form-control" id="validationCustom03">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="validationCustom04" class="form-label">Email</label>
+                                    <input type="email" value="{{usuario.email}}" class="form-control" id="validationCustom04">
+                                </div>
+                                <div class="col-md-12 d-grid"> 
+                                    <button type="submit" class="btn btn-primary">Atualizar dados</button>
+                                </div>
+                            </form>
+                            <form class="row g-4 pt-5">
+                                <h2 style="font-size: 23px;">Alterar Senha</h2>
+                                <div class="col-md-12">
+                                    <label for="validationCustom05" class="form-label">Senha Atual</label>
+                                    <input type="password" class="form-control" id="validationCustom05" name="senha" autocomplete="current-password" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="validationCustom06" class="form-label">Nova Senha</label>
+                                    <input type="password" class="form-control" id="validationCustom06" name="senha" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="validationCustom07" class="form-label">Confirme sua nova senha</label>
+                                    <input type="password" class="form-control" id="validationCustom07" name="senha" required>
+                                </div>
+                                <div class="col-md-12 d-grid">
+                                    <button type="submit" class="btn btn-primary">Atualizar senha</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+
+
+
+
+
+
+    <aside class="lateral-direita text-white d-flex justify-content-center flex-column">
+            <div class="row container pt-5 d-flex align-items-center justify-content-center alto2 m-0" >
+                <div class="col-md-8">
+                    <h5>Olá, {{usuario.nome}}</h5>
+                </div>
+                <div class="col-md-4 d-flex justify-content-end ">
+                    <img src="/static/img/user_noimage.jpg" alt="" class="img-fluid img-perfil rounded-circle" height="50px" width="50px">
+                </div>
+            </div>
+            <div class="container d-flex justify-content-center flex-column text-center">
+                <div class="row d-flex align-items-center justify-content-center">
+                    <div class="col-md-4 icon-right">
+                        <i class="bi bi-journal-arrow-down"></i>
+                    </div>
+                    <div class="col-md-8">
+                        <button class=" btn btn-padrao">Selecione um formulário</button>                        
+                    </div>
+                </div>
+            </div>
+
+
+
+            <hr class="w-50 me-auto ms-auto mt-5">
+
+
+
+            <div class="container d-flex justify-content-center flex-column text-center pt-5">
+                <div class="row d-flex align-items-center justify-content-center">
+                    <div class="col-md-4 icon-right">
+                        <i class="bi bi-question-circle"></i>
+                    </div>
+                    <div class="col-md-8">
+                        <button class=" btn btn-padrao">Selecione um formulário</button>                        
+                    </div>
+                </div>
+            </div>
+            <div class="container d-flex justify-content-center flex-column text-center pt-3">
+                <div class="row d-flex align-items-center justify-content-center">
+                    <div class="col-md-4 icon-right">
+                        <i class="bi bi-question-circle"></i>
+                    </div>
+                    <div class="col-md-8">
+                        <button class=" btn btn-padrao">Selecione um formulário</button>                        
+                    </div>
+                </div>
+            </div>
+            <div class="container d-flex justify-content-center flex-column text-center pt-3">
+                <div class="row d-flex align-items-center justify-content-center">
+                    <div class="col-md-4 icon-right">
+                        <i class="bi bi-question-circle"></i>
+                    </div>
+                    <div class="col-md-8">
+                        <button class=" btn btn-padrao">Selecione um formulário</button>                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="row container pb-5 d-flex align-items-center justify-content-center baixo2 m-0" >
+                <button class=" btn btn-padrao">Ver mais</button>
+            </div>
+    </aside>
+    <script src="../static/painel.js"></script>
+</body>
+</html>

@@ -30,7 +30,7 @@ h1{
 main{
     margin-left: 115px;
     margin-right: 300px;
-    background-color: #021932;
+    background-color: #132330;
     height: 100vh;
 }
 
@@ -133,3 +133,13 @@ main{
 .btn-padrao{
     color: #CCC9DC;
 }
+
+#painel{
+    display: none;
+}
+
+.card-painel{
+    background-color: #0110219d;
+    border-radius: 1.5rem;
+}
+
