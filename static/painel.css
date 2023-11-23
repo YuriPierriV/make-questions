@@ -46,6 +46,9 @@ main{
     z-index: 9997;
 }
 
+.lateral:hover{
+    color: #EDC18D;
+}
 
 .baixo{
     position: absolute;
