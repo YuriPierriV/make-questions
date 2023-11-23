@@ -78,7 +78,7 @@ Vamos usar o github para fazer o gerenciamento, sincronização e controle do c�
 
 ## Documentação de cores
 
-| Cor               | Hexadecimal                                                |
+| Cor               | Hexadecimal      #393358                                          |
 | ----------------- | ---------------------------------------------------------------- |
 | Cornflower Blue       | ![#010A14](https://via.placeholder.com/10/48416C?text=+) #48416C |
 | Marzipan   | ![#031D3A](https://via.placeholder.com/10/EDC18D?text=+) #EDC18D |
