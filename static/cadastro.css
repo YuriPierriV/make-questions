@@ -1,11 +1,11 @@
 body{
-    background-image: linear-gradient(to bottom, #48416C, #48416c52 30%, #48416caf 80%, #48416C),url(/static/img/bg.jpg);
+    background-image: linear-gradient(to bottom,#39335881 , #39335881 100%),url(/static/img/bg2.jpg);
     background-position:center;
     background-size: cover;
 }
 
 .left{
-    background-image: linear-gradient(to bottom,#48416ca6 40%, #48416ca1 80%),url(/static/img/cadastro.png);
+    background-image: linear-gradient(to bottom,#39335881 40%, #39335881 80%),url(/static/img/second2.jpg);
     background-position:center;
     background-size: cover;
     border-top-left-radius: 20px;
@@ -31,7 +31,7 @@ h4{
     border-radius: 25px;
     padding: 0;
     box-shadow: 0px 0px 10px #EDC18D;
-    background-color: #48416C;
+    background-color: #231a4c;
 }
 
 .teste{

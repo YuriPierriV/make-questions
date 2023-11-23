@@ -11,7 +11,7 @@ body{
 
 .inicio{
     min-height: 100vh;
-    background-image: linear-gradient(to bottom, #48416c6c, #48416c52 30%, #48416caf 80%, #48416C),url(/static/img/bg.jpg);
+    background-image: linear-gradient(to bottom, #48416c6c, #48416c52 30%, #48416caf 80%, #48416C),url(/static/img/bg234.jpg);
     background-position:center;
     background-size: cover;
 }
@@ -37,6 +37,7 @@ body{
 .bar-color:hover{
     border-bottom: #9AC1ED solid 2px;
     padding-bottom: 2rem;
+    
 }
 
 .mid-inicio{
@@ -96,6 +97,7 @@ body{
     border-color: #EDC18D;
     border-width: 2px;
     font-size: 25px;
+    color: #EDC18D;
 }
 
 
@@ -325,7 +327,7 @@ h1, p{
 }
 
 #duvidas{
-    background-image: linear-gradient(to bottom, #48416C, #48416c 20%,#48416cc7 50%, #48416cbb 80%, #48416C),url(/static/img/teste.jpg);
+    background-image: linear-gradient(to bottom, #48416C, #48416c96 50%, #48416cbb 80%, #48416C),url(/static/img/second.jpg);
     background-position:center;
     background-size: cover;
 }
