@@ -9,27 +9,27 @@ document.addEventListener("DOMContentLoaded", function() {
     const buttons = document.querySelectorAll('.btn-duvidas');
 
 
-    loginBtn.style.borderColor = '#0733f6b2';
+    loginBtn.style.borderColor = '#edc08db2';
     
 
     buttons.forEach(button => {
-        button.style.backgroundColor = '#0110219d';
-        button.style.border = '2px solid #0c248db2';
+        button.style.backgroundColor = '#393358';
+        button.style.border = '2px solid #edc08d';
         button.addEventListener('mouseenter', () => {
-            button.style.border = '2px solid #0733F6'; // Cor e largura da borda no hover
-            button.style.boxShadow = '0px 0px 15px #0733F6';
+            button.style.border = '2px solid #edc08d'; // Cor e largura da borda no hover
+            button.style.boxShadow = '0px 0px 15px #edc08d';
         });
         
         button.addEventListener('mouseleave', () => {
              // Remove a borda no mouseleave
             
             if (window.getComputedStyle(document.getElementById(`texto-${button.id}`)).getPropertyValue("display") === 'block') {
-                button.style.boxShadow = '0px 0px 15px #0733F6';
-                button.style.border = '2px solid #0733F6';
+                button.style.boxShadow = '0px 0px 15px #edc08d';
+                button.style.border = '2px solid #edc08d';
             }
             else{
                 button.style.boxShadow = '';
-                button.style.border = '2px solid #0c248db2';
+                button.style.border = '2px solid #edc08d';
             }
             
         });
@@ -42,15 +42,15 @@ document.addEventListener("DOMContentLoaded", function() {
             // Adicione estas linhas para mudar a cor da fonte do botão
             buttons.forEach(b => {
                 b.style.color = ''; // Volta à cor padrão para todos os botões
-                b.style.backgroundColor = '#0110219d';
-                b.style.border = '2px solid #0c248db2';
+                b.style.backgroundColor = '#393358';
+                b.style.border = '2px solid #edc08d';
                 b.style.boxShadow = '';
             });
              // Define a cor da fonte do botão clicado
-            button.style.color = '#fff';
-            button.style.backgroundColor = "#011021";
-            button.style.border = '2px solid #0733F6';
-            button.style.boxShadow = '0px 0px 15px #0733F6';
+            button.style.color = '#48416C';
+            button.style.backgroundColor = "#edc08d";
+            button.style.border = '2px solid #edc08d';
+            button.style.boxShadow = '0px 0px 15px #edc08d';
 
             if (window.getComputedStyle(textoOculto).getPropertyValue("display") === 'block') {
                 textoOculto.style.display = 'none';
@@ -58,8 +58,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 iconBtn.classList.add('bi-chevron-down');
                 buttons.forEach(b => {
                     b.style.color = ''; // Volta à cor padrão para todos os botões
-                    b.style.backgroundColor = '#0110219d';
-                    b.style.border = '2px solid #0c248db2';
+                    b.style.backgroundColor = '#393358';
+                    b.style.border = '2px solid #edc08d';
                     b.style.boxShadow = '';
                 });
             } else {

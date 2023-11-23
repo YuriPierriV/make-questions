@@ -70,7 +70,7 @@ def cadastro():
         finally:
             mydb.close()
 
-    return render_template("index.html")
+    return render_template("cadastro.html")
 
 @app.route("/process_form", methods=['POST'])
 def process_form():

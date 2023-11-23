@@ -1,11 +1,11 @@
 body{
-    background-image: linear-gradient(to bottom, #010a14a8, #010a14ad 50%, #010a14d7 90%, #010A14),url(/static/img/bg.jpg);
+    background-image: linear-gradient(to bottom, #48416C, #48416c52 30%, #48416caf 80%, #48416C),url(/static/img/bg.jpg);
     background-position:center;
     background-size: cover;
 }
 
 .left{
-    background-image: linear-gradient(to bottom,#010a1476 40%, #010a146c 80%),url(/static/img/cadastro.png);
+    background-image: linear-gradient(to bottom,#48416ca6 40%, #48416ca1 80%),url(/static/img/cadastro.png);
     background-position:center;
     background-size: cover;
     border-top-left-radius: 20px;
@@ -19,6 +19,10 @@ body{
     
 }
 
+h4{
+    color: #EDC18D;
+}
+
 .card-cadastro{
     height: 100%;
     min-height: 100%;
@@ -26,7 +30,8 @@ body{
     border: 0;
     border-radius: 25px;
     padding: 0;
-    box-shadow: 0px 0px 15px #0733F6;
+    box-shadow: 0px 0px 10px #EDC18D;
+    background-color: #48416C;
 }
 
 .teste{
@@ -36,8 +41,53 @@ body{
 }
 
 
+.form-cadastro{
+    background-color: #393358;
+    border: 0px;
+    font-size: 1rem;
+    color: #EDC18D;
+}
 
+.form-cadastro:hover, .form-cadastro:focus, .form-cadastro:active{
+    background-color: #393358;
+    border: 2px solid #EDC18D;
+    box-shadow: 0px 0px 5px #EDC18D;
+    color: #EDC18D;
+}
 
+.form-cadastro::placeholder{
+    font-size: 1rem;
+    color: #EDC18D;
+}
+
+.login{
+    color: #EDC18D;
+}
+
+.btn-registrar{
+    background-color: #EDC18D !important;
+    color: #48416C !important;
+    font-size: 18px;
+    border-width: 2px;
+    border-color: #EFAB9C !important;
+    border-style: solid;
+    box-shadow: 0px 0px 2px #EDC18D;
+    
+}
+
+.btn-registrar:hover{
+    background-color: #EFAB9C !important;
+    color: #48416C !important;
+    border-width: 2px;
+    border-color: #EDC18D !important;
+    border-style: solid;
+    box-shadow: 0px 0px 10px #EDC18D;
+}
+
+.btn-registrar:active{
+    background-color: #EFAB9C !important;
+    color: #48416C !important;
+}
 
 @media (max-height: 895px){
     .cadastro{

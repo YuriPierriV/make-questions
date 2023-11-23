@@ -33,7 +33,7 @@
                             <h4>Preencha os dados abaixo</h4>
                         </div>
                         <div class="col-md-4 text-end">
-                            <a href="" class="align-middle">Fazer Login</a>
+                            <a href="" class="align-middle login">Fazer Login</a>
                         </div>
                         <div class="col-12 pt-2">
                             {% with messages = get_flashed_messages(with_categories=true) %}
@@ -52,29 +52,29 @@
                                 
                                 <div class="col-md-6">
                                     <label for="validationCustom01" class="visually-hidden">Nome</label>
-                                    <input type="text" class="form-control" id="validationCustom01" placeholder="Nome" name="nome" required>
+                                    <input type="text" class="form-control form-cadastro" id="validationCustom01" placeholder="Nome" name="nome" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="validationCustom02" class="visually-hidden">Sobrenome</label>
-                                    <input type="text" class="form-control" id="validationCustom02" placeholder="Sobrenome" name="sobrenome" required>
+                                    <input type="text" class="form-control form-cadastro" id="validationCustom02" placeholder="Sobrenome" name="sobrenome" required>
                                 </div>
                                 <div class="col-md-12">
                                     <label for="validationCustom03" class="visually-hidden">Celular</label>
-                                    <input type="text" class="form-control" id="validationCustom03" placeholder="Celular" name="celular" required>
+                                    <input type="text" class="form-control form-cadastro" id="validationCustom03" placeholder="Celular" name="celular" required>
                                     <div class="invalid-feedback">
                                         Coloque um número válido
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <label for="validationCustom04" class="visually-hidden">Email</label>
-                                    <input type="email" class="form-control" id="validationCustom04" placeholder="Email" name="email" autocomplete="username" required>
+                                    <input type="email" class="form-control form-cadastro" id="validationCustom04" placeholder="Email" name="email" autocomplete="username" required>
                                     <div class="invalid-feedback">
                                         Coloque um email válido
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <label for="validationCustom05" class="visually-hidden">Senha</label>
-                                    <input type="password" class="form-control" id="validationCustom05" placeholder="Senha" name="senha" autocomplete="current-password" required>
+                                    <input type="password" class="form-control form-cadastro" id="validationCustom05" placeholder="Senha" name="senha" autocomplete="current-password" required>
                                     <div class="invalid-feedback">
                                         <p class="mb-0">Coloque uma senha válida:</p>
                                         
@@ -85,15 +85,18 @@
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <div class="form-check">
+                                    <!--
+                                        <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
                                         <label class="form-check-label" for="invalidCheck">
                                         Concordo com <a href="">Termos e condições</a>
                                         </label>
                                     </div>
+                                    -->
+                                    
                                 </div>
                                 <div class="col-12">
-                                    <button class="btn btn-primary" type="submit">Registrar-se</button>
+                                    <button class="btn btn-registrar" type="submit">Registrar-se</button>
                                 </div>
                                 
                             </form>
