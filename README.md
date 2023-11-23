@@ -80,11 +80,11 @@ Vamos usar o github para fazer o gerenciamento, sincronização e controle do c�
 
 | Cor               | Hexadecimal                                                |
 | ----------------- | ---------------------------------------------------------------- |
-| Neon Blue       | ![#010A14](https://via.placeholder.com/10/010A14?text=+) #010A14 |
-| Cornflower blue   | ![#031D3A](https://via.placeholder.com/10/031D3A?text=+) #031D3A |
-| Jordy Blue       | ![#041D8B](https://via.placeholder.com/10/041D8B?text=+) #041D8B |
-| Periwinkle       | ![#0733F6](https://via.placeholder.com/10/0733F6?text=+) #0733F6 |
-| Light cyan       | ![#CCC9DC](https://via.placeholder.com/10/CCC9DC?text=+) #CCC9DC |
+| Cornflower Blue       | ![#010A14](https://via.placeholder.com/10/48416C?text=+) #48416C |
+| Marzipan   | ![#031D3A](https://via.placeholder.com/10/EDC18D?text=+) #EDC18D |
+| Cornflower       | ![#041D8B](https://via.placeholder.com/10/9AC1ED?text=+) #9AC1ED |
+| Pale Cornflower Blue       | ![#0733F6](https://via.placeholder.com/10/B79BF2?text=+) #B79BF2 |
+| Wax Flower      | ![#CCC9DC](https://via.placeholder.com/10/EFAB9C?text=+) #EFAB9C |
 
 
 https://developer.mozilla.org/en-US/docs/Web/API/Element/classList
