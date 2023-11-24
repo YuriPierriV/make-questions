@@ -134,6 +134,17 @@ def login():
             return render_template("index.html", error="Credenciais inválidas")
         
 
+
+@app.route("/newpage", methods=["POST"])
+def newpage():
+    ##Fazer aqui a criação de nova página
+    return render_template("index.html")
+
+
+
+
+
+
 @app.route("/logout", methods=["POST"])
 def logout():
     
