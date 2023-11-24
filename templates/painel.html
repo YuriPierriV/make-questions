@@ -84,7 +84,10 @@
                                     <p class="pb-3" style="font-size: 14px;">
                                         Comece uma nova pesquisa e construa um relátorio personalizado agora mesmo
                                     </p>
-                                    <button class=" btn btn-padrao  btn btn-padrao-primary w-10">Criar agora</button>
+                                    <form method="post" action="{{ url_for('newpage') }}">
+                                        <button class="btn btn-criar w-100" type="submit">Criar agora</button>
+                                    </form>
+                                    
 
                                 </div>
                             </div>
