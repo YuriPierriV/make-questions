@@ -40,12 +40,26 @@
                 </li>
             </ul>
         </nav>
-        <div class="container d-flex justify-content-center text-center pb-5 baixo">
-            <form action="{{ url_for('logout') }}" method="post">
-                <button class=" btn btn-padrao sair" type="submit"  href="/logout" ><i class="bi bi-door-closed"></i><br>Sair</button>
-            </form>
+        
+        <div class="container">
             
+            <div class="container d-flex flex-column justify-content-center text-center pb-5 baixo">
+                <div class="container d-flex justify-content-center text-center pb-1">
+                    <div class="icon-notificacao" data-number="0">
+                        <i class="bi bi-bell icon-bell"></i>
+                    </div>
+                    <div class="barra-lateral-fechada" id="barra-lateral">
+                        <div class="notificacoes" id="notificacoes">
+                        </div>
+                    </div>
+                </div>
+                <form action="{{ url_for('logout') }}" method="post">
+                    <button class=" btn btn-padrao sair" type="submit"  href="/logout" ><i class="bi bi-door-closed"></i><br>Sair</button>
+                </form>
+                
+            </div>
         </div>
+        
     </aside>
 
 
@@ -192,7 +206,7 @@
                 <div class="col-md-8">
                     <h5 style="color: #EDC18D;">Olá, {{usuario.nome}}</h5>
                 </div>
-                <div class="col-md-4 d-flex justify-content-end ">
+                <div class="col-md-4 d-flex justify-content-end">
                     <img src="/static/img/user_noimage.jpg" alt="" class="img-fluid img-perfil rounded-circle" height="50px" width="50px">
                 </div>
             </div>
@@ -244,8 +258,8 @@
                 </div>
             </div>
 
-            <div class="row container pb-5 d-flex align-items-center justify-content-center baixo2 m-0" >
-                <button class=" btn btn-padrao">Ver mais</button>
+            <div class="container pb-5 d-flex align-items-center justify-content-center baixo2 m-0" >
+                    <button class="btn btn-padrao">Ver mais</button>
             </div>
     </aside>
 

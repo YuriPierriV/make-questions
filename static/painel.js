@@ -17,5 +17,20 @@ document.addEventListener("DOMContentLoaded", function() {
         })
     });
 
+    
+    const iconNotificacao = document.querySelector('.icon-notificacao');
+    const barraLateral = document.getElementById('barra-lateral');
+    const notificacoesContainer = document.getElementById('notificacoes');
+
+    iconNotificacao.addEventListener('click', () => {
+        // Alternar classe para expandir ou minimizar a barra lateral
+        barraLateral.classList.toggle('barra-lateral-fechada');
+        
+        // Limpar notificações ao minimizar
+        notificacoesContainer.innerHTML = '';
+
+        // Atualiza o número de notificações para zero após exibir
+        iconNotificacao.dataset.number = '0';
+    });
 
 });
