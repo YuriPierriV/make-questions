@@ -231,3 +231,51 @@ main{
     background-color: #EFAB9C !important;
     color: #48416C !important;
 }
+
+.icon-notificacao{
+    position: relative;
+    width: 35px;
+    height: 35px;
+}
+
+.icon-bell{
+    font-size: 35px;
+    color: #CCC9DC;
+    cursor: pointer;
+}
+
+.icon-notificacao::after{
+    content: attr(data-number);
+    width: 20px;
+    height: 20px;
+    background-color: #fc0606;
+    color: #fff;
+    border-radius: 50%;
+    display: grid;
+    place-content: center;
+    position: absolute;
+    top: 5px;
+    right: 0;
+    transform: translate(3px);
+}
+
+.barra-lateral-fechada {
+    display: none;
+    width: 0;
+    overflow: hidden;
+    transition: display 0.3s ease;
+}
+
+#notificacoes {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding-right: 20px;
+    
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    padding: 10px;
+}
+
+
