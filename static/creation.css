@@ -1,0 +1,30 @@
+.nav-color{
+    background-color: #48416C ;
+}
+
+.text-gray{
+    color: #CCC9DC;
+}
+
+.inputTitulo{
+    border: none;
+    outline: none;
+    cursor: text;
+    background-color: transparent;
+}
+
+main{
+    background-color: #393358;
+    
+}
+
+.nav-item{
+    font-size: 25px;
+}
+.nav-item i{
+    font-size: 20px;
+}
+
+.nav-link:hover, .nav-link:active, .nav-link:focus{
+    color: #EDC18D !important;
+}
