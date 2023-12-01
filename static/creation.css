@@ -28,3 +28,10 @@ main{
 .nav-link:hover, .nav-link:active, .nav-link:focus{
     color: #EDC18D !important;
 }
+
+.card-header{
+    background-color: #48416C;
+    border-radius: 5px;
+    border-top: 5px #EDC18D solid ;
+    color: #CCC9DC;
+}

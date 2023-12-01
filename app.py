@@ -151,8 +151,8 @@ def newpage():
             user_id = session.get('user_id')
 
             # Insira o novo formulário na tabela forms
-            cursor.execute("INSERT INTO forms (usuarios_id, title, description) VALUES (%s, %s, %s)",
-                           (user_id, 'Titulo', 'Descrição'))
+            cursor.execute("INSERT INTO forms (usuarios_id, nome, titulo, descricao) VALUES (%s,%s, %s, %s)",
+                           (user_id,'Formulário sem Nome', 'Formulário sem Titulo', 'Descrição'))
 
             # Commit e feche a conexão
             connection.commit()
@@ -173,12 +173,12 @@ def obter_formularios_do_usuario(id_user):
     mydb = db()
     meu_cursor = mydb.cursor()
 
-    meu_cursor.execute("SELECT id, usuarios_id, title, description, created_at FROM forms WHERE usuarios_id = %s", (id_user,))
+    meu_cursor.execute("SELECT id, usuarios_id, nome, titulo, descricao, created_at FROM forms WHERE usuarios_id = %s", (id_user,))
     forms_tuplas = meu_cursor.fetchall()
 
     formularios = []
     for form_tupla in forms_tuplas:
-        formulario = dict(zip(['id', 'usuarios_id', 'title', 'description', 'created_at'], form_tupla))
+        formulario = dict(zip(['id', 'usuarios_id','nome', 'titulo', 'descricao', 'created_at'], form_tupla))
         formularios.append(formulario)
 
     return formularios
@@ -188,12 +188,12 @@ def obter_dados_do_formulario(id_forms):
     mydb = db()
     meu_cursor = mydb.cursor()
 
-    meu_cursor.execute("SELECT id, usuarios_id, title, description, created_at FROM forms WHERE id = %s", (id_forms,))
+    meu_cursor.execute("SELECT id, usuarios_id,nome, titulo, descricao, created_at FROM forms WHERE id = %s", (id_forms,))
     form_tupla = meu_cursor.fetchone()
 
     formulario = None
     if form_tupla:
-        formulario = dict(zip(['id', 'usuarios_id', 'title', 'description', 'created_at'], form_tupla))
+        formulario = dict(zip(['id', 'usuarios_id','nome', 'titulo', 'descricao', 'created_at'], form_tupla))
 
     return formulario
 
@@ -214,26 +214,28 @@ def obter_dados_do_usuario(id_usuario):
     return usuario
 
 @app.route("/form/<int:id_forms>/edit", methods=["POST"])
-def atualizar_titulo(id_forms):
+def atualizar_campo(id_forms):
     # Obtenha os dados do formulário
-    novo_titulo = request.form.get('title')
+    nome_param = next(iter(request.form))
+    novo_valor = request.form.get(nome_param)
 
     try:
         connection = db()
         cursor = connection.cursor()
 
-        # Atualize o título do formulário no banco de dados
-        cursor.execute("UPDATE forms SET title = %s WHERE id = %s", (novo_titulo, id_forms))
+        # Atualize o campo no banco de dados
+        cursor.execute(f"UPDATE forms SET {nome_param} = %s WHERE id = %s", (novo_valor, id_forms))
 
         # Commit e feche a conexão
         connection.commit()
         connection.close()
 
-        return "Título do formulário atualizado com sucesso."
+        return f"Campo {nome_param} do formulário atualizado com sucesso."
 
     except mysql.connector.Error as err:
         print(f"Erro no MySQL: {err}")
-        return "Erro ao atualizar título do formulário. Por favor, tente novamente."
+        return f"Erro ao atualizar campo {nome_param} do formulário. Por favor, tente novamente."
+
 
 @app.route("/form/<int:id_forms>/edit")
 def exibir_formulario(id_forms):

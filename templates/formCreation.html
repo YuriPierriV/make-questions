@@ -27,7 +27,7 @@
                         <a href="/"><i class="bi bi-house-down text-gray " style="font-size: 30px;"></i></a>
                     </li>
                     <li class="nav-item">
-                        <input class="inputTitulo text-gray" type="text" id="titleInput" value="{{ form.title }}" style="font-size: 25px; width: 100%;" required>
+                        <input class="inputTitulo text-gray" type="text" id="nameInput" value="{{ form.nome }}" style="font-size: 25px; width: 100%;" required>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-gray" href="#"><i class="bi bi-star" style="font-size: 18px;"></i></a>
@@ -52,10 +52,22 @@
         </div>
     </header>
     <main>
-        <div class="container p-5">
-            <div class="card p-3">
-                <h5>{{form.title}}</h5>
+        <div class="container-fluid p-5">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card card-header p-3">
+                        <input class="inputTitulo text-gray" type="text" id="tituloInput" value="{{ form.titulo }}" style="font-size: 32px; width: 100%;" required>
+                        <input class="inputTitulo text-gray" type="text" id="descricaoInput" value="{{ form.descricao }}" style="font-size: 18px; width: 100%;" required>
+                    </div>
+                </div>
+                <div class="col-md-7">
+
+                </div>
+                <div class="col-md-2">
+
+                </div>
             </div>
+            
         </div>
         
     </main>
