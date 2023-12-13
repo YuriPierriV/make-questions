@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request, flash, url_for, session
+from flask import Flask, render_template, redirect, request, flash, url_for, session, abort
 import mysql.connector
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -20,6 +20,67 @@ app.secret_key = 'toor'
 def obter_id_do_usuario_logado():
     # Verifique se 'user_id' está na sessão
     return session.get('user_id')
+
+
+def obter_formularios_do_usuario(id_user):
+    mydb = db()
+    meu_cursor = mydb.cursor()
+
+    meu_cursor.execute("SELECT id, usuarios_id, nome, titulo, descricao, created_at FROM forms WHERE usuarios_id = %s", (id_user,))
+    forms_tuplas = meu_cursor.fetchall()
+
+    formularios = []
+    for form_tupla in forms_tuplas:
+        formulario = dict(zip(['id', 'usuarios_id','nome', 'titulo', 'descricao', 'created_at'], form_tupla))
+        formularios.append(formulario)
+
+    return formularios
+
+
+def obter_dados_do_formulario(id_forms):
+    mydb = db()
+    meu_cursor = mydb.cursor()
+
+    meu_cursor.execute("SELECT id, usuarios_id,nome, titulo, descricao, created_at FROM forms WHERE id = %s", (id_forms,))
+    form_tupla = meu_cursor.fetchone()
+
+    formulario = None
+    if form_tupla:
+        formulario = dict(zip(['id', 'usuarios_id','nome', 'titulo', 'descricao', 'created_at'], form_tupla))
+
+    return formulario
+
+def obter_dados_do_usuario(id_usuario):
+    if id_usuario is None:
+        return None  # ou uma resposta padrão se o ID do usuário não estiver definido
+
+    mydb = db()
+    meu_cursor = mydb.cursor()
+
+    meu_cursor.execute("SELECT id, nome, sobrenome, email, celular FROM usuarios WHERE id = %s", (id_usuario,))
+    usuario_tupla = meu_cursor.fetchone()
+
+    usuario = None
+    if usuario_tupla:
+        usuario = dict(zip(['id', 'nome', 'sobrenome', 'email', 'celular'], usuario_tupla))
+
+    return usuario
+
+def obter_questoes_do_formulario(id_formulario):
+    if id_formulario is None:
+        return None  # ou uma resposta padrão se o ID do usuário não estiver definido
+
+    mydb = db()
+    meu_cursor = mydb.cursor()
+
+    meu_cursor.execute("SELECT id, question_text, question_type, correct_id FROM questions WHERE form_id = %s", (id_formulario,))
+    questions_tupla = meu_cursor.fetchone()
+
+    questions = None
+    if questions_tupla:
+        question = dict(zip(['id', 'question_text', 'qustion_type', 'correct_id'], questions_tupla))
+
+    return question
 
 @app.route("/")
 def index():
@@ -153,12 +214,19 @@ def newpage():
             # Insira o novo formulário na tabela forms
             cursor.execute("INSERT INTO forms (usuarios_id, nome, titulo, descricao) VALUES (%s,%s, %s, %s)",
                            (user_id,'Formulário sem Nome', 'Formulário sem Titulo', 'Descrição'))
+            
+            form_id = cursor.lastrowid
 
+            cursor.execute("INSERT INTO questions (form_id, question_text, question_type, correct_id) VALUES (%s,%s, %s, %s)",
+                           (form_id,'Pergunta sem título', 'Text', None))
             # Commit e feche a conexão
             connection.commit()
+
+            
+
             connection.close()
 
-            return redirect(f'/form/{cursor.lastrowid}/edit')
+            return redirect(f'/form/{form_id}/edit')
 
         except mysql.connector.Error as err:
             print(f"Erro no MySQL: {err}")
@@ -168,50 +236,6 @@ def newpage():
 
 
 
-
-def obter_formularios_do_usuario(id_user):
-    mydb = db()
-    meu_cursor = mydb.cursor()
-
-    meu_cursor.execute("SELECT id, usuarios_id, nome, titulo, descricao, created_at FROM forms WHERE usuarios_id = %s", (id_user,))
-    forms_tuplas = meu_cursor.fetchall()
-
-    formularios = []
-    for form_tupla in forms_tuplas:
-        formulario = dict(zip(['id', 'usuarios_id','nome', 'titulo', 'descricao', 'created_at'], form_tupla))
-        formularios.append(formulario)
-
-    return formularios
-
-
-def obter_dados_do_formulario(id_forms):
-    mydb = db()
-    meu_cursor = mydb.cursor()
-
-    meu_cursor.execute("SELECT id, usuarios_id,nome, titulo, descricao, created_at FROM forms WHERE id = %s", (id_forms,))
-    form_tupla = meu_cursor.fetchone()
-
-    formulario = None
-    if form_tupla:
-        formulario = dict(zip(['id', 'usuarios_id','nome', 'titulo', 'descricao', 'created_at'], form_tupla))
-
-    return formulario
-
-def obter_dados_do_usuario(id_usuario):
-    if id_usuario is None:
-        return None  # ou uma resposta padrão se o ID do usuário não estiver definido
-
-    mydb = db()
-    meu_cursor = mydb.cursor()
-
-    meu_cursor.execute("SELECT id, nome, sobrenome, email, celular FROM usuarios WHERE id = %s", (id_usuario,))
-    usuario_tupla = meu_cursor.fetchone()
-
-    usuario = None
-    if usuario_tupla:
-        usuario = dict(zip(['id', 'nome', 'sobrenome', 'email', 'celular'], usuario_tupla))
-
-    return usuario
 
 @app.route("/form/<int:id_forms>/edit", methods=["POST"])
 def atualizar_campo(id_forms):
@@ -235,6 +259,30 @@ def atualizar_campo(id_forms):
     except mysql.connector.Error as err:
         print(f"Erro no MySQL: {err}")
         return f"Erro ao atualizar campo {nome_param} do formulário. Por favor, tente novamente."
+    
+
+@app.route("/excluir_formulario/<int:id_forms>", methods=['POST'])
+def excluir_formulario(id_forms):
+    # Obtenha os dados do formulário
+
+    try:
+        connection = db()
+        cursor = connection.cursor()
+
+        # Atualize o campo no banco de dados
+        #DELETE FROM `forms` WHERE `id` = 1;
+        cursor.execute(f"DELETE FROM `questions` WHERE `form_id` = %s", (id_forms,))
+        cursor.execute(f"DELETE FROM `forms` WHERE `id` = %s", (id_forms,))
+
+        # Commit e feche a conexão
+        connection.commit()
+        connection.close()
+
+        return redirect(url_for("index"))
+
+    except Exception as e:
+        print(f"Erro ao remover formulário: {e}")
+        abort(500)  # Internal Server Error
 
 
 @app.route("/form/<int:id_forms>/edit")
@@ -242,11 +290,12 @@ def exibir_formulario(id_forms):
     # Obtenha os dados do formulário para exibição
     form = obter_dados_do_formulario(id_forms)
     user = obter_dados_do_usuario(obter_id_do_usuario_logado())
+    questions = obter_questoes_do_formulario(id_forms)
 
     if form is None or user is None:
         return "Formulário ou usuário não encontrados."
 
-    return render_template("formCreation.html", usuario=user, form=form,form_id=id_forms)
+    return render_template("formCreation.html", usuario=user, form=form,form_id=id_forms,questions=questions)
 
 
 

@@ -20,3 +20,5 @@ document.getElementById('tituloInput').addEventListener('blur', function() {
 document.getElementById('descricaoInput').addEventListener('blur', function() {
     enviarAtualizacao(this, form.id, 'descricao');
 });
+
+

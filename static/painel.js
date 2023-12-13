@@ -34,3 +34,9 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
 });
+
+function confirmDelete(url) {
+    if (confirm('Tem certeza de que deseja excluir este formulário?')) {
+        window.location.href = url;
+    }
+}
