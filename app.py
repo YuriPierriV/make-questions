@@ -74,13 +74,14 @@ def obter_questoes_do_formulario(id_formulario):
     meu_cursor = mydb.cursor()
 
     meu_cursor.execute("SELECT id, question_text, question_type, correct_id FROM questions WHERE form_id = %s", (id_formulario,))
-    questions_tupla = meu_cursor.fetchone()
+    questions_tuplas = meu_cursor.fetchall()
 
-    questions = None
-    if questions_tupla:
-        question = dict(zip(['id', 'question_text', 'qustion_type', 'correct_id'], questions_tupla))
+    questions = []
+    for question_tupla in questions_tuplas:
+        question = dict(zip(['id', 'question_text', 'question_type', 'correct_id'], question_tupla))
+        questions.append(question)
 
-    return question
+    return questions
 
 @app.route("/")
 def index():
@@ -218,7 +219,7 @@ def newpage():
             form_id = cursor.lastrowid
 
             cursor.execute("INSERT INTO questions (form_id, question_text, question_type, correct_id) VALUES (%s,%s, %s, %s)",
-                           (form_id,'Pergunta sem título', 'Text', None))
+                           (form_id,'Pergunta sem título', 'type_text', None))
             # Commit e feche a conexão
             connection.commit()
 
@@ -237,8 +238,55 @@ def newpage():
 
 
 
-@app.route("/form/<int:id_forms>/edit", methods=["POST"])
-def atualizar_campo(id_forms):
+@app.route("/form/<int:id_forms>/edit/att_form", methods=["POST"])
+def atualizar_form(id_forms):
+    # Obtenha os dados do formulário
+    nome_param = next(iter(request.form))
+    novo_valor = request.form.get(nome_param)
+
+    try:
+        connection = db()
+        cursor = connection.cursor()
+
+        # Atualize o campo no banco de dados
+        cursor.execute(f"UPDATE forms SET {nome_param} = %s WHERE id = %s", (novo_valor, id_forms))
+
+        # Commit e feche a conexão
+        connection.commit()
+        connection.close()
+
+        return f"Campo {nome_param} do formulário atualizado com sucesso."
+
+    except mysql.connector.Error as err:
+        print(f"Erro no MySQL: {err}")
+        return f"Erro ao atualizar campo {nome_param} do formulário. Por favor, tente novamente."
+    
+
+@app.route("/form/<int:id_forms>/edit/att_question=<int:id_question>", methods=["POST"])
+def atualizar_question(id_forms,id_question):
+    # Obtenha os dados do formulário
+    nome_param = next(iter(request.form))
+    novo_valor = request.form.get(nome_param)
+
+    try:
+        connection = db()
+        cursor = connection.cursor()
+
+        # Atualize o campo no banco de dados
+        cursor.execute(f"UPDATE questions SET {nome_param} = %s WHERE id = %s", (novo_valor, id_question))
+
+        # Commit e feche a conexão
+        connection.commit()
+        connection.close()
+
+        return f"Campo {nome_param} do formulário atualizado com sucesso."
+
+    except mysql.connector.Error as err:
+        print(f"Erro no MySQL: {err}")
+        return f"Erro ao atualizar campo {nome_param} do formulário. Por favor, tente novamente."
+
+@app.route("/form/<int:id_forms>/edit/add", methods=["POST"])
+def adicionar_campo(id_forms):
     # Obtenha os dados do formulário
     nome_param = next(iter(request.form))
     novo_valor = request.form.get(nome_param)
@@ -291,7 +339,7 @@ def exibir_formulario(id_forms):
     form = obter_dados_do_formulario(id_forms)
     user = obter_dados_do_usuario(obter_id_do_usuario_logado())
     questions = obter_questoes_do_formulario(id_forms)
-
+    
     if form is None or user is None:
         return "Formulário ou usuário não encontrados."
 

@@ -61,9 +61,11 @@
                     </div>
                 </div>
                 <div class="col-md-7">
-                    <div class="card card-header p-3">
-                        
-                    </div>
+                    {% for question in questions %}
+                        <div class="card card-header p-3">
+                            <input class="inputTitulo input-clean text-gray {{question.question_type}}" type="text" id="question_text_{{question.id}}" value="{{ question.question_text }}" style="font-size: 32px; width: 100%;" required>
+                        </div>    
+                    {% endfor %}
                 </div>
                 <div class="col-md-2">
                     <div class="card card-header p-3">
@@ -78,6 +80,7 @@
     </main>
     <script>
         var form = {{ form | tojson | safe }};
+        var questions = {{ questions | tojson | safe}};
     </script>
     <script src="/static/creation.js"></script>
 </body>
