@@ -36,6 +36,46 @@ main{
     color: #CCC9DC;
 }
 
-.Text{
+.inputTextquestion{
+    font-size: 18px;
+}
+
+.question_type{
+    background-color: transparent;
+    border-width: 2px;
+    border-color: #EDC18D;
+    color: #fff;
     
+}
+
+.question_type:active , .question_type:hover, .question_type:focus{
+    color: #fff;
+    background-color: #EDC18D;
+    border-color: #EDC18D;
+}
+
+.option-menu{
+    color: #fff;
+    background-color: #393358;
+}
+
+.option-menu::selection{
+    background-color: #EDC18D !important;
+}
+
+.option-menu:hover, .option-menu:active, .option-menu:focus{
+    color: #fff !important;
+    background-color: #EDC18D !important;
+}
+
+.btn-outline-dark{
+    color: #fff;
+    border-color: #EDC18D;
+    border-width: 2px;
+}
+
+.btn-outline-dark:active , .btn-outline-dark:hover, .btn-outline-dark:focus{
+    color: #fff;
+    background-color: #EDC18D;
+    border-color: #EDC18D;
 }

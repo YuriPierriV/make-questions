@@ -36,6 +36,9 @@ questions.forEach(question => {
     document.getElementById('question_text_'+question.id).addEventListener('blur', function() {
         enviarAtualizacao_question(this, form.id,question.id, 'question_text');
     });
+    document.getElementById('question_type_'+question.id).addEventListener('click', function() {
+        enviarAtualizacao_question(this, form.id,question.id, 'question_text');
+    });
 });
 
 

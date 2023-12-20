@@ -63,8 +63,27 @@
                 <div class="col-md-7">
                     {% for question in questions %}
                         <div class="card card-header p-3">
-                            <input class="inputTitulo input-clean text-gray {{question.question_type}}" type="text" id="question_text_{{question.id}}" value="{{ question.question_text }}" style="font-size: 32px; width: 100%;" required>
-                        </div>    
+                            <input class="inputTextquestion input-clean text-gray {{question.question_type}}" type="text" id="question_text_{{question.id}}" value="{{ question.question_text }}" required>
+                            <hr class="w-100 me-auto ms-auto mt-2">
+                            <div class="container question-edit pt-2">
+                                <div class="row">
+                                    <div class="col">
+                                        <select class="form-select question_type" id="question_type_{{question.id}}" aria-label="Default select example">
+                                            <option class="option-menu" selected>Open this select menu</option>
+                                            <option class="option-menu" value="1">One</option>
+                                            <option class="option-menu" value="2">Two</option>
+                                            <option class="option-menu" value="3">Three</option>
+                                        </select>
+                                    </div>
+                                    <div class="col">
+                                        <button class="btn btn-outline-dark">
+                                            <i class="bi bi-plus-lg"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
                     {% endfor %}
                 </div>
                 <div class="col-md-2">
@@ -83,5 +102,7 @@
         var questions = {{ questions | tojson | safe}};
     </script>
     <script src="/static/creation.js"></script>
+    <!-- Entire bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.11/lib/draggable.bundle.js"></script>
 </body>
 </html>
