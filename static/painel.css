@@ -309,3 +309,7 @@ main{
 .color-gray{
     color: #CCC9DC;
 }
+
+.menos-transparencia{
+    opacity: 0;
+}
