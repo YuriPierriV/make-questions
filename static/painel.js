@@ -40,3 +40,17 @@ function confirmDelete(url) {
         window.location.href = url;
     }
 }
+
+window.addEventListener("load", function() {
+    const loginDropdownVisible = localStorage.getItem("page");
+
+    if (loginDropdownVisible === "true") {
+        loginDropdown.style.display = "block";
+        overlay.style.display = "block";
+        document.body.style.overflow = "hidden";
+    } else {
+        loginDropdown.style.display = "none";
+        overlay.style.display = "none";
+        document.body.style.overflow = "";
+    }
+});

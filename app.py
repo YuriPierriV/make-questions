@@ -154,14 +154,14 @@ def process_form():
             resultado = meu_cursor.fetchone()
 
             if resultado:
-                flash("Este email já está cadastrado. Por favor, escolha outro","cadastro")
+                flash("Este email já está cadastrado. Por favor, escolha outro ou faça login.","cadastro")
                 return redirect('/cadastro')  
 
             # Gere o hash da senha usando o método padrão do Werkzeug
             senha_hash = generate_password_hash(senha)
 
             meu_cursor.execute("INSERT INTO usuarios (nome, sobrenome, email, celular, senha_hash) VALUES (%s, %s, %s, %s, %s)",
-                               (nome, sobrenome, email, celular, senha_hash))  # None para o campo senha_salt por enquanto
+                               (nome, sobrenome, email, celular, senha_hash))  
 
             meu_cursor.execute("SELECT id FROM usuarios WHERE email = %s", (email,))
             user_id = meu_cursor.fetchone()[0]

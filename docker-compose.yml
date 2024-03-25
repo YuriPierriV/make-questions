@@ -3,7 +3,7 @@ services:
   
     
   mysql:
-    image: mysql:8
+    image: mysql
     container_name: meu-mysql-container
     environment:
       MYSQL_ROOT_PASSWORD: pass
@@ -26,6 +26,3 @@ services:
       - ./static:/app/static  # Mapeia o diretório de arquivos estáticos
     stdin_open: true 
     tty: true
-
-volumes:
-    dados-mysql:
