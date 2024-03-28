@@ -24,5 +24,6 @@ services:
       - ./app.py:/app/app.py  # Mapeia o arquivo app.py externo
       - ./templates:/app/templates  # Mapeia o diretório de templates
       - ./static:/app/static  # Mapeia o diretório de arquivos estáticos
+      - ./uteis:/app/uteis
     stdin_open: true 
     tty: true
