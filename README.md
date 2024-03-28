@@ -2,10 +2,7 @@
 
 
 
-## Alinhamentos - 
 
-
-```
 ## Tecnologias
 
  - [HTML5](https://htmldog.com/guides/)
