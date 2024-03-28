@@ -55,24 +55,31 @@
         <div class="container-fluid p-5">
             <div class="row">
                 <div class="col-md-3">
-                    <div class="card card-header p-3">
+                    <div class="card card-header p-3 gap-2">
                         <input class="inputTitulo input-clean text-gray" type="text" id="tituloInput" value="{{ form.titulo }}" style="font-size: 32px; width: 100%;" required>
                         <input class="inputTitulo input-clean text-gray" type="text" id="descricaoInput" value="{{ form.descricao }}" style="font-size: 18px; width: 100%;" required>
                     </div>
                 </div>
                 <div class="col-md-7">
                     {% for question in questions %}
-                        <div class="card card-header p-3">
-                            <input class="inputTextquestion input-clean text-gray {{question.question_type}}" type="text" id="question_text_{{question.id}}" value="{{ question.question_text }}" required>
-                            <hr class="w-100 me-auto ms-auto mt-2">
-                            <div class="container question-edit pt-2">
+                    <div class="card">
+                        <div class="card-header card-controle p-4 gap-2">
+                            <div class="mb-3">
+                                
+                                <textarea rows="1" class="inputTextquestion w-100 input-clean text-gray {{question.question_type}}" type="text" id="question_text_{{question.id}}" required>{{ question.question_text }}</textarea>
+                            </div>
+                            <div class="mb-3">
+                                <textarea rows="1" class="inputTextanswer w-100 input-clean text-gray {{question.question_type}}" type="text" id="answer_text_{{question.id}}" required>{{ question.question_text }}</textarea>
+                            </div>
+                            
+                        </div>
+                        <div class="card-body card-controle">
+                            <div class="container question-edit ps-0">
                                 <div class="row">
                                     <div class="col">
                                         <select class="form-select question_type" id="question_type_{{question.id}}" aria-label="Default select example">
-                                            <option class="option-menu" selected>Open this select menu</option>
-                                            <option class="option-menu" value="1">One</option>
-                                            <option class="option-menu" value="2">Two</option>
-                                            <option class="option-menu" value="3">Three</option>
+                                            <option class="option-menu" selected value="texto">Texto</option>
+                                            <option class="option-menu" value="mult_escolha">Múltipla Escolha</option>
                                         </select>
                                     </div>
                                     <div class="col">
@@ -82,8 +89,9 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        
+                        </div>   
+                    </div>
+                    <hr class="w-100 me-auto ms-auto mt-3 mb-1">
                     {% endfor %}
                 </div>
                 <div class="col-md-2">

@@ -219,7 +219,7 @@ def newpage():
             form_id = cursor.lastrowid
 
             cursor.execute("INSERT INTO questions (form_id, question_text, question_type, correct_id) VALUES (%s,%s, %s, %s)",
-                           (form_id,'Pergunta sem título', 'type_text', None))
+                           (form_id,'Pergunta sem título', 'texto', None))
             # Commit e feche a conexão
             connection.commit()
 
@@ -262,7 +262,7 @@ def atualizar_form(id_forms):
         return f"Erro ao atualizar campo {nome_param} do formulário. Por favor, tente novamente."
     
 
-@app.route("/form/<int:id_forms>/edit/att_question=<int:id_question>", methods=["POST"])
+@app.route("/form/<int:id_forms>/edit/att_question=<int:id_question>", methods=["PUT"])
 def atualizar_question(id_forms,id_question):
     # Obtenha os dados do formulário
     nome_param = next(iter(request.form))
@@ -271,7 +271,6 @@ def atualizar_question(id_forms,id_question):
     try:
         connection = db()
         cursor = connection.cursor()
-
         # Atualize o campo no banco de dados
         cursor.execute(f"UPDATE questions SET {nome_param} = %s WHERE id = %s", (novo_valor, id_question))
 

@@ -15,7 +15,7 @@ function enviarAtualizacao_question(campo,formId, questionId, paramName) {
 
     // Envia uma solicitação AJAX para atualizar o valor no backend
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/form/' + formId + '/edit' + '/att_question='+ questionId, true);
+    xhr.open('PUT', '/form/' + formId + '/edit' + '/att_question='+ questionId , true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.send(paramName + '=' + encodeURIComponent(novoValor));
 }
@@ -37,7 +37,7 @@ questions.forEach(question => {
         enviarAtualizacao_question(this, form.id,question.id, 'question_text');
     });
     document.getElementById('question_type_'+question.id).addEventListener('click', function() {
-        enviarAtualizacao_question(this, form.id,question.id, 'question_text');
+        enviarAtualizacao_question(this, form.id,question.id, 'question_type');
     });
 });
 

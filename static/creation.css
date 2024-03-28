@@ -7,10 +7,56 @@
 }
 
 .input-clean{
-    border: none;
+    overflow: hidden;
+    resize: none;
+    border-width: 1px;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-color: transparent;
     outline: none;
     cursor: text;
     background-color: transparent;
+    transition: border-color 1s;
+}
+
+
+.input-clean:focus{
+    background-color: #393358;
+    border: #EDC18D;
+    border-style: solid;
+    border-radius: 3px;
+    border-width: 1px;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    padding-left: 5px;
+}
+
+.input-clean:hover{
+    background-color: #393358;
+    border: #EDC18D;
+    border-style: solid;
+    border-radius: 3px;
+    border-width: 1px;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    padding-left: 5px;
+}
+
+.card-controle{
+    background-color: #48416C;
+    border-radius: 5px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    color: #CCC9DC;
+}
+
+
+
+.card{
+    border: 0;
 }
 
 main{
@@ -37,7 +83,13 @@ main{
 }
 
 .inputTextquestion{
-    font-size: 18px;
+    font-size: 32px;
+    overflow-wrap:break-word;
+}
+
+.inputTextanswer{
+    font-size: 24px;
+    overflow-wrap:break-word;
 }
 
 .question_type{
