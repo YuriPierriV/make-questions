@@ -4,6 +4,8 @@ from uteis.connection import db
 from uteis.functions import obter_formularios_do_usuario, obter_dados_do_formulario, obter_dados_do_usuario, obter_questoes_do_formulario
 from werkzeug.security import generate_password_hash, check_password_hash
 from uteis.usuario import Usuario
+from uteis.forms import Forms
+from uteis.questions import Questions
 
 app = Flask(__name__)
 app.secret_key = 'toor'
@@ -53,9 +55,7 @@ def process_form():
         senha = generate_password_hash(request.form.get('senha'))
 
         usuario = Usuario(nome, sobrenome, email, celular, senha)
-        print(usuario.id)
         if usuario.cadastra():
-            print("teste")
             return redirect(url_for("index"))
         else:
             return redirect("/cadastro")
@@ -85,39 +85,22 @@ def login():
 
 @app.route("/newpage", methods=["POST"])
 def newpage():
+    
     if request.method == "POST":
         # Obtenha os dados do formulário
-
-        # Insira os dados na tabela forms
-        try:
-            connection = db()
-            cursor = connection.cursor()
-
-            # Obtenha o ID do usuário logado (supondo que você tenha um sistema de login)
-            user_id = session.get('user_id')
-
-            # Insira o novo formulário na tabela forms
-            cursor.execute("INSERT INTO forms (usuarios_id, nome, titulo, descricao) VALUES (%s,%s, %s, %s)",
-                           (user_id,'Formulário sem Nome', 'Formulário sem Titulo', 'Descrição'))
+        
+        forms = Forms()
+        if forms.cria_form():
             
-            form_id = cursor.lastrowid
-
-            cursor.execute("INSERT INTO questions (form_id, question_text, question_type, correct_id) VALUES (%s,%s, %s, %s)",
-                           (form_id,'Pergunta sem título', 'texto', None))
-            # Commit e feche a conexão
-            connection.commit()
-
+            question = Questions()
+            if question.cria_question(forms):
+                
+                return redirect(f'/form/{forms.id}/edit')
             
+        else:
+            print(f"Erro no MySQL: ")
+            return redirect(url_for("index"))
 
-            connection.close()
-
-            return redirect(f'/form/{form_id}/edit')
-
-        except mysql.connector.Error as err:
-            print(f"Erro no MySQL: {err}")
-            return "Erro ao criar formulário. Por favor, tente novamente."
-
-    return redirect(url_for("index"))
 
 
 
@@ -220,7 +203,7 @@ def excluir_formulario(id_forms):
 def exibir_formulario(id_forms):
     # Obtenha os dados do formulário para exibição
     form = obter_dados_do_formulario(id_forms)
-    user = obter_dados_do_usuario(obter_id_do_usuario_logado())
+    user = obter_dados_do_usuario(session["user_id"])
     questions = obter_questoes_do_formulario(id_forms)
     
     if form is None or user is None:
