@@ -9,7 +9,6 @@ class Forms:
         self.nome = 'Formulário sem Nome'
         self.titulo = 'Formulário sem Titulo'
         self.descricao = 'Descrição'
-        self.questions = []
         
         
     def cria_form(self):
@@ -27,3 +26,20 @@ class Forms:
         except Exception as e:
             flash(str(e))
             return False
+
+
+    #testar
+    def questoes(self):
+        mydb = db()
+        cursor = mydb.cursor()
+
+        cursor.execute("SELECT form_id, question_text, question_type, correct_id FROM questions WHERE form_id = %s", (self.id,))
+        questions_tuplas = cursor.fetchall()
+
+        questions = []
+        for form_tupla in forms_tuplas:
+            question = dict(zip(['form_id', 'question_text','question_type', 'correct_id'], form_tupla))
+            questions.append(question)
+
+        return formularios
+        
