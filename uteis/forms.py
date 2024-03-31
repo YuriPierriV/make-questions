@@ -1,5 +1,7 @@
 from uteis.connection import db
 from flask import session,flash
+from uteis.questions import Questions
+
 
 class Forms:
     
@@ -28,18 +30,45 @@ class Forms:
             return False
 
 
-    #testar
-    def questoes(self):
-        mydb = db()
-        cursor = mydb.cursor()
+    def getForms(self,id_forms):
+        try:
+            mydb = db()
+            meu_cursor = mydb.cursor()
 
-        cursor.execute("SELECT form_id, question_text, question_type, correct_id FROM questions WHERE form_id = %s", (self.id,))
-        questions_tuplas = cursor.fetchall()
+            meu_cursor.execute("SELECT id, usuarios_id,nome, titulo, descricao, created_at FROM forms WHERE id = %s", (id_forms,))
+            form_tupla = meu_cursor.fetchone()
 
-        questions = []
-        for form_tupla in forms_tuplas:
-            question = dict(zip(['form_id', 'question_text','question_type', 'correct_id'], form_tupla))
-            questions.append(question)
+            
+            if form_tupla:
+                self.id = form_tupla[0]
+                self.usuarios_id = form_tupla[1]
+                self.nome = form_tupla[2]
+                self.titulo = form_tupla[3]
+                self.descricao = form_tupla[4]
+                print(self.id)
+                return True
 
-        return formularios
+        except Exception as e:
+            print(e)
+            return False
+
+    def get_questions(self):
+        try:
+            mydb = db()
+            cursor = mydb.cursor()
+
+            cursor.execute("SELECT id, question_text, question_type, correct_id FROM questions WHERE form_id = %s", (self.id,))
+            questions_tuplas = cursor.fetchall()
+            questions = []
+            for question_tupla in questions_tuplas:
+                question = Questions(question_tupla[0],question_tupla[1],question_tupla[2],question_tupla[3])
+                questions.append(question)
+
+            print(questions)
+            mydb.commit()
+            mydb.close()
+
+            return questions
+        except Exception as e:
+            print(e)
         

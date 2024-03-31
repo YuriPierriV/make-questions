@@ -1,15 +1,15 @@
 from uteis.connection import db
 from flask import session,flash
-
+from werkzeug.security import generate_password_hash, check_password_hash
 
 class Usuario:
 
-    def __init__(self):
-        self.nome = None
-        self.sobrenome = None
-        self.email = None
-        self.celular = None
-        self.senha_hash = None
+    def __init__(self,nome = None,sobrenome = None,email = None,celular = None,senha_hash = None):
+        self.nome = nome
+        self.sobrenome = sobrenome
+        self.email = email
+        self.celular = celular
+        self.senha_hash = senha_hash
         self.id = None
         
         
@@ -47,12 +47,34 @@ class Usuario:
             flash(str(e))
             return False  # Retorna False se houver algum erro durante o cadastro
 
+    def login(self,email,senha):
+        try:
+            mydb = db()
+            cursor = mydb.cursor()
+
+            cursor.execute("SELECT id FROM usuarios WHERE email = %s", (email,))
+            id = cursor.fetchone()
+            usuario = Usuario()
+            usuario.getUsuario(id[0])
+            print(usuario.senha_hash)
+            if check_password_hash(usuario.senha_hash, senha):
+                
+                session["user_id"] = usuario.id
+                return True
+            else:
+                flash("Email ou senha incorreto","login")
+                return False
+
+        except Exception as e:
+            flash(str(e))
+            return False
+
     def getUsuario(self,id_sesson):
         try:
             mydb = db()
             cursor = mydb.cursor()
 
-            cursor.execute("SELECT id, nome, sobrenome, email, celular FROM usuarios WHERE id = %s", (id_sesson,))
+            cursor.execute("SELECT id, nome, sobrenome, email, celular, senha_hash FROM usuarios WHERE id = %s", (id_sesson,))
             usuario_tupla = cursor.fetchone()
             
 
@@ -61,7 +83,7 @@ class Usuario:
                 self.sobrenome = usuario_tupla[2]
                 self.email = usuario_tupla[3]
                 self.celular = usuario_tupla[4]
-                self.senha_hash = None
+                self.senha_hash = usuario_tupla[5]
                 self.id = usuario_tupla[0]
                 return True
             else:

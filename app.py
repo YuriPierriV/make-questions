@@ -65,18 +65,12 @@ def process_form():
 def login():
     if request.method == "POST":
         email = request.form["email"]
-        mydb = db()
+        senha = request.form["senha"]
 
-        cursor = mydb.cursor()
-        cursor.execute("SELECT id, senha_hash FROM usuarios WHERE email = %s", (email,))
-        user = cursor.fetchone()
-
-        mydb.close()
-
-        if user and check_password_hash(user[1], request.form["senha"]):
-            session["user_id"] = user[0]
-
+        usuario = Usuario()
+        if usuario.login(email,senha):
             return redirect(url_for("index"))
+
         else:
             flash("Email ou senha incorreto","login")
             return render_template("index.html", error="Credenciais inválidas")
@@ -98,11 +92,27 @@ def newpage():
                 return redirect(f'/form/{forms.id}/edit')
             
         else:
-            print(f"Erro no MySQL: ")
+            flash("Erro no MySQL: ")
             return redirect(url_for("index"))
 
 
+@app.route("/form/<int:id_forms>/edit")
+def exibir_formulario(id_forms):
+    # Obtenha os dados do formulário para exibição
+    usuario = Usuario()
+    usuario.getUsuario(session["user_id"])
+    form = Forms()
+    form.getForms(id_forms)
+    questions = form.get_questions()
+    print(questions)
+    #form = obter_dados_do_formulario(id_forms)
+    #user = obter_dados_do_usuario(session["user_id"])
+    #questions = obter_questoes_do_formulario(id_forms)
+    
+    if form is None or usuario is None:
+        return "Formulário ou usuário não encontrados."
 
+    return render_template("formCreation.html", usuario=usuario, form=form,form_id=id_forms,questions=questions)
 
 
 @app.route("/form/<int:id_forms>/edit/att_form", methods=["POST"])
@@ -199,17 +209,7 @@ def excluir_formulario(id_forms):
         abort(500)  # Internal Server Error
 
 
-@app.route("/form/<int:id_forms>/edit")
-def exibir_formulario(id_forms):
-    # Obtenha os dados do formulário para exibição
-    form = obter_dados_do_formulario(id_forms)
-    user = obter_dados_do_usuario(session["user_id"])
-    questions = obter_questoes_do_formulario(id_forms)
-    
-    if form is None or user is None:
-        return "Formulário ou usuário não encontrados."
 
-    return render_template("formCreation.html", usuario=user, form=form,form_id=id_forms,questions=questions)
 
 
 

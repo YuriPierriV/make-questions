@@ -4,7 +4,7 @@ function enviarAtualizacao_form(campo, formId, paramName) {
 
     // Envia uma solicitação AJAX para atualizar o valor no backend
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/form/' + formId + '/edit' + '/att_form', true);
+    xhr.open('POST', '/form/' + formId + '/edit/att_form', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.send(paramName + '=' + encodeURIComponent(novoValor));
 }
@@ -15,7 +15,7 @@ function enviarAtualizacao_question(campo,formId, questionId, paramName) {
 
     // Envia uma solicitação AJAX para atualizar o valor no backend
     var xhr = new XMLHttpRequest();
-    xhr.open('PUT', '/form/' + formId + '/edit' + '/att_question='+ questionId , true);
+    xhr.open('PUT', '/form/' + formId + '/edit/att_question='+ questionId , true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.send(paramName + '=' + encodeURIComponent(novoValor));
 }
