@@ -1,4 +1,4 @@
-from uteis.connection import db
+from uteis.mydb import db
 from flask import Flask, render_template, redirect, request, flash, url_for, session, abort
 
 

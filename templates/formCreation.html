@@ -62,14 +62,14 @@
                 </div>
                 <div class="col-md-7">
                     {% for question in questions %}
-                    <div class="card">
-                        <div class="card-header card-controle p-4 gap-2">
+                    <div class="card mb-4" id="questions">
+                        <div class="card-header card-controle p-4 ">
                             <div class="mb-3">
                                 
-                                <textarea rows="1" class="inputTextquestion w-100 input-clean text-gray {{question.question_type}}" type="text" id="question_text_{{question.id}}" required>{{ question.question_text }}</textarea>
+                                <textarea rows="1" class="inputTextquestion w-100 input-clean text-gray {{question.type}}" type="text" id="question_text_{{question.id}}" required>{{ question.text }}</textarea>
                             </div>
                             <div class="mb-3">
-                                <textarea rows="1" class="inputTextanswer w-100 input-clean text-gray {{question.question_type}}" type="text" id="answer_text_{{question.id}}" required>{{ question.question_text }}</textarea>
+                                <textarea rows="1" class="inputTextanswer w-100 input-clean text-gray {{question.type}}" type="text" id="answer_text_{{question.id}}" required>{{ question.pre_answer }}</textarea>
                             </div>
                             
                         </div>
@@ -91,13 +91,30 @@
                             </div>
                         </div>   
                     </div>
-                    <hr class="w-100 me-auto ms-auto mt-3 mb-1">
                     {% endfor %}
+                    <div style="text-align: center;" class="pt-3">
+                        <hr class="w-75 me-auto ms-auto mt-4 mb-1">
+                        <button class="btn btn-outline-dark botao_plus" id="add_question" onclick="adicionarQuestao()" style="position: relative; top: -25px;">
+                            <i class="bi bi-plus-lg add_question" ></i>
+                        </button>
+                    </div>
+                    
+                    
                 </div>
                 <div class="col-md-2">
-                    <div class="card card-header p-3">
-                        <input class="inputTitulo input-clean text-gray" type="text" id="tituloInput" value="{{ form.titulo }}" style="font-size: 32px; width: 100%;" required>
-                        <input class="inputTitulo input-clean text-gray" type="text" id="descricaoInput" value="{{ form.descricao }}" style="font-size: 18px; width: 100%;" required>
+                    <div class="card card-header p-3 ">
+                        <div class="row ">
+                            {% set contador = 1 %}
+                            {% for question in questions %}
+                                <div class="col-md-2  mt-2 d-flex justify-content-center ">
+                                    <div class="card card-header p-3 text-center contador d-flex justify-content-center align-items-center">
+                                        <p>{{ contador }}</p>
+                                    </div>
+                                </div>
+                                {% set contador = contador + 1 %}
+                            {% endfor %}
+                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -105,8 +122,14 @@
         </div>
         
     </main>
-    <script src="/static/creation.js"></script>
+    
+
     <!-- Entire bundle -->
+    <script>
+        var id_form = {{form.id}};
+        var questions = {{ questions_json | tojson | safe }};
+    </script>
+    <script src="/static/creation.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.11/lib/draggable.bundle.js"></script>
 </body>
 </html>

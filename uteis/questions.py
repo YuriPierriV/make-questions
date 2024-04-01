@@ -1,14 +1,15 @@
-from uteis.connection import db
+from uteis.mydb import db
 from flask import session,flash
 
 
 class Questions:
-    def __init__(self,id=None,form_id=None,text='Pergunta sem título',type='texto',correct = None):
+    def __init__(self,id=None,form_id=None,text='Pergunta sem título',type='texto',correct = None,pre_answer='Resposta'):
         self.id = id
         self.form_id = form_id
         self.text = text
         self.type = type
         self.correct = None
+        self.pre_answer = pre_answer
 
     def cria_question(self,forms):
         try:
@@ -16,8 +17,8 @@ class Questions:
             mydb = db()
             cursor = mydb.cursor()
 
-            cursor.execute("INSERT INTO questions (form_id, question_text, question_type, correct_id) VALUES (%s,%s, %s, %s)",
-                           (forms.id,self.text, self.type, None))
+            cursor.execute("INSERT INTO questions (form_id, question_text, question_type, correct_id,pre_answer) VALUES (%s,%s, %s, %s,%s)",
+                           (forms.id,self.text, self.type, None,self.pre_answer))
             # Commit e feche a conexão
             mydb.commit()
             mydb.close()
@@ -36,7 +37,7 @@ class Questions:
 
             questions = []
             for question_tupla in questions_tuplas:
-                question = Questions(question_tupla[0],question_tupla[1],question_tupla[2],question_tupla[3])
+                question = dict(zip(['id', 'question_text', 'question_type', 'correct_id'], question_tupla))
                 questions.append(question)
 
 
@@ -46,4 +47,3 @@ class Questions:
             return questions
         except Exception as e:
             print(e)
-

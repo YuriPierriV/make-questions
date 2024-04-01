@@ -1,4 +1,4 @@
-from uteis.connection import db
+from uteis.mydb import db
 from flask import session,flash
 from uteis.questions import Questions
 
@@ -45,7 +45,6 @@ class Forms:
                 self.nome = form_tupla[2]
                 self.titulo = form_tupla[3]
                 self.descricao = form_tupla[4]
-                print(self.id)
                 return True
 
         except Exception as e:
@@ -57,14 +56,13 @@ class Forms:
             mydb = db()
             cursor = mydb.cursor()
 
-            cursor.execute("SELECT id, question_text, question_type, correct_id FROM questions WHERE form_id = %s", (self.id,))
+            cursor.execute("SELECT id,form_id, question_text, question_type, correct_id, pre_answer FROM questions WHERE form_id = %s", (self.id,))
             questions_tuplas = cursor.fetchall()
             questions = []
             for question_tupla in questions_tuplas:
-                question = Questions(question_tupla[0],question_tupla[1],question_tupla[2],question_tupla[3])
+                question = Questions(question_tupla[0],question_tupla[1],question_tupla[2],question_tupla[3],question_tupla[4],question_tupla[5])
                 questions.append(question)
 
-            print(questions)
             mydb.commit()
             mydb.close()
 
@@ -72,3 +70,41 @@ class Forms:
         except Exception as e:
             print(e)
         
+
+    def get_questions_json(self):
+        try:
+            mydb = db()
+            cursor = mydb.cursor()
+
+            cursor.execute("SELECT id,form_id, question_text, question_type, correct_id, pre_answer FROM questions WHERE form_id = %s", (self.id,))
+            questions_tuplas = cursor.fetchall()
+            questions = []
+            for question_tupla in questions_tuplas:
+                question = dict(zip(['id','form_id' 'question_text', 'question_type', 'correct_id','pre_answer'], question_tupla))
+                questions.append(question)
+
+            mydb.commit()
+            mydb.close()
+
+            return questions
+        except Exception as e:
+            print(e)
+
+    #Não faz sentido usar
+    def att_forms(self,parametro,new):
+        try:
+            mydb = db()
+            cursor = mydb.cursor()
+
+            # Atualize o campo no banco de dados
+            cursor.execute(f"UPDATE forms SET {parametro} = %s WHERE id = %s", (new, self.id))
+
+            # Commit e feche a conexão
+            mydb.commit()
+            mydb.close()
+
+            return f"Campo {nome_param} do formulário atualizado com sucesso."
+
+        except mysql.connector.Error as err:
+            print(f"Erro no MySQL: {err}")
+            return f"Erro ao atualizar campo {nome_param} do formulário. Por favor, tente novamente."

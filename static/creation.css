@@ -131,3 +131,19 @@ main{
     background-color: #EDC18D;
     border-color: #EDC18D;
 }
+
+.botao_plus{
+    background-color: #393358;
+}
+
+.contador{
+    background-color: #393358;
+    height: 3rem;
+    vertical-align: middle;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-left: 1px;
+    border-right: 1px;
+    border-bottom: 1px;
+}
+

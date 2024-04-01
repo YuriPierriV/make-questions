@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, request, flash, url_for, session, abort
 import mysql.connector
-from uteis.connection import db
+from uteis.mydb import db
 from uteis.functions import obter_formularios_do_usuario, obter_dados_do_formulario, obter_dados_do_usuario, obter_questoes_do_formulario
 from werkzeug.security import generate_password_hash, check_password_hash
 from uteis.usuario import Usuario
@@ -103,34 +103,31 @@ def exibir_formulario(id_forms):
     usuario.getUsuario(session["user_id"])
     form = Forms()
     form.getForms(id_forms)
+    questions_json = form.get_questions_json()
     questions = form.get_questions()
-    print(questions)
-    #form = obter_dados_do_formulario(id_forms)
-    #user = obter_dados_do_usuario(session["user_id"])
-    #questions = obter_questoes_do_formulario(id_forms)
-    
+
+
     if form is None or usuario is None:
         return "Formulário ou usuário não encontrados."
 
-    return render_template("formCreation.html", usuario=usuario, form=form,form_id=id_forms,questions=questions)
+    return render_template("formCreation.html", usuario=usuario, form=form, form_id=id_forms, questions_json=questions_json, questions=questions)
 
 
-@app.route("/form/<int:id_forms>/edit/att_form", methods=["POST"])
+@app.route("/form/<int:id_forms>/edit/att_form", methods=["PUT"])
 def atualizar_form(id_forms):
     # Obtenha os dados do formulário
     nome_param = next(iter(request.form))
     novo_valor = request.form.get(nome_param)
-
     try:
-        connection = db()
-        cursor = connection.cursor()
+        mydb = db()
+        cursor = mydb.cursor()
 
         # Atualize o campo no banco de dados
         cursor.execute(f"UPDATE forms SET {nome_param} = %s WHERE id = %s", (novo_valor, id_forms))
 
         # Commit e feche a conexão
-        connection.commit()
-        connection.close()
+        mydb.commit()
+        mydb.close()
 
         return f"Campo {nome_param} do formulário atualizado com sucesso."
 
@@ -146,14 +143,14 @@ def atualizar_question(id_forms,id_question):
     novo_valor = request.form.get(nome_param)
 
     try:
-        connection = db()
-        cursor = connection.cursor()
+        mydb = db()
+        cursor = mydb.cursor()
         # Atualize o campo no banco de dados
         cursor.execute(f"UPDATE questions SET {nome_param} = %s WHERE id = %s", (novo_valor, id_question))
 
         # Commit e feche a conexão
-        connection.commit()
-        connection.close()
+        mydb.commit()
+        mydb.close()
 
         return f"Campo {nome_param} do formulário atualizado com sucesso."
 
@@ -168,15 +165,15 @@ def adicionar_campo(id_forms):
     novo_valor = request.form.get(nome_param)
 
     try:
-        connection = db()
-        cursor = connection.cursor()
+        mydb = db()
+        cursor = mydb.cursor()
 
         # Atualize o campo no banco de dados
         cursor.execute(f"UPDATE forms SET {nome_param} = %s WHERE id = %s", (novo_valor, id_forms))
 
         # Commit e feche a conexão
-        connection.commit()
-        connection.close()
+        mydb.commit()
+        mydb.close()
 
         return f"Campo {nome_param} do formulário atualizado com sucesso."
 
@@ -190,8 +187,8 @@ def excluir_formulario(id_forms):
     # Obtenha os dados do formulário
 
     try:
-        connection = db()
-        cursor = connection.cursor()
+        mydb = db()
+        cursor = mydb.cursor()
 
         # Atualize o campo no banco de dados
         #DELETE FROM `forms` WHERE `id` = 1;
@@ -199,8 +196,8 @@ def excluir_formulario(id_forms):
         cursor.execute(f"DELETE FROM `forms` WHERE `id` = %s", (id_forms,))
 
         # Commit e feche a conexão
-        connection.commit()
-        connection.close()
+        mydb.commit()
+        mydb.close()
 
         return redirect(url_for("index"))
 
@@ -208,6 +205,19 @@ def excluir_formulario(id_forms):
         print(f"Erro ao remover formulário: {e}")
         abort(500)  # Internal Server Error
 
+
+@app.route('/add_question',methods=['POST'])
+def adicionar_questao():
+    if request.method == 'POST':
+        id_forms = request.form.get('id_form')
+        forms = Forms()
+        forms.getForms(id_forms)
+        question = Questions()
+        if question.cria_question(forms):
+            # Redirecionar para a página de edição do formulário, passando o ID do formulário
+            return redirect(url_for('exibir_formulario', id_forms=id_forms))
+        else:
+            return "Erro na criação da questão"
 
 
 

@@ -1,4 +1,4 @@
-from uteis.connection import db
+from uteis.mydb import db
 from flask import session,flash
 from werkzeug.security import generate_password_hash, check_password_hash
 
