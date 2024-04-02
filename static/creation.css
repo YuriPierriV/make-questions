@@ -98,10 +98,10 @@ main{
 
 .question_type{
     background-color: transparent;
-    border-width: 2px;
+    border-width: 1px;
     border-color: #EDC18D;
     color: #fff;
-    
+    cursor: pointer;
 }
 
 .question_type:active , .question_type:hover, .question_type:focus{
@@ -110,9 +110,12 @@ main{
     border-color: #EDC18D;
 }
 
+
 .option-menu{
     color: #fff;
     background-color: #393358;
+    padding: 1px;
+    margin: 10px;
 }
 
 .option-menu::selection{
@@ -127,7 +130,7 @@ main{
 .btn-outline-dark{
     color: #fff;
     border-color: #EDC18D;
-    border-width: 2px;
+    border-width: 1px;
 }
 
 .btn-outline-dark:active , .btn-outline-dark:hover, .btn-outline-dark:focus{
@@ -151,3 +154,78 @@ main{
 
 
 
+label {
+    display: flex;
+    cursor: pointer;
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 0.375em;
+    .geral {
+        position: absolute;
+        left: -9999px;
+        &:checked + span {
+        background-color: #edc08d46;
+        &:before {
+            box-shadow: inset 0 0 0 0.4375em #EDC18D;
+            }
+        }
+    }
+    .inputOption {
+        display: flex;
+        align-items: center;
+        padding: 0.375em 0.75em 0.375em 0.375em;
+        border-radius: 99em;
+        transition: 0.25s ease;
+        cursor: text;
+    &:hover {
+        background-color: #edc08d46;
+        }
+    &:before {
+        display: flex;
+        flex-shrink: 0;
+        content: "";
+        background-color: #48416C;
+        width: 1.5em;
+        height: 1.5em;
+        border-radius: 50%;
+        margin-right: 0.375em;
+        padding-right: 0.2em;
+        transition: 0.25s ease;
+        box-shadow: inset 0 0 0 0.125em #EDC18D;
+        }
+    }
+}
+
+.editableInput {
+    background-color: transparent;
+    width: auto;
+    border: none;
+    outline: none;
+    font-size: inherit;
+}
+
+.check {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+
+.border_box{
+    box-sizing: border-box;
+}

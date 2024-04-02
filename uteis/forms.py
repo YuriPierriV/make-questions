@@ -80,7 +80,8 @@ class Forms:
             questions_tuplas = cursor.fetchall()
             questions = []
             for question_tupla in questions_tuplas:
-                question = dict(zip(['id','form_id' 'question_text', 'question_type', 'correct_id','pre_answer'], question_tupla))
+                question = dict(zip(['id', 'form_id', 'question_text', 'question_type', 'correct_id', 'pre_answer'], question_tupla))
+
                 questions.append(question)
 
             mydb.commit()

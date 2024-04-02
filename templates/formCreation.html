@@ -65,12 +65,39 @@
                     <div class="card mb-4" id="questions">
                         <div class="card-header card-controle p-4 " id="question_controle_{{question.id}}">
                             <div class="mb-3">
-                                
                                 <textarea rows="1" class="inputTextquestion w-100 input-clean text-gray {{question.type}}" type="text" id="question_text_{{question.id}}" required>{{ question.text }}</textarea>
                             </div>
-                            <div class="mb-3">
-                                <textarea rows="1" class="inputTextanswer w-100 input-clean text-gray {{question.type}}" type="text" id="answer_text_{{question.id}}" required>{{ question.pre_answer }}</textarea>
-                            </div>
+                            {% if question.type == 'text' %}
+                                <div class="question_text">
+                                    <div class="mb-3">
+                                        <textarea rows="1" class="inputTextanswer w-100 input-clean text-gray {{question.type}}" type="text" id="answer_text_{{question.id}}" required>{{ question.pre_answer }}</textarea>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            {% if question.type == 'multimult_escolha' %}
+                                <div class="question_multi border_box">
+                                    <div class="container border_box">
+                                        <form class="border_box">
+                                            <label class="border_box ">
+                                                <input class="border_box geral" type="radio" name="radio" checked class="border_box"/>
+                                                <span class="border_box inputOption editable">Opção 1</span>
+                                            </label>
+                                            <label class="border_box ">
+                                                <input class="border_box geral" type="radio" name="radio" checked class="border_box"/>
+                                                <span class="border_box inputOption editable">Opção 2</span>
+                                            </label>
+                                            <label class="border_box ">
+                                                <input class="border_box geral" type="radio" name="radio" checked class="border_box"/>
+                                                <span class="border_box inputOption editable">Opção 3</span>
+                                            </label>
+                                            <label class="border_box">
+                                                <input class="border_box geral" type="radio" name="radio" checked class="border_box"/>
+                                                <span class="border_box inputOption editable">Adicionar uma opção...</span>
+                                            </label>
+                                        </form>
+                                    </div>
+                                </div>
+                            {% endif %}
                             
                         </div>
                         <div class="card-body card-controle" id="question_edit_{{question.id}}">
@@ -78,8 +105,8 @@
                                 <div class="row">
                                     <div class="col">
                                         <select class="form-select question_type" id="question_type_{{question.id}}" aria-label="Default select example">
-                                            <option class="option-menu" selected value="texto">Texto</option>
-                                            <option class="option-menu" value="mult_escolha">Múltipla Escolha</option>
+                                            <option class="option-menu question_type_option" id="question_type_{{question.id}}_text" value="texto">Texto</option>
+                                            <option class="option-menu question_type_option" id="question_type_{{question.id}}_multi" value="mult_escolha">Múltipla Escolha</option>
                                         </select>
                                     </div>
                                     <div class="col">
