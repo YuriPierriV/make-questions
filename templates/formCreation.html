@@ -63,7 +63,7 @@
                 <div class="col-md-7">
                     {% for question in questions %}
                     <div class="card mb-4" id="questions">
-                        <div class="card-header card-controle p-4 ">
+                        <div class="card-header card-controle p-4 " id="question_controle_{{question.id}}">
                             <div class="mb-3">
                                 
                                 <textarea rows="1" class="inputTextquestion w-100 input-clean text-gray {{question.type}}" type="text" id="question_text_{{question.id}}" required>{{ question.text }}</textarea>
@@ -73,7 +73,7 @@
                             </div>
                             
                         </div>
-                        <div class="card-body card-controle">
+                        <div class="card-body card-controle" id="question_edit_{{question.id}}">
                             <div class="container question-edit ps-0">
                                 <div class="row">
                                     <div class="col">
@@ -103,15 +103,16 @@
                 </div>
                 <div class="col-md-2">
                     <div class="card card-header p-3 ">
+                        <H4>Questões</H4>
                         <div class="row ">
-                            {% set contador = 1 %}
+                            {% set count = namespace(value=1) %}
                             {% for question in questions %}
                                 <div class="col-md-2  mt-2 d-flex justify-content-center ">
-                                    <div class="card card-header p-3 text-center contador d-flex justify-content-center align-items-center">
-                                        <p>{{ contador }}</p>
+                                    <div class="card card-header p-3 text-center contador d-flex justify-content-center align-items-center" id="card_lateral_{{question.id}}">
+                                        <p>{{ count.value }}</p>
                                     </div>
                                 </div>
-                                {% set contador = contador + 1 %}
+                                {% set count.value = count.value + 1 %}
                             {% endfor %}
                         </div>
                         

@@ -1,3 +1,7 @@
+body{
+    background-color: #393358;
+}
+
 .nav-color{
     background-color: #48416C ;
 }
@@ -140,10 +144,10 @@ main{
     background-color: #393358;
     height: 3rem;
     vertical-align: middle;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    border-left: 1px;
-    border-right: 1px;
-    border-bottom: 1px;
+    border-bottom-left-radius: 5px !important;
+    border-bottom-right-radius: 5px !important;
+    cursor:pointer;
 }
+
+
 
