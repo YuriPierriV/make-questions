@@ -78,18 +78,12 @@
                                 <div class="question_multi border_box">
                                     <div class="container border_box">
                                         <form class="border_box">
-                                            <label class="border_box ">
-                                                <input class="border_box geral" type="radio" name="radio" checked class="border_box"/>
-                                                <span class="border_box inputOption editable">Opção 1</span>
-                                            </label>
-                                            <label class="border_box ">
-                                                <input class="border_box geral" type="radio" name="radio" checked class="border_box"/>
-                                                <span class="border_box inputOption editable">Opção 2</span>
-                                            </label>
-                                            <label class="border_box ">
-                                                <input class="border_box geral" type="radio" name="radio" checked class="border_box"/>
-                                                <span class="border_box inputOption editable">Opção 3</span>
-                                            </label>
+                                            {% for option in question.options %}
+                                                <label class="border_box ">
+                                                    <input class="border_box geral" type="radio" name="radio" checked class="border_box"/>
+                                                    <span class="border_box inputOption editable">{{option.option_text}}</span>
+                                                </label>
+                                            {% endfor %}
                                             <label class="border_box">
                                                 <input class="border_box geral" type="radio" name="radio" checked class="border_box"/>
                                                 <span class="border_box inputOption editable">Adicionar uma opção...</span>

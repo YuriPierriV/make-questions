@@ -98,14 +98,14 @@ def newpage():
 
 @app.route("/form/<int:id_forms>/edit")
 def exibir_formulario(id_forms):
-    # Obtenha os dados do formulário para exibição
     usuario = Usuario()
     usuario.getUsuario(session["user_id"])
     form = Forms()
     form.getForms(id_forms)
     questions_json = form.get_questions_json()
     questions = form.get_questions()
-
+    for question in questions:
+        question.get_options()
 
     if form is None or usuario is None:
         return "Formulário ou usuário não encontrados."
@@ -115,7 +115,6 @@ def exibir_formulario(id_forms):
 
 @app.route("/form/<int:id_forms>/edit/att_form", methods=["PUT"])
 def atualizar_form(id_forms):
-    # Obtenha os dados do formulário
     nome_param = next(iter(request.form))
     novo_valor = request.form.get(nome_param)
     try:
@@ -125,7 +124,6 @@ def atualizar_form(id_forms):
         # Atualize o campo no banco de dados
         cursor.execute(f"UPDATE forms SET {nome_param} = %s WHERE id = %s", (novo_valor, id_forms))
 
-        # Commit e feche a conexão
         mydb.commit()
         mydb.close()
 
@@ -145,12 +143,22 @@ def atualizar_question(id_forms,id_question):
     try:
         mydb = db()
         cursor = mydb.cursor()
-        # Atualize o campo no banco de dados
         cursor.execute(f"UPDATE questions SET {nome_param} = %s WHERE id = %s", (novo_valor, id_question))
+        
+            
 
-        # Commit e feche a conexão
         mydb.commit()
         mydb.close()
+
+        if novo_valor == 'multimult_escolha':
+            
+            question = Questions(id_question)
+            question.cria_options_padrao()
+
+        if novo_valor == 'text':
+
+            question = Questions(id_question)
+            question.remove_options()
 
         return f"Campo {nome_param} do formulário atualizado com sucesso."
 
@@ -168,10 +176,9 @@ def adicionar_campo(id_forms):
         mydb = db()
         cursor = mydb.cursor()
 
-        # Atualize o campo no banco de dados
+
         cursor.execute(f"UPDATE forms SET {nome_param} = %s WHERE id = %s", (novo_valor, id_forms))
 
-        # Commit e feche a conexão
         mydb.commit()
         mydb.close()
 
@@ -184,18 +191,14 @@ def adicionar_campo(id_forms):
 
 @app.route("/excluir_formulario/<int:id_forms>", methods=['POST'])
 def excluir_formulario(id_forms):
-    # Obtenha os dados do formulário
 
     try:
         mydb = db()
         cursor = mydb.cursor()
 
-        # Atualize o campo no banco de dados
-        #DELETE FROM `forms` WHERE `id` = 1;
         cursor.execute(f"DELETE FROM `questions` WHERE `form_id` = %s", (id_forms,))
         cursor.execute(f"DELETE FROM `forms` WHERE `id` = %s", (id_forms,))
 
-        # Commit e feche a conexão
         mydb.commit()
         mydb.close()
 
@@ -220,7 +223,11 @@ def adicionar_questao():
             return "Erro na criação da questão"
 
 
-
+@app.route('/add_options',methods=['POST'])
+def adicionar_options():
+    if request.method == 'POST':
+        id_question = request.form.get('id_question')
+        
 
 
 
