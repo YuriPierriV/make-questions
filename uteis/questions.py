@@ -97,7 +97,7 @@ class Questions:
             cursor = mydb.cursor()
 
             sql = "INSERT INTO options (`option_text`, `question_id`) VALUES (%s, %s)"
-            values = [('Opção 1', self.id), ('Opção 2', self.id), ('Opção 3', self.id)]
+            values = [('Opção 1', self.id), ('Opção 2', self.id)]
 
             cursor.executemany(sql, values)
 

@@ -161,40 +161,46 @@ label {
     position: relative;
     overflow: hidden;
     margin-bottom: 0.375em;
-    .geral {
-        position: absolute;
-        left: -9999px;
-        &:checked + span {
-        background-color: #edc08d46;
-        &:before {
-            box-shadow: inset 0 0 0 0.4375em #EDC18D;
-            }
-        }
-    }
-    .inputOption {
-        display: flex;
-        align-items: center;
-        padding: 0.375em 0.75em 0.375em 0.375em;
-        border-radius: 99em;
-        transition: 0.25s ease;
-        cursor: text;
-    &:hover {
-        background-color: #edc08d46;
-        }
-    &:before {
-        display: flex;
-        flex-shrink: 0;
-        content: "";
-        background-color: #48416C;
-        width: 1.5em;
-        height: 1.5em;
-        border-radius: 50%;
-        margin-right: 0.375em;
-        padding-right: 0.2em;
-        transition: 0.25s ease;
-        box-shadow: inset 0 0 0 0.125em #EDC18D;
-        }
-    }
+}
+
+.geral {
+    position: absolute;
+    left: -9999px;
+}
+
+.geral + .inputOption {
+    display: flex;
+    align-items: center;
+    padding: 0.375em 0.75em 0.375em 0.375em;
+    border-radius: 99em;
+    transition: 0.25s ease;
+    cursor: pointer;
+}
+
+.geral:checked + .inputOption {
+    background-color: #edc08d46;
+}
+
+.inputOption:hover {
+    background-color: #edc08d46;
+}
+
+.inputOption:before {
+    display: flex;
+    flex-shrink: 0;
+    content: "";
+    background-color: #48416C;
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 50%;
+    margin-right: 0.375em;
+    padding-right: 0.2em;
+    transition: 0.25s ease;
+    box-shadow: inset 0 0 0 0.125em #EDC18D;
+}
+
+.geral:checked + .inputOption:before {
+    box-shadow: inset 0 0 0 0.4375em #EDC18D;
 }
 
 .editableInput {

@@ -63,6 +63,18 @@ function adicionarQuestao() {
     xhr.send('id_form=' + id_form);
 }
 
+function deletarQuestao(question_id) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/del_question', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            window.location.reload(); // Recar  rega a página
+        }
+    };
+    xhr.send('id_question=' + question_id);
+}
+
 
 document.getElementById('nameInput').addEventListener('blur', function() {
     enviarAtualizacao_form(this, 'nome');
@@ -102,7 +114,7 @@ questions.forEach(question => {
 });
 
 
-var spans = document.querySelectorAll('.inputOption');
+
 
 function add_option(questionId, novoValor) {
     // Formate os dados para enviar no formato correto
@@ -146,49 +158,71 @@ function edit_option(optionId, novoValor) {
     };
 }
 
-// Adicionando um evento de clique a cada span
+var spans = document.querySelectorAll('.inputOption');
+
 spans.forEach(function(span) {
-    span.addEventListener('click', function() {
-        // Verificando se o span clicado tem a classe 'editable'
-            
-        if (this.classList.contains('editable')) {
-            
-            // Substituindo o texto do span por um campo de entrada
-            span.textContent = ""
+
+    span.addEventListener('click', function(e) {
+        var id = span.id.split("_");
+        
+        if (id[0] === 'add') {
             var input = document.createElement('input');
             input.className = 'editableInput';
-            input.value = this.textContent;
-            this.textContent = '';
-            this.appendChild(input);
+            input.value = '';
+            span.textContent = '';
+            span.appendChild(input);
             setTimeout(function() {
                 input.focus();
             }, 0);
-            // Atualizando o tamanho do input conforme o texto é digitado
             input.addEventListener('input', function() {
                 // Ajustando a largura do input com base no tamanho do texto digitado
                 this.style.width = (this.value.length * 10) + 'px'; // Ajuste o valor multiplicador conforme necessário
             });
-                
-            // Adicionando um evento de mudança ao input para atualizar o span quando o texto for modificado
             input.addEventListener('blur', function() {
                 span.textContent = this.value || "";
-                var id = span.id.split("_");
-                if(id[0] == 'add'){
-                    var question_id = id[2];
-                    add_option(question_id,this.value)
-                }
-                else if(id[0] == 'edit'){
-                    var option_id = id[2];
-                    edit_option(option_id,this.value)
-                }
-                
+                var question_id = id[2];
+                add_option(question_id, this.value);
             });
-                
+            input.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+            input.style.width = (span.offsetWidth + 10) + 'px';
+        } else if (id[0] === 'edit') {
+            if (span.classList.contains('second_click')) {
+                var input = document.createElement('input');
+                input.className = 'editableInput';
+                input.value = span.textContent;
+                span.textContent = '';
+                span.appendChild(input);
+                setTimeout(function() {
+                    input.focus();
+                }, 0);
+                input.addEventListener('input', function() {
+                    // Ajustando a largura do input com base no tamanho do texto digitado
+                    this.style.width = (this.value.length * 10) + 'px'; // Ajuste o valor multiplicador conforme necessário
+                });
+                input.addEventListener('blur', function() {
+                    span.textContent = this.value || "";
+                    var option_id = id[2];
+                    edit_option(option_id, this.value);
+                });
+                input.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+                input.style.width = Math.max((span.offsetWidth + 10), (input.scrollWidth + 10)) + 'px';
+            } else {
+                // Desmarca os outros radios da mesma questão e marca o radio clicado
+                spans.forEach(function(span_outros) {
+                    var id_outros = span_outros.id.split("_");
+                    if (id[4] === id_outros[4] && id[2] !== id_outros[2]) {
+                        span_outros.classList.remove('second_click');
+                    }
+                });
+                span.classList.add('second_click');
+            }
         }
     });
 });
-
-
 
 
 

@@ -79,10 +79,10 @@
                                     <div class="container border_box">
                                         <form class="border_box">
                                             {% for option in question.options %}
-                                                <label class="border_box ">
-                                                    <input class="border_box geral" type="radio" name="radio" checked class="border_box"/>
-                                                    <span class="border_box inputOption editable" id="edit_option_{{option.id}}">{{option.option_text}}</span>
-                                                </label>
+                                                    <label class="border_box">
+                                                        <input class="border_box geral" type="radio" name="radio" checked>
+                                                        <span class="border_box inputOption editable" id="edit_option_{{option.id}}_question_{{question.id}}">{{option.option_text}}</span>
+                                                    </label>
                                             {% endfor %}
                                             <label class="border_box">
                                                 <input class="border_box geral" type="radio" name="radio" checked class="border_box"/>
@@ -107,7 +107,7 @@
                                         <button class="btn btn-outline-dark">
                                             <i class="bi bi-plus-lg"></i>
                                         </button>
-                                        <button class="btn btn-outline-dark ms-3">
+                                        <button class="btn btn-outline-dark ms-3" onclick="deletarQuestao({{question.id}})">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </div>

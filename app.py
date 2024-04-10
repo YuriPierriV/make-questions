@@ -234,6 +234,32 @@ def adicionar_questao():
             return "Erro na criação da questão"
 
 
+@app.route('/del_question', methods=['POST'])
+def excluir_questao():
+    if request.method == 'POST':
+        id_question = request.form.get('id_question')
+        try:
+            mydb = db()
+            cursor = mydb.cursor()
+
+            # Excluir todas as opções associadas à questão
+            cursor.execute("DELETE FROM `options` WHERE `question_id` = %s", (id_question,))
+
+            # Excluir a própria questão
+            cursor.execute("DELETE FROM `questions` WHERE `id` = %s", (id_question,))
+
+            mydb.commit()
+            mydb.close()
+
+            # Redirecionar para a página de edição do formulário ou para qualquer outra página apropriada
+            return 'ok'
+
+        except Exception as e:
+            print(f"Erro ao remover questão: {e}")
+            abort(500)  # Internal Server Error
+
+
+
 @app.route('/add_options', methods=['POST'])
 def adicionar_options():
     if request.method == 'POST':
