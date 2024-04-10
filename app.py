@@ -191,13 +191,23 @@ def adicionar_campo(id_forms):
 
 @app.route("/excluir_formulario/<int:id_forms>", methods=['POST'])
 def excluir_formulario(id_forms):
-
     try:
         mydb = db()
         cursor = mydb.cursor()
 
-        cursor.execute(f"DELETE FROM `questions` WHERE `form_id` = %s", (id_forms,))
-        cursor.execute(f"DELETE FROM `forms` WHERE `id` = %s", (id_forms,))
+        # Recupera todos os IDs das perguntas associadas ao formulário
+        cursor.execute("SELECT id FROM questions WHERE form_id = %s", (id_forms,))
+        question_ids = cursor.fetchall()
+
+        # Exclui todas as opções associadas a cada pergunta
+        for question_id in question_ids:
+            cursor.execute("DELETE FROM `options` WHERE `question_id` = %s", (question_id[0],))
+
+        # Exclui todas as perguntas associadas ao formulário
+        cursor.execute("DELETE FROM `questions` WHERE `form_id` = %s", (id_forms,))
+
+        # Exclui o próprio formulário
+        cursor.execute("DELETE FROM `forms` WHERE `id` = %s", (id_forms,))
 
         mydb.commit()
         mydb.close()
@@ -207,6 +217,7 @@ def excluir_formulario(id_forms):
     except Exception as e:
         print(f"Erro ao remover formulário: {e}")
         abort(500)  # Internal Server Error
+
 
 
 @app.route('/add_question',methods=['POST'])
@@ -223,10 +234,45 @@ def adicionar_questao():
             return "Erro na criação da questão"
 
 
-@app.route('/add_options',methods=['POST'])
+@app.route('/add_options', methods=['POST'])
 def adicionar_options():
     if request.method == 'POST':
-        id_question = request.form.get('id_question')
+        questionId = request.form.get('questionId')  
+        novoValor = request.form.get('novoValor')
+        question = Questions(questionId)
+        if question.cria_options_text(novoValor):
+            return 'Funcionou'
+        else:
+            return 'erro'
+        
+
+@app.route('/edit_options', methods=['POST'])
+def editar_options():
+    if request.method == 'POST':
+        optionId = request.form.get('optionId')  # Corrigido o nome do parâmetro
+        novoValor = request.form.get('novoValor')
+
+        try:
+            mydb = db()
+            cursor = mydb.cursor()
+
+            # Correção na construção da string SQL e passagem dos parâmetros
+            sql = "UPDATE options SET option_text = %s WHERE id = %s"
+            cursor.execute(sql, (novoValor, optionId))
+
+            mydb.commit()
+            mydb.close()
+            return 'Funcionou'
+        except Exception as e:
+            return str(e)  # Convertido o erro para string para retorná-lo como resposta HTTP
+
+
+        
+
+
+
+
+
         
 
 

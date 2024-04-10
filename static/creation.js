@@ -57,7 +57,7 @@ function adicionarQuestao() {
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            window.location.reload(); // Recarrega a página
+            window.location.reload(); // Recar  rega a página
         }
     };
     xhr.send('id_form=' + id_form);
@@ -104,36 +104,89 @@ questions.forEach(question => {
 
 var spans = document.querySelectorAll('.inputOption');
 
-    // Adicionando um evento de clique a cada span
-    spans.forEach(function(span) {
-        span.addEventListener('click', function() {
-            // Verificando se o span clicado tem a classe 'editable'
-            
-            if (this.classList.contains('editable')) {
-                // Substituindo o texto do span por um campo de entrada
-                span.textContent = ""
-                var input = document.createElement('input');
-                input.className = 'editableInput';
-                input.value = this.textContent;
-                this.textContent = '';
-                this.appendChild(input);
-                setTimeout(function() {
-                    input.focus();
-                }, 0);
-                // Atualizando o tamanho do input conforme o texto é digitado
-                input.addEventListener('input', function() {
-                    // Ajustando a largura do input com base no tamanho do texto digitado
-                    this.style.width = (this.value.length * 10) + 'px'; // Ajuste o valor multiplicador conforme necessário
-                });
-                
-                // Adicionando um evento de mudança ao input para atualizar o span quando o texto for modificado
-                input.addEventListener('blur', function() {
-                    span.textContent = this.value || "";
-                });
-                
+function add_option(questionId, novoValor) {
+    // Formate os dados para enviar no formato correto
+    var data = 'questionId=' + encodeURIComponent(questionId) + '&' + 
+               'novoValor=' + encodeURIComponent(novoValor);
+
+    // Envia uma solicitação AJAX para atualizar o valor no backend
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/add_options', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.send(data); // Envie os dados formatados
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                window.location.reload(); // Recarrega a página se a solicitação for bem-sucedida
+            } else {
+                console.error('Erro na solicitação:', xhr.status); // Registre o erro, se houver
             }
-        });
+        }
+    };
+}
+
+function edit_option(optionId, novoValor) {
+    // Formate os dados para enviar no formato correto
+    var data = 'optionId=' + encodeURIComponent(optionId) + '&' + 
+               'novoValor=' + encodeURIComponent(novoValor);
+
+    // Envia uma solicitação AJAX para atualizar o valor no backend
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/edit_options', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.send(data); // Envie os dados formatados
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                window.location.reload(); // Recarrega a página se a solicitação for bem-sucedida
+            } else {
+                console.error('Erro na solicitação:', xhr.status); // Registre o erro, se houver
+            }
+        }
+    };
+}
+
+// Adicionando um evento de clique a cada span
+spans.forEach(function(span) {
+    span.addEventListener('click', function() {
+        // Verificando se o span clicado tem a classe 'editable'
+            
+        if (this.classList.contains('editable')) {
+            
+            // Substituindo o texto do span por um campo de entrada
+            span.textContent = ""
+            var input = document.createElement('input');
+            input.className = 'editableInput';
+            input.value = this.textContent;
+            this.textContent = '';
+            this.appendChild(input);
+            setTimeout(function() {
+                input.focus();
+            }, 0);
+            // Atualizando o tamanho do input conforme o texto é digitado
+            input.addEventListener('input', function() {
+                // Ajustando a largura do input com base no tamanho do texto digitado
+                this.style.width = (this.value.length * 10) + 'px'; // Ajuste o valor multiplicador conforme necessário
+            });
+                
+            // Adicionando um evento de mudança ao input para atualizar o span quando o texto for modificado
+            input.addEventListener('blur', function() {
+                span.textContent = this.value || "";
+                var id = span.id.split("_");
+                if(id[0] == 'add'){
+                    var question_id = id[2];
+                    add_option(question_id,this.value)
+                }
+                else if(id[0] == 'edit'){
+                    var option_id = id[2];
+                    edit_option(option_id,this.value)
+                }
+                
+            });
+                
+        }
     });
+});
 
 
 
@@ -142,12 +195,12 @@ var spans = document.querySelectorAll('.inputOption');
 document.addEventListener("DOMContentLoaded", function() {
     questions.forEach(question => {
         if (question.question_type == 'text'){
-            console.log(question.id);
             document.getElementById('question_type_'+question.id).value = 'texto';
+            console.log(question.id+'texto');
         }
         if (question.question_type == 'multimult_escolha'){
-            console.log(question.id);
             document.getElementById('question_type_'+question.id).value = 'mult_escolha';
+            console.log(question.id+'multi');
         }
 
     });

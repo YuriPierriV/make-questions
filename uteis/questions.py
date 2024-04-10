@@ -3,7 +3,7 @@ from flask import session,flash
 
 
 class Questions:
-    def __init__(self,id=None,form_id=None,text='Pergunta sem título',type='texto',correct = None,pre_answer='Resposta'):
+    def __init__(self,id=None,form_id=None,text='Pergunta sem título',type='text',correct = None,pre_answer='Resposta'):
         self.id = id
         self.form_id = form_id
         self.text = text
@@ -32,7 +32,7 @@ class Questions:
             mydb = db()
             cursor = mydb.cursor()
 
-            cursor.execute("SELECT id, question_text, question_type, correct_id ,pre_answer FROM questions WHERE form_id = %s", (id_formulario,))
+            cursor.execute("SELECT id, question_text, question_type, correct_id ,pre_answer FROM questions WHERE form_id = %s", (form_id,))
             questions_tuplas = cursor.fetchall()
 
             questions = []
@@ -129,3 +129,21 @@ class Questions:
             print(e)
             return False
 
+
+    def cria_options_text(self,novoValor):
+        try:
+            mydb = db()
+            cursor = mydb.cursor()
+
+            sql = "INSERT INTO options (`option_text`, `question_id`) VALUES (%s, %s)"
+            values = (novoValor,self.id)
+
+            
+            cursor.execute(sql, values)
+
+            mydb.commit()
+            mydb.close()
+            return True
+        except Exception as e:
+            print(e)
+            return False

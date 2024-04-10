@@ -81,12 +81,12 @@
                                             {% for option in question.options %}
                                                 <label class="border_box ">
                                                     <input class="border_box geral" type="radio" name="radio" checked class="border_box"/>
-                                                    <span class="border_box inputOption editable">{{option.option_text}}</span>
+                                                    <span class="border_box inputOption editable" id="edit_option_{{option.id}}">{{option.option_text}}</span>
                                                 </label>
                                             {% endfor %}
                                             <label class="border_box">
                                                 <input class="border_box geral" type="radio" name="radio" checked class="border_box"/>
-                                                <span class="border_box inputOption editable">Adicionar uma opção...</span>
+                                                <span class="border_box inputOption editable add_option" id="add_option_{{question.id}}">Adicionar uma opção...</span>
                                             </label>
                                         </form>
                                     </div>
@@ -106,6 +106,9 @@
                                     <div class="col">
                                         <button class="btn btn-outline-dark">
                                             <i class="bi bi-plus-lg"></i>
+                                        </button>
+                                        <button class="btn btn-outline-dark ms-3">
+                                            <i class="bi bi-trash"></i>
                                         </button>
                                     </div>
                                 </div>
