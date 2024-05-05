@@ -75,6 +75,18 @@ function deletarQuestao(question_id) {
     xhr.send('id_question=' + question_id);
 }
 
+function obrigatorio(question_id) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/obrigatorio', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            window.location.reload(); // Recar  rega a página
+        }
+    };
+    xhr.send('id_question=' + question_id);
+}
+
 
 document.getElementById('nameInput').addEventListener('blur', function() {
     enviarAtualizacao_form(this, 'nome');
@@ -110,6 +122,10 @@ questions.forEach(question => {
     });
     document.getElementById('card_lateral_'+question.id).addEventListener('click', function(){
         edicao_habilitar(question.id);
+    })
+
+    document.getElementById('required_'+question.id).addEventListener('click', function(){
+        obrigatorio(question.id);
     })
 });
 
