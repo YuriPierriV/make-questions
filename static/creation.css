@@ -235,3 +235,11 @@ form {
 .border_box{
     box-sizing: border-box;
 }
+
+.no_select{
+    background-color: #393358 !important;
+}
+
+.selecionado{
+    background-color: #EDC18D !important;
+}

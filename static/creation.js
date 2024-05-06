@@ -124,8 +124,19 @@ questions.forEach(question => {
         edicao_habilitar(question.id);
     })
 
-    document.getElementById('required_'+question.id).addEventListener('click', function(){
-        obrigatorio(question.id);
+    document.getElementById('required_'+question.id).addEventListener('click', function(e){
+        required = document.getElementById('required_'+question.id);
+        console.log(required)
+        if(required.classList.contains("selecionado")){
+            obrigatorio(question.id);
+            required.classList.remove("selecionado");
+            
+        }
+        else{
+            obrigatorio(question.id);
+            required.classList.add("selecionado");
+        }
+        
     })
 });
 
