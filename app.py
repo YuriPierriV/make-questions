@@ -88,7 +88,6 @@ def newpage():
             
             question = Questions()
             if question.cria_question(forms):
-                
                 return redirect(f'/form/{forms.id}/edit')
             
         else:
@@ -294,7 +293,26 @@ def editar_options():
 
 
         
+@app.route('/obrigatorio', methods=['POST'])
+def obrigatorio():
+    if request.method == 'POST':
+        question_id = request.form.get('question_id')
+        is_required = request.form.get('is_required')
+        is_required = True if is_required == '1' else False
+        
+        try:
+            mydb = db()
+            cursor = mydb.cursor()
+            if(is_required):
+                cursor.execute("UPDATE questions SET required = true WHERE id = %s", (question_id,))
+            else:
+                cursor.execute("UPDATE questions SET required = false WHERE id = %s", (question_id,))
 
+            mydb.commit()
+            mydb.close()
+            return 'Funcionou'
+        except Exception as e:
+            return str(e)  
 
 
 

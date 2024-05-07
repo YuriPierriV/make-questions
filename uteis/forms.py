@@ -56,11 +56,11 @@ class Forms:
             mydb = db()
             cursor = mydb.cursor()
 
-            cursor.execute("SELECT id,form_id, question_text, question_type, correct_id, pre_answer FROM questions WHERE form_id = %s", (self.id,))
+            cursor.execute("SELECT id,form_id, question_text, question_type, correct_id, pre_answer, required FROM questions WHERE form_id = %s", (self.id,))
             questions_tuplas = cursor.fetchall()
             questions = []
             for question_tupla in questions_tuplas:
-                question = Questions(question_tupla[0],question_tupla[1],question_tupla[2],question_tupla[3],question_tupla[4],question_tupla[5])
+                question = Questions(question_tupla[0],question_tupla[1],question_tupla[2],question_tupla[3],question_tupla[4],question_tupla[5],question_tupla[6])
                 questions.append(question)
 
             mydb.commit()
@@ -76,11 +76,11 @@ class Forms:
             mydb = db()
             cursor = mydb.cursor()
 
-            cursor.execute("SELECT id,form_id, question_text, question_type, correct_id, pre_answer FROM questions WHERE form_id = %s", (self.id,))
+            cursor.execute("SELECT id,form_id, question_text, question_type, correct_id, pre_answer,required FROM questions WHERE form_id = %s", (self.id,))
             questions_tuplas = cursor.fetchall()
             questions = []
             for question_tupla in questions_tuplas:
-                question = dict(zip(['id', 'form_id', 'question_text', 'question_type', 'correct_id', 'pre_answer'], question_tupla))
+                question = dict(zip(['id', 'form_id', 'question_text', 'question_type', 'correct_id', 'pre_answer','required'], question_tupla))
 
                 questions.append(question)
 

@@ -3,7 +3,7 @@ from flask import session,flash
 
 
 class Questions:
-    def __init__(self,id=None,form_id=None,text='Pergunta sem título',type='text',correct = None,pre_answer='Resposta'):
+    def __init__(self,id=None,form_id=None,text='Pergunta sem título',type='text',correct = None,pre_answer='Resposta',required=0):
         self.id = id
         self.form_id = form_id
         self.text = text
@@ -11,6 +11,7 @@ class Questions:
         self.correct = None
         self.pre_answer = pre_answer
         self.options = []
+        self.required = required
 
     def cria_question(self,forms):
         try:
@@ -18,8 +19,8 @@ class Questions:
             mydb = db()
             cursor = mydb.cursor()
 
-            cursor.execute("INSERT INTO questions (form_id, question_text, question_type, correct_id,pre_answer) VALUES (%s,%s, %s, %s,%s)",
-                           (forms.id,self.text, self.type, None,self.pre_answer))
+            cursor.execute("INSERT INTO questions (form_id, question_text, question_type, correct_id,pre_answer,required) VALUES (%s,%s, %s, %s,%s,%s)",
+                           (forms.id,self.text, self.type, None,self.pre_answer,self.required))
             mydb.commit()
             mydb.close()
             return True
@@ -32,12 +33,12 @@ class Questions:
             mydb = db()
             cursor = mydb.cursor()
 
-            cursor.execute("SELECT id, question_text, question_type, correct_id ,pre_answer FROM questions WHERE form_id = %s", (form_id,))
+            cursor.execute("SELECT id, question_text, question_type, correct_id ,pre_answer,required FROM questions WHERE form_id = %s", (form_id,))
             questions_tuplas = cursor.fetchall()
 
             questions = []
             for question_tupla in questions_tuplas:
-                question = dict(zip(['id', 'question_text', 'question_type', 'correct_id','pre_answer'], question_tupla))
+                question = dict(zip(['id', 'question_text', 'question_type', 'correct_id','pre_answer','required'], question_tupla))
                 questions.append(question)
 
 
@@ -53,7 +54,7 @@ class Questions:
             mydb = db()
             cursor = mydb.cursor()
 
-            cursor.execute("SELECT id, question_text, question_type, correct_id ,pre_answer FROM questions WHERE form_id = %s", (id_formulario,))
+            cursor.execute("SELECT id, question_text, question_type, correct_id ,pre_answer,required FROM questions WHERE form_id = %s", (id_formulario,))
             questions_tuplas = cursor.fetchall()
 
             if questions_tuplas:
@@ -62,6 +63,7 @@ class Questions:
                 self.type = questions_tuplas[2]
                 self.correct = questions_tuplas[3]
                 self.pre_answer = questions_tuplas[4]
+                self.required = questions_tuplas[5]
                 self.form_id = id_formulario
 
 

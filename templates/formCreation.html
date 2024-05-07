@@ -19,6 +19,14 @@
         <title>Criação Formulário</title>
     </head>
 <body>
+    <div class="overlay" id="overlay"></div>
+    <div class="card menu-suspenso " id="loginDropdown">
+                
+        <div class="container-login p-4" id="loginBox">
+            <a id="closeButton" class="botao-x" "><i id="xButton" class="bi bi-x-lg"></i></a>
+            
+        </div>
+    </div>
     <header class="nav-color">
         <div class="container ">
             <nav class="nav d-flex justify-content-between p-3">
@@ -29,16 +37,10 @@
                     <li class="nav-item">
                         <input class="inputTitulo input-clean text-gray" type="text" id="nameInput" value="{{ form.nome }}" style="font-size: 25px; width: 100%;" required>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-gray" href="#"><i class="bi bi-star" style="font-size: 18px;"></i></a>
-                    </li>
                 </ul>
                 <ul class="nav justify-content-end align-items-center ">
                     <li class="nav-item">
-                        <a class="nav-link text-gray" href="#"><i class="bi bi-palette"></i></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-gray" href="#"><i class="bi bi-eye"></i></a>
+                        <i class="bi bi-link-45deg text-gray link_group" id="link_click"></i>
                     </li>
                     <li class="nav-item pe-5">
                         <a class="nav-link text-gray" href="#"><i class="bi bi-gear"></i></a>
@@ -63,10 +65,15 @@
                 <div class="col-md-7">
                     {% for question in questions %}
                     <div class="card mb-4" id="questions">
+                        
                         <div class="card-header card-controle p-4 " id="question_controle_{{question.id}}">
+                            {% if question.required == True %}
+                                <div class="d-flex justify-content-end mt-0 pt-0"><i class="bi bi-asterisk" style="font-size: 5px;color: #EDC18D;"></i></div>
+                            {% endif %}
                             <div class="mb-3">
                                 <textarea rows="1" class="inputTextquestion w-100 input-clean text-gray {{question.type}}" type="text" id="question_text_{{question.id}}" required>{{ question.text }}</textarea>
                             </div>
+                            
                             {% if question.type == 'text' %}
                                 <div class="question_text">
                                     <div class="mb-3">
@@ -98,19 +105,19 @@
                             <div class="container question-edit ps-0">
                                 <div class="row">
                                     <div class="col">
-                                        <select class="form-select question_type" id="question_type_{{question.id}}" aria-label="Default select example">
+                                        <select class="form-select question_type options" id="question_type_{{question.id}}" aria-label="Default select example">
                                             <option class="option-menu question_type_option" id="question_type_{{question.id}}_text" value="texto">Texto</option>
                                             <option class="option-menu question_type_option" id="question_type_{{question.id}}_multi" value="mult_escolha">Múltipla Escolha</option>
                                         </select>
                                     </div>
                                     <div class="col">
-                                        <button class="btn btn-outline-dark">
+                                        <button class="btn btn-outline-dark options">
                                             <i class="bi bi-plus-lg"></i>
                                         </button>
-                                        <button class="btn btn-outline-dark ms-3" onclick="deletarQuestao({{question.id}})">
+                                        <button class="btn btn-outline-dark ms-3 options" onclick="deletarQuestao({{question.id}})">
                                             <i class="bi bi-trash"></i>
                                         </button>
-                                        <button class="btn btn-outline-dark ms-3 no_select" id="required_{{question.id}}">
+                                        <button class="btn btn-outline-dark ms-3 options" id="required_{{question.id}}">
                                             <i class="bi bi-file-earmark-lock2"> Obrigatório</i>
                                         </button>
                                     </div>
@@ -137,6 +144,7 @@
                                 <div class="col-md-2  mt-2 d-flex justify-content-center ">
                                     <div class="card card-header p-3 text-center contador d-flex justify-content-center align-items-center" id="card_lateral_{{question.id}}">
                                         <p>{{ count.value }}</p>
+                        
                                     </div>
                                 </div>
                                 {% set count.value = count.value + 1 %}
@@ -150,7 +158,6 @@
         </div>
         
     </main>
-    
 
     <!-- Entire bundle -->
     <script>

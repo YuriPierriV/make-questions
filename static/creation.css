@@ -236,10 +236,54 @@ form {
     box-sizing: border-box;
 }
 
-.no_select{
+.options{
     background-color: #393358 !important;
+    
 }
 
 .selecionado{
     background-color: #EDC18D !important;
+    color: #393358;
+}
+
+.selecionado:hover{
+    background-color: #EDC18D !important;
+    color: #393358;
+}
+
+.menu-suspenso {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate( -50%, -50%);
+    padding: 25px;
+    border: 0;
+    border-radius: 20px;
+    border-color: #EDC18D;
+    border-width: 1px;
+    border-style: solid;
+    box-shadow: 0px 0px 15px #EDC18D;
+    background-color: #393358;
+    z-index: 1;
+}
+
+.overlay{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #48416cc9;
+    z-index: 1;
+}
+
+.botao-x {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #EDC18D;
 }
