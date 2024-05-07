@@ -243,12 +243,12 @@ form {
 
 .selecionado{
     background-color: #EDC18D !important;
-    color: #393358;
+    color: #393358 !important;
 }
 
 .selecionado:hover{
     background-color: #EDC18D !important;
-    color: #393358;
+    color: #393358 !important;
 }
 
 .menu-suspenso {
@@ -286,4 +286,32 @@ form {
     cursor: pointer;
     font-size: 20px;
     color: #EDC18D;
+}
+
+.link_group{
+    font-size: 20px;
+}
+
+.nav-link:hover{
+    cursor: pointer;
+}
+
+.title_menu{
+    font-size: 1.5rem;
+    color: #CCC9DC;
+}
+
+.share_form{
+    font-size: 22px;
+    width: 1vh/3;
+    
+}
+
+
+.menu_selecionado{
+    display: block;
+}
+
+.menu_off{
+    display: none;
 }

@@ -22,8 +22,55 @@
     <div class="overlay" id="overlay"></div>
     <div class="card menu-suspenso " id="loginDropdown">
                 
-        <div class="container-login p-4" id="loginBox">
+        <div class="container-login p-2" id="loginBox">
             <a id="closeButton" class="botao-x" "><i id="xButton" class="bi bi-x-lg"></i></a>
+            <div class="d-flex justify-content-center pt-2">
+                <span class="title_menu pt-0 ">Forma de compartilhamento:</span>
+            </div>
+            
+            <div class="row pt-3 d-flex justify-content-center">
+                <div class="col d-flex justify-content-center">
+                    <button class="btn btn-outline-dark options invite_link" id="invite_link">
+                        <i class="bi bi-link share_form"></i>
+                    </button>
+                </div>
+                <div class="col d-flex justify-content-center">
+                    <button class="btn btn-outline-dark options invite_email" id="invite_email">
+                        <i class="bi bi-envelope share_form"></i>
+                    </button>
+                </div>
+                <div class="col d-flex justify-content-center">
+                    <button class="btn btn-outline-dark options invite_perfil" id="invite_perfil">
+                        <i class="bi bi-people share_form"></i>
+                    </button>
+                </div>
+                <div class="link menu_off pt-1 pb-2" id="menu_link">
+                    <hr class="w-100 me-auto ms-auto mt-4 mb-1" style="color: #EDC18D;">
+                    <div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <span class="title_menu">Link:</span>
+                            </div>
+                            <div class="col-md-8">
+                                
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-outline-dark">
+                            Copiar
+                        </button>
+                    </div>
+                    
+                </div>
+                <div class="email menu_off pt-1 pb-2" id="menu_email">
+                    <hr class="w-100 me-auto ms-auto mt-4 mb-1" style="color: #EDC18D;">
+                    <h1>teste2</h1>
+                </div>
+                <div class="perfil menu_off pt-1 pb-2" id="menu_perfil">
+                    <hr class="w-100 me-auto ms-auto mt-4 mb-1" style="color: #EDC18D;">
+                    <h1>teste3</h1>
+                </div>
+            </div>
             
         </div>
     </div>
@@ -40,10 +87,10 @@
                 </ul>
                 <ul class="nav justify-content-end align-items-center ">
                     <li class="nav-item">
-                        <i class="bi bi-link-45deg text-gray link_group" id="link_click"></i>
+                        <a class="text-gray nav-link link_group p-0 m-0" id="link_click"><i class="bi bi-link-45deg link_group" style="font-size: 28px;"></i></a>
                     </li>
                     <li class="nav-item pe-5">
-                        <a class="nav-link text-gray" href="#"><i class="bi bi-gear"></i></a>
+                        <a class="nav-link text-gray" href="#"><i style="font-size: 22px;" class="bi bi-gear"></i></a>
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link text-gray" href="#">{{usuario.nome}} <img src="/static/img/user_noimage.jpg" alt="" class="img-fluid rounded-circle img-perfil " height="25px" width="25px"></a>
@@ -68,7 +115,7 @@
                         
                         <div class="card-header card-controle p-4 " id="question_controle_{{question.id}}">
                             {% if question.required == True %}
-                                <div class="d-flex justify-content-end mt-0 pt-0"><i class="bi bi-asterisk" style="font-size: 5px;color: #EDC18D;"></i></div>
+                                <div class="d-flex justify-content-end mt-0 pt-0"><i class="bi bi-asterisk" style="font-size: 8px;color: #EDC18D;"></i></div>
                             {% endif %}
                             <div class="mb-3">
                                 <textarea rows="1" class="inputTextquestion w-100 input-clean text-gray {{question.type}}" type="text" id="question_text_{{question.id}}" required>{{ question.text }}</textarea>

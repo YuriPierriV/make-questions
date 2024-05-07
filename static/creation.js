@@ -261,11 +261,9 @@ document.addEventListener("DOMContentLoaded", function () {
     questions.forEach(question => {
         if (question.question_type == 'text') {
             document.getElementById('question_type_' + question.id).value = 'texto';
-            console.log(question.id + 'texto');
         }
         if (question.question_type == 'multimult_escolha') {
             document.getElementById('question_type_' + question.id).value = 'mult_escolha';
-            console.log(question.id + 'multi');
         }
         required = document.getElementById('required_' + question.id);
         if (question.required == '0') {
@@ -277,6 +275,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     })
 });
+
+
 
 
 var loginDropdown = document.getElementById("loginDropdown");
@@ -305,3 +305,27 @@ xButton.addEventListener("click", function (e) {
     overlay.style.display = "none";
     document.body.style.overflow = "";
 });
+
+
+var link = document.getElementById("invite_link")
+var email = document.getElementById("invite_email")
+var perfil = document.getElementById("invite_perfil")
+
+var options = [link,email,perfil]
+
+options.forEach(option=>{
+    option.addEventListener('click', function(e){
+        var menu = document.getElementById('menu_'+option.id.split('_')[1])
+        menu.classList.remove('menu_off')
+        menu.classList.add('menu_selecionado')
+        option.classList.add("selecionado")
+        options.forEach(option_no=>{
+            if(option_no.id != option.id){
+                var remove_visi = document.getElementById('menu_'+option_no.id.split('_')[1])
+                option_no.classList.remove("selecionado")
+                remove_visi.classList.remove('menu_selecionado')
+                remove_visi.classList.add('menu_off')
+            }
+        })
+    })
+})
