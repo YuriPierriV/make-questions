@@ -1,5 +1,6 @@
 body{
     background-color: #393358;
+    color: #CCC9DC;
 }
 
 .nav-color{
@@ -314,4 +315,19 @@ form {
 
 .menu_off{
     display: none;
+}
+
+.dourado:checked{
+    background-color: #EDC18D !important;
+    border-color: #EDC18D !important;
+}
+
+
+.dourado{
+    background-color: #393358 !important;
+    border: var(--bs-border-width) solid #EDC18D !important;
+}
+
+input[type='checkbox'] {
+    box-shadow: none !important;
 }

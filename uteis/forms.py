@@ -1,7 +1,7 @@
 from uteis.mydb import db
 from flask import session,flash
 from uteis.questions import Questions
-
+import secrets
 
 class Forms:
     
@@ -11,8 +11,10 @@ class Forms:
         self.nome = 'Formulário sem Nome'
         self.titulo = 'Formulário sem Titulo'
         self.descricao = 'Descrição'
+        self.link = None
         
         
+    
     def cria_form(self):
         try:
             mydb = db()
@@ -21,12 +23,17 @@ class Forms:
             cursor.execute("INSERT INTO forms (usuarios_id, nome, titulo, descricao) VALUES (%s,%s, %s, %s)",
                             (self.user_id,self.nome, self.titulo, self.descricao))
             self.id = cursor.lastrowid
+            token = secrets.token_urlsafe(16) 
+            self.link = token
+            cursor.execute("INSERT INTO link (token, forms_id,permission) VALUES (%s,%s,%s)",
+                            (token,self.id,'default'))
+            
             mydb.commit()
             mydb.close()
 
             return True
         except Exception as e:
-            flash(str(e))
+            print(str(e))
             return False
 
 
@@ -47,9 +54,48 @@ class Forms:
                 self.descricao = form_tupla[4]
                 return True
 
+            mydb.commit()
+            mydb.close()
         except Exception as e:
             print(e)
             return False
+
+
+    def getLink(self):
+        try:
+            mydb = db()
+            meu_cursor = mydb.cursor()
+
+            meu_cursor.execute("SELECT token FROM link WHERE forms_id = %s", (self.id,))
+            form_tupla = meu_cursor.fetchone()
+
+            
+            if form_tupla:
+                self.link = form_tupla[0]
+                return True
+
+            mydb.commit()
+            mydb.close()
+        except Exception as e:
+            print(e)
+            return False
+
+    def byLink(self,token):
+        try:
+            mydb = db()
+            meu_cursor = mydb.cursor()
+
+            meu_cursor.execute("SELECT forms_id,permission FROM link WHERE token = %s", (token,))
+            form_tupla = meu_cursor.fetchone()
+
+            
+            if form_tupla:
+                self.getForms(form_tupla[0])
+                permission = form_tupla[1]
+                return True, permission
+
+        except Exception as e:
+            print(e)
 
     def get_questions(self):
         try:

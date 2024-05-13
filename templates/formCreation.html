@@ -23,7 +23,7 @@
     <div class="card menu-suspenso " id="loginDropdown">
                 
         <div class="container-login p-2" id="loginBox">
-            <a id="closeButton" class="botao-x" "><i id="xButton" class="bi bi-x-lg"></i></a>
+            <a id="closeButton" class="botao-x p-1" "><i id="xButton" class="bi bi-x-lg"></i></a>
             <div class="d-flex justify-content-center pt-2">
                 <span class="title_menu pt-0 ">Forma de compartilhamento:</span>
             </div>
@@ -46,19 +46,39 @@
                 </div>
                 <div class="link menu_off pt-1 pb-2" id="menu_link">
                     <hr class="w-100 me-auto ms-auto mt-4 mb-1" style="color: #EDC18D;">
-                    <div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <span class="title_menu">Link:</span>
+                    <div class="p-0 m-0">
+                        <div class="row pt-2 text-gray">
+                            <div class="mb-1 row">
+                                <label for="staticEmail" class="col-sm-1 col-form-label">Link:</label>
+                                <div class="col-sm-11">
+                                    <input type="text" readonly class="form-control-plaintext text-gray" id="staticEmail" value="/form/link/{{form.link}}">
+                                </div>
                             </div>
-                            <div class="col-md-8">
-                                
+                            <div class="form-check form-switch ms-2 pt-1">
+                                <input class="form-check-input dourado" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label text-gray" for="flexSwitchCheckDefault">Login necessário</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="d-flex justify-content-start">
+                                    <button class="btn btn-outline-dark text-gray mt-2 me-2" onclick=copy("/localhost:5000/form/link/{{form.link}}")>
+                                        Copiar
+                                    </button>
+                                    <a href="/form/link/{{form.link}}" class="btn btn-outline-dark text-gray mt-2">
+                                        Abrir
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="d-flex justify-content-end">
+                                    <button class="btn btn-outline-dark text-gray mt-2" onclick="new_link({{form.id}})">
+                                        Gerar novo link
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         
-                        <button class="btn btn-outline-dark">
-                            Copiar
-                        </button>
                     </div>
                     
                 </div>

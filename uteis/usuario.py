@@ -11,6 +11,7 @@ class Usuario:
         self.celular = celular
         self.senha_hash = senha_hash
         self.id = None
+        self.quantidade_forms = None
         
         
 
@@ -85,7 +86,14 @@ class Usuario:
                 self.celular = usuario_tupla[4]
                 self.senha_hash = usuario_tupla[5]
                 self.id = usuario_tupla[0]
+
+                cursor.execute("SELECT COUNT(*) FROM forms WHERE usuarios_id = %s", (self.id,))
+                self.quantidade_forms = cursor.fetchone()[0]
+
                 return True
+
+            
+
             else:
                 flash("Usuário não encontrado.")
                 return False

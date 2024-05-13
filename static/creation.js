@@ -89,6 +89,23 @@ function obrigatorio(question_id, required) {
     xhr.send(data);
 }
 
+function new_link(form_id) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/new_link', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            window.location.reload(); // Recar  rega a página
+        }
+    };
+    xhr.send('form_id=' + form_id);
+}
+
+function copy(link) {
+    navigator.clipboard.writeText(link);
+  } 
+
 
 document.getElementById('nameInput').addEventListener('blur', function () {
     enviarAtualizacao_form(this, 'nome');
@@ -258,6 +275,25 @@ spans.forEach(function (span) {
 
 
 document.addEventListener("DOMContentLoaded", function () {
+    const visible = localStorage.getItem("visible");
+    const menu = localStorage.getItem("menu");
+
+    if (visible === "true") {
+        
+        loginDropdown.style.display = "block";
+        overlay.style.display = "block";
+        document.body.style.overflow = "hidden";
+        if(menu === "link"){
+            var link = document.getElementById('menu_link')
+            link.classList.remove('menu_off')
+            link.classList.add('menu_selecionado')
+        }
+    } else {
+        loginDropdown.style.display = "none";
+        overlay.style.display = "none";
+        document.body.style.overflow = "";
+    }
+
     questions.forEach(question => {
         if (question.question_type == 'text') {
             document.getElementById('question_type_' + question.id).value = 'texto';
@@ -288,13 +324,14 @@ function abrirMenuLink(){
         loginDropdown.style.display = "block";
         overlay.style.display = "block";
         document.body.style.overflow = "hidden";
+        localStorage.setItem("visible", "true");
 
     
     } else {
         loginDropdown.style.display = "none";
         overlay.style.display = "none";
         document.body.style.overflow = "";
-
+        localStorage.setItem("visible", "false");
         
     }
 }
@@ -304,6 +341,7 @@ xButton.addEventListener("click", function (e) {
     loginDropdown.style.display = "none";
     overlay.style.display = "none";
     document.body.style.overflow = "";
+    localStorage.setItem("visible", "false");
 });
 
 
@@ -319,6 +357,7 @@ options.forEach(option=>{
         menu.classList.remove('menu_off')
         menu.classList.add('menu_selecionado')
         option.classList.add("selecionado")
+        localStorage.setItem("menu", option.id.split('_')[1]);
         options.forEach(option_no=>{
             if(option_no.id != option.id){
                 var remove_visi = document.getElementById('menu_'+option_no.id.split('_')[1])

@@ -6,6 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from uteis.usuario import Usuario
 from uteis.forms import Forms
 from uteis.questions import Questions
+import secrets
 
 app = Flask(__name__)
 app.secret_key = 'toor'
@@ -17,9 +18,15 @@ def index():
     if "user_id" in session:
         usuario = Usuario()
         usuario.getUsuario(session["user_id"])
-        if usuario:
-            forms = usuario.formularios()
-            return render_template("painel.html", usuario=usuario, forms=forms)
+        try:
+            if "token" in session:
+                token = session["token"]
+                del session["token"]
+            return redirect(f'/form/link/{session["token"]}')
+        except Exception:
+            if usuario:
+                forms = usuario.formularios()
+                return render_template("painel.html", usuario=usuario, forms=forms)
         else:
                 flash("Usuário não encontrado.")
                 return render_template("index.html")
@@ -82,7 +89,6 @@ def newpage():
     
     if request.method == "POST":
         # Obtenha os dados do formulário
-        
         forms = Forms()
         if forms.cria_form():
             
@@ -98,18 +104,25 @@ def newpage():
 @app.route("/form/<int:id_forms>/edit")
 def exibir_formulario(id_forms):
     usuario = Usuario()
-    usuario.getUsuario(session["user_id"])
-    form = Forms()
-    form.getForms(id_forms)
-    questions_json = form.get_questions_json()
-    questions = form.get_questions()
-    for question in questions:
-        question.get_options()
+    try:
+        usuario.getUsuario(session["user_id"])
+        form = Forms()
+        form.getForms(id_forms)
+        form.getLink()
+        if form.usuarios_id != session["user_id"]:
+            return redirect(url_for("index"))
+        questions_json = form.get_questions_json()
+        questions = form.get_questions()
+        for question in questions:
+            question.get_options()
 
-    if form is None or usuario is None:
-        return "Formulário ou usuário não encontrados."
+        if form is None or usuario is None:
+            return "Formulário ou usuário não encontrados."
 
-    return render_template("formCreation.html", usuario=usuario, form=form, form_id=id_forms, questions_json=questions_json, questions=questions)
+        return render_template("formCreation.html", usuario=usuario, form=form, form_id=id_forms, questions_json=questions_json, questions=questions)
+    except Exception as e:
+        return redirect(url_for("index"))
+    
 
 
 @app.route("/form/<int:id_forms>/edit/att_form", methods=["PUT"])
@@ -194,19 +207,20 @@ def excluir_formulario(id_forms):
         mydb = db()
         cursor = mydb.cursor()
 
-        # Recupera todos os IDs das perguntas associadas ao formulário
+        
         cursor.execute("SELECT id FROM questions WHERE form_id = %s", (id_forms,))
         question_ids = cursor.fetchall()
 
-        # Exclui todas as opções associadas a cada pergunta
+        cursor.execute("DELETE FROM `link` WHERE `forms_id` = %s", (id_forms,))
+
         for question_id in question_ids:
             cursor.execute("DELETE FROM `options` WHERE `question_id` = %s", (question_id[0],))
 
-        # Exclui todas as perguntas associadas ao formulário
         cursor.execute("DELETE FROM `questions` WHERE `form_id` = %s", (id_forms,))
 
-        # Exclui o próprio formulário
         cursor.execute("DELETE FROM `forms` WHERE `id` = %s", (id_forms,))
+        
+
 
         mydb.commit()
         mydb.close()
@@ -310,14 +324,61 @@ def obrigatorio():
 
             mydb.commit()
             mydb.close()
-            return 'Funcionou'
+            return 'changed'
         except Exception as e:
             return str(e)  
 
 
+@app.route('/new_link', methods=['POST'])
+def new_link():
+    if request.method == 'POST':
+        form_id = request.form.get('form_id')
+        try:
+            mydb = db()
+            cursor = mydb.cursor()
+            
+            token = secrets.token_urlsafe(16) 
+            cursor.execute("DELETE FROM `link` WHERE `forms_id` = %s", (form_id,))
 
+            cursor.execute("INSERT INTO link (token, forms_id,permission) VALUES (%s,%s,%s)",
+                            (token,form_id,'default'))
+
+            mydb.commit()
+            mydb.close()
+            return redirect(f'/form/{forms.id}/edit')
+        except Exception as e:
+            print(e)
+            return str(e)  
 
         
+
+@app.route("/form/link/<token>")
+def link(token):
+
+    form = Forms()
+    verification,permission = form.byLink(token)
+    if verification:
+        if "user_id" in session:
+            usuario = Usuario()
+            usuario.getUsuario(session["user_id"])
+            
+            if usuario:
+                questions_json = form.get_questions_json()
+                questions = form.get_questions()
+                for question in questions:
+                    question.correct_id = "Não tente fazer isso, s2"
+                    question.get_options()
+                return render_template("form.html",usuario=usuario, form=form, questions_json=questions_json, questions=questions)
+            else:
+                flash("Usuário não encontrado.")
+                session["token"] = token
+                return redirect(url_for('cadastro'))
+        else:
+            session["token"] = token
+            return redirect(url_for('cadastro'))
+    else:
+        return redirect(url_for('index'))
+
 
 
 
