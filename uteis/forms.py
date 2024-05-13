@@ -2,6 +2,7 @@ from uteis.mydb import db
 from flask import session,flash
 from uteis.questions import Questions
 import secrets
+from datetime import datetime, timedelta
 
 class Forms:
     
@@ -12,6 +13,7 @@ class Forms:
         self.titulo = 'Formulário sem Titulo'
         self.descricao = 'Descrição'
         self.link = None
+        self.created = None
         
         
     
@@ -52,6 +54,10 @@ class Forms:
                 self.nome = form_tupla[2]
                 self.titulo = form_tupla[3]
                 self.descricao = form_tupla[4]
+                data_original = form_tupla[5]
+                data_ajustada = data_original - timedelta(hours=3)
+                data_formatada = data_ajustada.strftime("%d/%m/%y %H:%M")
+                self.created = data_formatada
                 return True
 
             mydb.commit()

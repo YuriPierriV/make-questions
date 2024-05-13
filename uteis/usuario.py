@@ -1,6 +1,7 @@
 from uteis.mydb import db
 from flask import session,flash
 from werkzeug.security import generate_password_hash, check_password_hash
+from uteis.forms import Forms
 
 class Usuario:
 
@@ -110,10 +111,15 @@ class Usuario:
 
         cursor.execute("SELECT id, usuarios_id, nome, titulo, descricao, created_at FROM forms WHERE usuarios_id = %s", (self.id,))
         forms_tuplas = cursor.fetchall()
+        
+        
 
         formularios = []
         for form_tupla in forms_tuplas:
+            form = Forms()
             formulario = dict(zip(['id', 'usuarios_id','nome', 'titulo', 'descricao', 'created_at'], form_tupla))
-            formularios.append(formulario)
+            form.getForms(formulario['id'])
+            form.getLink()
+            formularios.append(form)
 
         return formularios
