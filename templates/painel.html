@@ -153,11 +153,11 @@
                         
                         <div class="card-body form_card p-1 pt-1 m-0 align-items-center d-flex justify-content-center w-100">
                             <div class="row w-100 d-flex justify-content-center">
-                                <div class="col-md-8">
-                                    Criado: {{form.created}}
+                                <div class="col-md-6">
+                                    Criado:{{form.created}}
                                 </div>
-                                <div class="col-md-4">
-                                    Dono: {{usuario.nome}}
+                                <div class="col-md-6 text-end">
+                                    Dono:{{usuario.nome}}
                                 </div>
                             </div>
                         </div>
@@ -194,11 +194,11 @@
                         
                         <div class="card-body form_card p-1 pt-1 m-0 align-items-center d-flex justify-content-center w-100">
                             <div class="row w-100 d-flex justify-content-center">
-                                <div class="col-md-8">
-                                    Criado: {{form.created}}
+                                <div class="col-md-6">
+                                    Criado:{{form.created}}
                                 </div>
-                                <div class="col-md-4">
-                                    Dono: {{form.dono}}
+                                <div class="col-md-6 text-end">
+                                    Dono:{{form.dono}}
                                 </div>
                             </div>
                         </div>
@@ -217,7 +217,7 @@
                         </div>
                     </div>
                 
-                    {% for form in forms %}
+                    {% for form in finalizados %}
                     <div class="card card-resume mb-2 color-gray">
                         <div class="card_form p-3 pb-1">
                             <p class="text-start">{{form.nome}}</p>
@@ -257,7 +257,7 @@
                         </div>
                     </div>
                 
-                    {% for form in forms %}
+                    {% for form in corrigidos %}
                     <div class="card card-resume mb-2 color-gray">
                         <div class="card_form p-3 pb-1">
                             <p class="text-start">{{form.nome}}</p>
