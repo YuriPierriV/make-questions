@@ -1,7 +1,7 @@
 from uteis.mydb import db
 from flask import session,flash
 from werkzeug.security import generate_password_hash, check_password_hash
-from uteis.forms import Forms
+
 
 class Usuario:
 
@@ -13,10 +13,20 @@ class Usuario:
         self.senha_hash = senha_hash
         self.id = None
         self.quantidade_forms = None
+        self.image = None
+        self.participando = None
+        self.editor = None
         
         
 
-        
+    def check_permission(self,form_id):
+        for participando in self.participando:
+            if participando == form_id:
+                return True
+        for editor in self.editor:
+            if editor == form_id:
+                return True
+        return False
 
     def cadastra(self):
         try:
@@ -48,6 +58,8 @@ class Usuario:
         except Exception as e:
             flash(str(e))
             return False  # Retorna False se houver algum erro durante o cadastro
+        finally:
+            mydb.close()
 
     def login(self,email,senha):
         try:
@@ -71,29 +83,30 @@ class Usuario:
             flash(str(e))
             return False
 
-    def getUsuario(self,id_sesson):
+    def getUsuario(self, id_session):
         try:
             mydb = db()
             cursor = mydb.cursor()
 
-            cursor.execute("SELECT id, nome, sobrenome, email, celular, senha_hash FROM usuarios WHERE id = %s", (id_sesson,))
+            cursor.execute("SELECT id, nome, sobrenome, email, celular, senha_hash FROM usuarios WHERE id = %s", (id_session,))
             usuario_tupla = cursor.fetchone()
-            
 
             if usuario_tupla:
-                self.nome = usuario_tupla[1]
-                self.sobrenome = usuario_tupla[2]
-                self.email = usuario_tupla[3]
-                self.celular = usuario_tupla[4]
-                self.senha_hash = usuario_tupla[5]
-                self.id = usuario_tupla[0]
+                self.id, self.nome, self.sobrenome, self.email, self.celular, self.senha_hash = usuario_tupla
 
                 cursor.execute("SELECT COUNT(*) FROM forms WHERE usuarios_id = %s", (self.id,))
                 self.quantidade_forms = cursor.fetchone()[0]
 
-                return True
+                cursor.execute("""SELECT images.image_data FROM images JOIN users_images ON images.id = users_images.image_id WHERE users_images.usuario_id = %s""", (self.id,))
+                image_data = cursor.fetchone()
+                self.image = image_data[0] if image_data else None
 
-            
+                cursor.execute("SELECT forms_id FROM permission WHERE usuarios_id = %s AND permission = 1;", (self.id,))
+                self.participando = [row[0] for row in cursor.fetchall()]
+
+                cursor.execute("SELECT forms_id FROM permission WHERE usuarios_id = %s AND permission = 2;", (self.id,))
+                self.editor = [row[0] for row in cursor.fetchall()]
+                return True
 
             else:
                 flash("Usuário não encontrado.")
@@ -106,6 +119,7 @@ class Usuario:
             mydb.close()
 
     def formularios(self):
+        from uteis.forms import Forms
         mydb = db()
         cursor = mydb.cursor()
 
@@ -123,3 +137,22 @@ class Usuario:
             formularios.append(form)
 
         return formularios
+
+    def associate_image(self,image_id):
+        mydb = db()
+        cursor = mydb.cursor()
+
+        try:
+            cursor.execute("""
+                INSERT INTO users_images (usuario_id, image_id)
+                VALUES (%s, %s)
+            """, (self.id, image_id))
+            image_id = cursor.lastrowid
+            self.image = image_id
+            mydb.commit()
+            return True
+        except Exception as err:
+            return print(err),False
+        finally:
+            cursor.close()
+            conn.close()

@@ -331,3 +331,10 @@ form {
 input[type='checkbox'] {
     box-shadow: none !important;
 }
+
+.sticky {
+    position: -webkit-sticky; /* Para suporte ao Safari */
+    position: sticky;
+    top: 100px; /* Distância do topo do viewport */
+    z-index: 1000; /* Garante que o elemento fique sobre os outros conteúdos durante o scroll */
+}

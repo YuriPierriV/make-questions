@@ -147,6 +147,18 @@ questions.forEach(question => {
         edicao_habilitar(question.id);
     })
 
+
+    document.getElementById('button_image_'+question.id).addEventListener('click', function() {
+        document.getElementById('image_'+question.id).click();
+    });
+
+    document.getElementById('image_'+question.id).addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            uploadFile(file, question.id);
+        }
+    });
+
     document.getElementById('required_' + question.id).addEventListener('click', function (e) {
         required = document.getElementById('required_' + question.id);
         if (required.classList.contains("selecionado")) {
@@ -294,6 +306,19 @@ document.addEventListener("DOMContentLoaded", function () {
         document.body.style.overflow = "";
     }
 
+    const textareas = document.querySelectorAll('.inputTextquestion');
+
+    function autoResize() {
+        this.style.height = 'auto';
+        this.style.height = this.scrollHeight + 'px';
+    }
+
+    
+    textareas.forEach(textarea => {
+        autoResize.call(textarea);  
+        textarea.addEventListener('input', autoResize);  
+    });
+
     questions.forEach(question => {
         if (question.question_type == 'text') {
             document.getElementById('question_type_' + question.id).value = 'texto';
@@ -368,3 +393,26 @@ options.forEach(option=>{
         })
     })
 })
+
+function uploadFile(file, questionId) {
+    var formData = new FormData();
+    formData.append('image', file); // 'image' é a chave esperada no lado do servidor
+
+    fetch('/upload-image/' + questionId, {
+        method: 'POST',
+        body: formData
+    }).then(response => {
+        if (response.ok) {
+            window.location.reload();
+            return response.json(); // Processa a resposta JSON se o status for OK
+        }
+        throw new Error('Falha ao enviar arquivo! Status: ' + response.status);
+    }).then(data => {
+        console.log('Sucesso:', data);
+        var imgElement = document.querySelector(`img[src="/get-image/{{question.image[0]}}"]`); // Você precisa ajustar este seletor para apontar para o elemento de imagem correto.
+        imgElement.src = `/get-image/${data.imageId}`; // Supondo que 'data.imageId' contém o ID da nova imagem
+    }).catch(error => {
+        console.error('Erro durante o envio do arquivo:', error);
+    });
+}
+

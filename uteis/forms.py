@@ -8,22 +8,29 @@ class Forms:
     
     def __init__(self):
         self.id = None
-        self.user_id = session.get('user_id')
+        self.user_id = None
         self.nome = 'Formulário sem Nome'
         self.titulo = 'Formulário sem Titulo'
         self.descricao = 'Descrição'
         self.link = None
         self.created = None
+        self.dono = None
         
         
-    
+    def setDono(self,userId):
+        from uteis.usuario import Usuario
+        usuario = Usuario()
+        usuario.getUsuario(userId)
+        self.dono = usuario.nome
+        return True
+
     def cria_form(self):
         try:
             mydb = db()
             cursor = mydb.cursor()
             # Insira o novo formulário na tabela forms
             cursor.execute("INSERT INTO forms (usuarios_id, nome, titulo, descricao) VALUES (%s,%s, %s, %s)",
-                            (self.user_id,self.nome, self.titulo, self.descricao))
+                            (session["user_id"],self.nome, self.titulo, self.descricao))
             self.id = cursor.lastrowid
             token = secrets.token_urlsafe(16) 
             self.link = token
@@ -59,7 +66,7 @@ class Forms:
                 data_formatada = data_ajustada.strftime("%d/%m/%y %H:%M")
                 self.created = data_formatada
                 return True
-
+            
             mydb.commit()
             mydb.close()
         except Exception as e:

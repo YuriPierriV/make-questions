@@ -1,5 +1,6 @@
 from uteis.mydb import db
 from flask import Flask, render_template, redirect, request, flash, url_for, session, abort
+import mysql.connector
 
 
 def obter_formularios_do_usuario(id_user):
@@ -62,3 +63,38 @@ def obter_questoes_do_formulario(id_formulario):
         questions.append(question)
 
     return questions
+
+def save_image_to_db(image_data):
+    mydb = db()
+    cursor = mydb.cursor()
+    try:
+        cursor.execute("""
+            INSERT INTO images (image_data, description)
+            VALUES (%s, %s)
+            """, (image_data, 'description'))
+        image_id = cursor.lastrowid
+        mydb.commit()
+        return image_id
+    finally:
+        cursor.close()
+        mydb.close()
+
+def associate_image_question(id_question, image_id):
+    mydb = db()
+    cursor = mydb.cursor()
+    try:
+        cursor.execute("""
+            INSERT INTO question_images (question_id, image_id)
+            VALUES (%s, %s)
+        """, (id_question, image_id))
+        mydb.commit()
+        return True
+    except Exception as err:
+        print(err)
+        return False
+    finally:
+        cursor.close()
+        mydb.close()
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in {'png', 'jpg', 'jpeg', 'gif'}

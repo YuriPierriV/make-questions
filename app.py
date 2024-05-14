@@ -1,12 +1,16 @@
-from flask import Flask, render_template, redirect, request, flash, url_for, session, abort
+from flask import Flask, render_template, redirect, request, flash, url_for, session, abort, jsonify, send_file
+import io
+import traceback
 import mysql.connector
 from uteis.mydb import db
-from uteis.functions import obter_formularios_do_usuario, obter_dados_do_formulario, obter_dados_do_usuario, obter_questoes_do_formulario
+from uteis.functions import obter_formularios_do_usuario, obter_dados_do_formulario, obter_dados_do_usuario, obter_questoes_do_formulario, save_image_to_db, associate_image_question, allowed_file
 from werkzeug.security import generate_password_hash, check_password_hash
 from uteis.usuario import Usuario
 from uteis.forms import Forms
 from uteis.questions import Questions
+from uteis.answer import Answer
 import secrets
+import base64
 
 app = Flask(__name__)
 app.secret_key = 'toor'
@@ -22,11 +26,19 @@ def index():
             if "token" in session:
                 token = session["token"]
                 del session["token"]
-            return redirect(f'/form/link/{session["token"]}')
+            return redirect(f'/form/link/{token}')
         except Exception:
             if usuario:
                 forms = usuario.formularios()
-                return render_template("painel.html", usuario=usuario, forms=forms)
+                participando = []
+                for p in usuario.participando:
+                    new = Forms()
+                    new.getForms(p)
+                    new.setDono(new.usuarios_id)
+                    new.getLink()
+                    participando.append(new)
+                    
+                return render_template("painel.html", usuario=usuario, forms=forms, participando=participando)
         else:
                 flash("Usuário não encontrado.")
                 return render_template("index.html")
@@ -115,6 +127,7 @@ def exibir_formulario(id_forms):
         questions = form.get_questions()
         for question in questions:
             question.get_options()
+            question.get_image()
 
         if form is None or usuario is None:
             return "Formulário ou usuário não encontrados."
@@ -360,17 +373,28 @@ def link(token):
     if verification:
         if "user_id" in session:
             usuario = Usuario()
-            usuario.getUsuario(session["user_id"])
-            
-            if usuario:
-                questions_json = form.get_questions_json()
-                questions = form.get_questions()
-                for question in questions:
-                    question.correct_id = "Não tente fazer isso, s2"
-                    question.get_options()
-                return render_template("form.html",usuario=usuario, form=form, questions_json=questions_json, questions=questions)
+            if usuario.getUsuario(session["user_id"]):
+                if usuario.check_permission(form.id):
+                    answer = Answer()
+                    questions_json = form.get_questions_json()
+                    questions = form.get_questions()
+                    for question in questions:
+                        question.correct_id = "Não tente fazer isso, s2"
+                        question.get_options()
+                        question.get_image()
+                    return render_template("form.html",usuario=usuario, form=form, questions_json=questions_json, questions=questions)
+                else:
+                    answer = Answer()
+                    answer.blank(form.id,usuario.id,1)
+                    questions_json = form.get_questions_json()
+                    questions = form.get_questions()
+                    for question in questions:
+                        question.correct_id = "Não tente fazer isso, s2"
+                        question.get_options()
+                        question.get_image()
+                    return render_template("form.html",usuario=usuario, form=form, questions_json=questions_json, questions=questions)
             else:
-                flash("Usuário não encontrado.")
+                flash("Usuário não encontrado. Ou permissão insuficiente")
                 session["token"] = token
                 return redirect(url_for('cadastro'))
         else:
@@ -380,6 +404,44 @@ def link(token):
         return redirect(url_for('index'))
 
 
+
+@app.route('/upload-image/<int:id_question>', methods=['POST'])
+def upload_image(id_question):
+    file = request.files['image']
+    if file and allowed_file(file.filename):
+        try:
+            file_content = file.read()
+            base64_encoded = base64.b64encode(file_content).decode('utf-8')
+            image_id = save_image_to_db(base64_encoded)
+            if image_id and associate_image_question(id_question, image_id):
+                return jsonify(success=True), 200
+            else:
+                return jsonify(success=False), 500
+        except Exception as e:
+            print(traceback.format_exc())  # Isso ajudará no diagnóstico de problemas
+            return jsonify(success=False, error=str(e)), 500
+    return jsonify(success=False, error="No file or invalid file type"), 400
+
+
+@app.route('/get-image/<int:image_id>')
+def get_image(image_id):
+    conn = db()  # Certifique-se de que 'db' está corretamente definido para criar uma conexão
+    cursor = conn.cursor()
+    try:
+        cursor.execute("SELECT image_data FROM images WHERE id = %s", (image_id,))  # %s está correto para psycopg2 (PostgreSQL)
+        row = cursor.fetchone()
+        if row:
+            image_data = base64.b64decode(row[0])  # Supondo que a imagem está armazenada como BLOB
+            return send_file(
+                io.BytesIO(image_data),
+                mimetype='image/jpeg'  
+            )
+    except Exception as e:
+        return Response(f"Erro ao recuperar a imagem: {e}", status=500)
+    finally:
+        cursor.close()
+        conn.close()
+    return Response("Imagem não encontrada", status=404)
 
 
 @app.route("/logout", methods=["POST"])

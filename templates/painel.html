@@ -59,7 +59,6 @@
 
 
     <main>
-        
         <section id="painel-section" class="pt-5 text-white container" >
             <div class="row">
                 <div class="col-md-4">
@@ -81,7 +80,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="card card-numerico text-center ">
-                                <h3 class="pt-2">0</h3>
+                                <h3 class="pt-2">{{participando|length}}</h3>
                                 <hr class="w-50 me-auto ms-auto mt-2">
                                 <h4 >Participando</h3>
                             </div>
@@ -170,7 +169,7 @@
                 <div class="col-md-3">
                     <div class="row ps-1 pe-1 d-flex align-items-center justify-content-center">
                         <div class="col-md-10">
-                            <h3 class="nome-forms h-100">Particiapando</h3>
+                            <h3 class="nome-forms h-100">Participando</h3>
                         </div>
                         <div class="col-md-2 text-start d-flex justify-content-end align-items-center mb-2">
                             <a href=""><i class="bi bi-plus color-gray"></i></a>
@@ -178,7 +177,7 @@
                         </div>
                     </div>
                 
-                    {% for form in forms %}
+                    {% for form in participando %}
                     <div class="card card-resume mb-2 color-gray">
                         <div class="card_form p-3 pb-1">
                             <p class="text-start">{{form.nome}}</p>
@@ -199,7 +198,7 @@
                                     Criado: {{form.created}}
                                 </div>
                                 <div class="col-md-4">
-                                    Dono: {{usuario.nome}}
+                                    Dono: {{form.dono}}
                                 </div>
                             </div>
                         </div>
@@ -372,74 +371,6 @@
         </section>
     </main>
 
-
-
-
-
-
-
-
-    <aside class="lateral-direita text-white d-flex justify-content-center flex-column">
-            <div class="row container pt-5 d-flex align-items-center justify-content-center alto2 m-0" >
-                <div class="col-md-8">
-                    <h5 style="color: #EDC18D;">Olá, {{usuario.nome}}</h5>
-                </div>
-                <div class="col-md-4 d-flex justify-content-end">
-                    <img src="/static/img/user_noimage.jpg" alt="" class="img-fluid img-perfil rounded-circle" height="50px" width="50px">
-                </div>
-            </div>
-            <div class="container d-flex justify-content-center flex-column text-center">
-                <div class="row d-flex align-items-center justify-content-center">
-                    <div class="col-md-4 icon-right">
-                        <i class="bi bi-journal-arrow-down"></i>
-                    </div>
-                    <div class="col-md-8">
-                        <button class=" btn btn-padrao">Selecione um formulário</button>                        
-                    </div>
-                </div>
-            </div>
-
-
-
-            <hr class="w-50 me-auto ms-auto mt-5">
-
-
-
-            <div class="container d-flex justify-content-center flex-column text-center pt-5">
-                <div class="row d-flex align-items-center justify-content-center">
-                    <div class="col-md-4 icon-right">
-                        <i class="bi bi-question-circle"></i>
-                    </div>
-                    <div class="col-md-8">
-                        <button class=" btn btn-padrao">Selecione um formulário</button>                        
-                    </div>
-                </div>
-            </div>
-            <div class="container d-flex justify-content-center flex-column text-center pt-3">
-                <div class="row d-flex align-items-center justify-content-center">
-                    <div class="col-md-4 icon-right">
-                        <i class="bi bi-question-circle"></i>
-                    </div>
-                    <div class="col-md-8">
-                        <button class=" btn btn-padrao">Selecione um formulário</button>                        
-                    </div>
-                </div>
-            </div>
-            <div class="container d-flex justify-content-center flex-column text-center pt-3">
-                <div class="row d-flex align-items-center justify-content-center">
-                    <div class="col-md-4 icon-right">
-                        <i class="bi bi-question-circle"></i>
-                    </div>
-                    <div class="col-md-8">
-                        <button class=" btn btn-padrao">Selecione um formulário</button>                        
-                    </div>
-                </div>
-            </div>
-
-            <div class="container pb-5 d-flex align-items-center justify-content-center baixo2 m-0" >
-                    <button class="btn btn-padrao">Ver mais</button>
-            </div>
-    </aside>
 
 
     <script src="../static/painel.js"></script>

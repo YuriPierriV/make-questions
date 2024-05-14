@@ -46,7 +46,7 @@
         <div class="container-fluid p-5">
             <div class="row">
                 <div class="col-md-3">
-                    <div class="card card-header p-3 gap-2">
+                    <div class="card card-header p-3 gap-2 sticky">
                         <h4 class="inputTitulo  text-gray" style="font-size: 32px; width: 100%;">{{ form.titulo }}</h4>
                         <p class="inputTitulo  text-gray" style="font-size: 18px; width: 100%;">{{ form.descricao }}</p>
                     </div>
@@ -59,11 +59,15 @@
                             {% if question.required == True %}
                                 <div class="d-flex justify-content-end mt-0 pt-0"><i class="bi bi-asterisk" style="font-size: 8px;color: #EDC18D;"></i></div>
                             {% endif %}
+                            <div class="mb-3 d-flex justify-content-center">
+                                <img class="img-fluid"  src="/get-image/{{question.image[0]}}" alt="">
+                            </div>
                             <div class="mb-3">
-                                <h4 class="inputTextquestion w-100 text-gray {{question.type}}" type="text" id="question_text_{{question.id}}">{{ question.text }}</h4>
+                                <h4 class="inputTextquestion w-100 text-gray {{question.type}} mb-5" type="text" id="question_text_{{question.id}}">{{ question.text }}</h4>
                             </div>
                             
                             {% if question.type == 'text' %}
+                            
                                 <div class="question_text">
                                     <div class="mb-3">
                                         <textarea rows="1" class="inputTextanswer w-100 input-clean text-gray {{question.type}}" type="text" id="answer_text_{{question.id}}" placeholder="Sua resposta" required></textarea>
@@ -76,7 +80,7 @@
                                         <form class="border_box">
                                             {% for option in question.options %}
                                                     <label class="border_box">
-                                                        <input class="border_box geral" type="radio" name="radio" checked>
+                                                        <input class="border_box geral" type="radio" name="radio">
                                                         <span class="border_box inputOption editable" id="edit_option_{{option.id}}_question_{{question.id}}">{{option.option_text}}</span>
                                                     </label>
                                             {% endfor %}
@@ -91,7 +95,7 @@
                     
                 </div>
                 <div class="col-md-2">
-                    <div class="card card-header p-3 ">
+                    <div class="card card-header p-3 sticky">
                         <H4>Questões</H4>
                         <div class="row ">
                             {% set count = namespace(value=1) %}

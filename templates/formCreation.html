@@ -123,8 +123,8 @@
     <main>
         <div class="container-fluid p-5">
             <div class="row">
-                <div class="col-md-3">
-                    <div class="card card-header p-3 gap-2">
+                <div class="col-md-3 ">
+                    <div class="card card-header p-3 gap-2 sticky">
                         <input class="inputTitulo input-clean text-gray" type="text" id="tituloInput" value="{{ form.titulo }}" style="font-size: 32px; width: 100%;" required>
                         <input class="inputTitulo input-clean text-gray" type="text" id="descricaoInput" value="{{ form.descricao }}" style="font-size: 18px; width: 100%;" required>
                     </div>
@@ -137,8 +137,11 @@
                             {% if question.required == True %}
                                 <div class="d-flex justify-content-end mt-0 pt-0"><i class="bi bi-asterisk" style="font-size: 8px;color: #EDC18D;"></i></div>
                             {% endif %}
+                            <div class="mb-3 d-flex justify-content-center">
+                                <img class="img-fluid"  src="/get-image/{{question.image[0]}}" alt="">
+                            </div>
                             <div class="mb-3">
-                                <textarea rows="1" class="inputTextquestion w-100 input-clean text-gray {{question.type}}" type="text" id="question_text_{{question.id}}" required>{{ question.text }}</textarea>
+                                <textarea rows="1" class="inputTextquestion w-100 input-clean text-gray {{question.type}} mb-4" type="text" id="question_text_{{question.id}}" required>{{ question.text }}</textarea>
                             </div>
                             
                             {% if question.type == 'text' %}
@@ -181,12 +184,18 @@
                                         <button class="btn btn-outline-dark options">
                                             <i class="bi bi-plus-lg"></i>
                                         </button>
+                                        <button class="btn btn-outline-dark ms-3 options" id="button_image_{{question.id}}">
+                                            <i class="bi bi-card-image"></i>
+                                        </button>
+                                        <input type="file" id="image_{{question.id}}" style="display: none;" accept="image/*">
+                                        
                                         <button class="btn btn-outline-dark ms-3 options" onclick="deletarQuestao({{question.id}})">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                         <button class="btn btn-outline-dark ms-3 options" id="required_{{question.id}}">
                                             <i class="bi bi-file-earmark-lock2"> Obrigatório</i>
                                         </button>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -202,8 +211,8 @@
                     
                     
                 </div>
-                <div class="col-md-2">
-                    <div class="card card-header p-3 ">
+                <div class="col-md-2 ">
+                    <div class="card card-header p-3 sticky">
                         <H4>Questões</H4>
                         <div class="row ">
                             {% set count = namespace(value=1) %}

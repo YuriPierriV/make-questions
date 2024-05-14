@@ -12,6 +12,7 @@ class Questions:
         self.pre_answer = pre_answer
         self.options = []
         self.required = required
+        self.image = None
 
     def cria_question(self,forms):
         try:
@@ -21,6 +22,8 @@ class Questions:
 
             cursor.execute("INSERT INTO questions (form_id, question_text, question_type, correct_id,pre_answer,required) VALUES (%s,%s, %s, %s,%s,%s)",
                            (forms.id,self.text, self.type, None,self.pre_answer,self.required))
+            
+            
             mydb.commit()
             mydb.close()
             return True
@@ -41,7 +44,7 @@ class Questions:
                 question = dict(zip(['id', 'question_text', 'question_type', 'correct_id','pre_answer','required'], question_tupla))
                 questions.append(question)
 
-
+            
             mydb.commit()
             mydb.close()
 
@@ -66,7 +69,7 @@ class Questions:
                 self.required = questions_tuplas[5]
                 self.form_id = id_formulario
 
-
+            
             mydb.commit()
             mydb.close()
 
@@ -149,3 +152,28 @@ class Questions:
         except Exception as e:
             print(e)
             return False
+
+    def get_image(self):
+
+        try:
+            mydb = db()
+            cursor = mydb.cursor()
+
+            cursor.execute("""SELECT images.id FROM images JOIN question_images ON images.id = question_images.image_id WHERE question_images.question_id = %s""", (self.id,))
+            lista = cursor.fetchall()
+            self.image = lista[-1]
+
+            
+            cursor.execute(sql, values)
+
+            mydb.commit()
+            mydb.close()
+            return True
+        except Exception as e:
+            print(e)
+            return False
+
+        
+
+
+    
