@@ -64,7 +64,7 @@
                 <div class="col-md-4">
                     <div class="row d-flex justify-content-center m-0">
                         <div class="col-md-4 m-0 d-flex justify-content-center flex-column">
-                            <img src="/static/img/user_noimage.jpg" alt="" class="img-fluid rounded-circle img-perfil" height="150px" width="150px">
+                            <img src="/get-image/{{usuario.image[0]}}" alt="" class="img-fluid rounded-circle img-perfil pt-2" height="200px" width="200px">
                         </div>
                         <div class="col-md-8 m-0 d-flex justify-content-end flex-column">
                             <h5 >Bem-vindo, {{usuario.nome}}</h5>
@@ -305,14 +305,18 @@
                     <div class="col-md-4 p-4">
                         <div class="avatar-conta card-painel p-4 text-center">
                             <p style="font-size: 23px;">Olá, {{usuario.nome}}</p>
-                            <img src="/static/img/user_noimage.jpg" alt="" class="img-fluid rounded-circle img-perfil pt-2" height="200px" width="200px">
-                            <div class="container">
-                                <p>Pra ficar massa vamos colocar todos os dados do usurio aqui, como um painelzinho do usuario dele</p>
-                                <p>Vou mudar a cor do card do lado ->></p>
-                                <p class="text-start pt-4">Data de cadastro:</p>
-                                <p class="text-start pt-4">Ultima atualização:</p>
-                            </div>
+                            <img src="/get-image/{{usuario.image[0]}}" alt="" class="img-fluid rounded-circle img-perfil pt-2" height="200px" width="200px">
                             
+                            <!-- Botão para trocar a imagem -->
+                            <button class="btn btn-outline-dark mt-3" id="button_image_{{usuario.id}}" onclick="document.getElementById('image_input_{{usuario.id}}').click();">
+                                <i class="bi bi-pencil"></i> Mudar Foto
+                            </button>
+                            <input type="file" id="image_input_{{usuario.id}}" style="display: none;" accept="image/*" onchange="uploadImage({{usuario.id}})">
+                        
+                            <div class="container">
+                                <p class="text-start pt-4">Data de cadastro: {{usuario.created_at}}</p>
+                                <p class="text-start pt-4">Última atualização:</p>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-8 p-4">

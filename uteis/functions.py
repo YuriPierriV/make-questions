@@ -96,5 +96,23 @@ def associate_image_question(id_question, image_id):
         cursor.close()
         mydb.close()
 
+def associate_image_user(id_user,image_id):
+        mydb = db()
+        cursor = mydb.cursor()
+
+        try:
+            cursor.execute("""
+                INSERT INTO users_images (usuario_id, image_id)
+                VALUES (%s, %s)
+            """, (id_user, image_id))
+            mydb.commit()
+            return True
+        except Exception as err:
+            print(err)
+            return False
+        finally:
+            cursor.close()
+            mydb.close()
+
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in {'png', 'jpg', 'jpeg', 'gif'}

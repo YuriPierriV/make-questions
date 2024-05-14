@@ -54,3 +54,27 @@ window.addEventListener("load", function() {
         document.body.style.overflow = "";
     }
 });
+
+function uploadImage(userId) {
+    var fileInput = document.getElementById('image_input_' + userId);
+    var file = fileInput.files[0];
+    var formData = new FormData();
+    formData.append('image', file);
+
+    fetch('/user-image/' + userId, {
+        method: 'POST',
+        body: formData
+    }).then(response => {
+        if (response.ok) {
+            window.location.reload();
+            return response.json(); // Processa a resposta JSON se o status for OK
+        }
+        throw new Error('Falha ao enviar arquivo! Status: ' + response.status);
+    }).then(data => {
+        console.log('Sucesso:', data);
+        var imgElement = document.querySelector(`img[src="/get-image/{{usuario.image[0]}}"]`); // Você precisa ajustar este seletor para apontar para o elemento de imagem correto.
+        imgElement.src = `/get-image/${data.imageId}`; // Supondo que 'data.imageId' contém o ID da nova imagem
+    }).catch(error => {
+        console.error('Erro durante o envio do arquivo:', error);
+    });
+}

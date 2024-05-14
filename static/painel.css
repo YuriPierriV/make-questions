@@ -327,3 +327,9 @@ main{
     border-bottom-right-radius: 5px;
     border-bottom: #EDC18D 1px solid;
 }
+
+.img-perfil{
+    height: 125px !important;
+    width: 125px !important;
+    min-width: 125px !important;
+}

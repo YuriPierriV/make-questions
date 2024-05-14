@@ -3,7 +3,7 @@ import io
 import traceback
 import mysql.connector
 from uteis.mydb import db
-from uteis.functions import obter_formularios_do_usuario, obter_dados_do_formulario, obter_dados_do_usuario, obter_questoes_do_formulario, save_image_to_db, associate_image_question, allowed_file
+from uteis.functions import obter_formularios_do_usuario, obter_dados_do_formulario, obter_dados_do_usuario, obter_questoes_do_formulario, save_image_to_db, associate_image_question, allowed_file, associate_image_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from uteis.usuario import Usuario
 from uteis.forms import Forms
@@ -22,6 +22,7 @@ def index():
     if "user_id" in session:
         usuario = Usuario()
         usuario.getUsuario(session["user_id"])
+        usuario.get_image()
         try:
             if "token" in session:
                 token = session["token"]
@@ -54,6 +55,7 @@ def cadastro():
     if "user_id" in session:
         usuario = Usuario()
         usuario.getUsuario(session["user_id"])
+        usuario.get_image()
         if usuario:
             return redirect(url_for('index'))
         else:
@@ -118,6 +120,7 @@ def exibir_formulario(id_forms):
     usuario = Usuario()
     try:
         usuario.getUsuario(session["user_id"])
+        usuario.get_image()
         form = Forms()
         form.getForms(id_forms)
         form.getLink()
@@ -154,7 +157,7 @@ def atualizar_form(id_forms):
 
         return f"Campo {nome_param} do formulário atualizado com sucesso."
 
-    except mysql.connector.Error as err:
+    except Exception as err:
         print(f"Erro no MySQL: {err}")
         return f"Erro ao atualizar campo {nome_param} do formulário. Por favor, tente novamente."
     
@@ -187,7 +190,7 @@ def atualizar_question(id_forms,id_question):
 
         return f"Campo {nome_param} do formulário atualizado com sucesso."
 
-    except mysql.connector.Error as err:
+    except Exception as err:
         print(f"Erro no MySQL: {err}")
         return f"Erro ao atualizar campo {nome_param} do formulário. Por favor, tente novamente."
 
@@ -209,7 +212,7 @@ def adicionar_campo(id_forms):
 
         return f"Campo {nome_param} do formulário atualizado com sucesso."
 
-    except mysql.connector.Error as err:
+    except Exception as err:
         print(f"Erro no MySQL: {err}")
         return f"Erro ao atualizar campo {nome_param} do formulário. Por favor, tente novamente."
     
@@ -370,10 +373,13 @@ def link(token):
 
     form = Forms()
     verification,permission = form.byLink(token)
+    
     if verification:
         if "user_id" in session:
             usuario = Usuario()
+            
             if usuario.getUsuario(session["user_id"]):
+                usuario.get_image()
                 if usuario.check_permission(form.id):
                     answer = Answer()
                     questions_json = form.get_questions_json()
@@ -405,7 +411,7 @@ def link(token):
 
 
 
-@app.route('/upload-image/<int:id_question>', methods=['POST'])
+@app.route('/question-image/<int:id_question>', methods=['POST'])
 def upload_image(id_question):
     file = request.files['image']
     if file and allowed_file(file.filename):
@@ -422,6 +428,23 @@ def upload_image(id_question):
             return jsonify(success=False, error=str(e)), 500
     return jsonify(success=False, error="No file or invalid file type"), 400
 
+
+@app.route('/user-image/<int:id_user>', methods=['POST'])
+def upload_image_user(id_user):
+    file = request.files['image']
+    if file and allowed_file(file.filename):
+        try:
+            file_content = file.read()
+            base64_encoded = base64.b64encode(file_content).decode('utf-8')
+            image_id = save_image_to_db(base64_encoded)
+            if image_id and associate_image_user(id_user, image_id):
+                return jsonify(success=True), 200
+            else:
+                return jsonify(success=False), 500
+        except Exception as e:
+            print(traceback.format_exc())  # Isso ajudará no diagnóstico de problemas
+            return jsonify(success=False, error=str(e)), 500
+    return jsonify(success=False, error="No file or invalid file type"), 400
 
 @app.route('/get-image/<int:image_id>')
 def get_image(image_id):

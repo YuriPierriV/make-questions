@@ -164,7 +164,6 @@ class Questions:
             self.image = lista[-1]
 
             
-            cursor.execute(sql, values)
 
             mydb.commit()
             mydb.close()

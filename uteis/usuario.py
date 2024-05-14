@@ -1,6 +1,7 @@
 from uteis.mydb import db
 from flask import session,flash
 from werkzeug.security import generate_password_hash, check_password_hash
+import datetime
 
 
 class Usuario:
@@ -14,8 +15,9 @@ class Usuario:
         self.id = None
         self.quantidade_forms = None
         self.image = None
-        self.participando = None
-        self.editor = None
+        self.participando = []
+        self.editor = []
+        self.created_at = None
         
         
 
@@ -86,28 +88,38 @@ class Usuario:
     def getUsuario(self, id_session):
         try:
             mydb = db()
-            cursor = mydb.cursor()
+            # Usar um cursor bufferizado para evitar o problema de resultados não lidos
+            cursor = mydb.cursor(buffered=True)
 
-            cursor.execute("SELECT id, nome, sobrenome, email, celular, senha_hash FROM usuarios WHERE id = %s", (id_session,))
+            cursor.execute("SELECT id, nome, sobrenome, email, celular, senha_hash, created_at FROM usuarios WHERE id = %s", (id_session,))
             usuario_tupla = cursor.fetchone()
 
             if usuario_tupla:
-                self.id, self.nome, self.sobrenome, self.email, self.celular, self.senha_hash = usuario_tupla
+                self.id, self.nome, self.sobrenome, self.email, self.celular, self.senha_hash, data_original = usuario_tupla
 
+                # Corrigindo a manipulação de datas
+                if isinstance(data_original, datetime.datetime):  # Verifica se data_original é uma instância de datetime
+                    data_ajustada = data_original - datetime.timedelta(hours=3)
+                    data_formatada = data_ajustada.strftime("%d/%m/%Y %H:%M")  # Ajustando o formato da data
+                    self.created_at = data_formatada
+
+                # Consulta para contar os formulários
                 cursor.execute("SELECT COUNT(*) FROM forms WHERE usuarios_id = %s", (self.id,))
                 self.quantidade_forms = cursor.fetchone()[0]
 
+                # Consulta para obter dados de imagem
                 cursor.execute("""SELECT images.image_data FROM images JOIN users_images ON images.id = users_images.image_id WHERE users_images.usuario_id = %s""", (self.id,))
                 image_data = cursor.fetchone()
                 self.image = image_data[0] if image_data else None
 
+                # Consulta para obter IDs de formulários onde o usuário está participando
                 cursor.execute("SELECT forms_id FROM permission WHERE usuarios_id = %s AND permission = 1;", (self.id,))
                 self.participando = [row[0] for row in cursor.fetchall()]
 
+                # Consulta para obter IDs de formulários onde o usuário é editor
                 cursor.execute("SELECT forms_id FROM permission WHERE usuarios_id = %s AND permission = 2;", (self.id,))
                 self.editor = [row[0] for row in cursor.fetchall()]
                 return True
-
             else:
                 flash("Usuário não encontrado.")
                 return False
@@ -116,7 +128,9 @@ class Usuario:
             print(str(e))
 
         finally:
-            mydb.close()
+            if mydb.is_connected():  # Verifica se a conexão ainda está aberta antes de fechar
+                cursor.close()  # É uma boa prática fechar o cursor
+                mydb.close()
 
     def formularios(self):
         from uteis.forms import Forms
@@ -138,21 +152,20 @@ class Usuario:
 
         return formularios
 
-    def associate_image(self,image_id):
-        mydb = db()
-        cursor = mydb.cursor()
+    def get_image(self):
 
         try:
-            cursor.execute("""
-                INSERT INTO users_images (usuario_id, image_id)
-                VALUES (%s, %s)
-            """, (self.id, image_id))
-            image_id = cursor.lastrowid
-            self.image = image_id
+            mydb = db()
+            cursor = mydb.cursor()
+
+            cursor.execute("""SELECT images.id FROM images JOIN users_images ON images.id = users_images.image_id WHERE users_images.usuario_id = %s""", (self.id,))
+            lista = cursor.fetchall()
+            self.image = lista[-1]
+
+
             mydb.commit()
+            mydb.close()
             return True
-        except Exception as err:
-            return print(err),False
-        finally:
-            cursor.close()
-            conn.close()
+        except Exception as e:
+            print(e)
+            return False

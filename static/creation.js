@@ -398,7 +398,7 @@ function uploadFile(file, questionId) {
     var formData = new FormData();
     formData.append('image', file); // 'image' é a chave esperada no lado do servidor
 
-    fetch('/upload-image/' + questionId, {
+    fetch('/question-image/' + questionId, {
         method: 'POST',
         body: formData
     }).then(response => {
