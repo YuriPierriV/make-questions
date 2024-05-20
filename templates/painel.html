@@ -5,21 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sometype+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
     <link rel="shortcut icon" href="/static/img/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="../static/painel.css">
+
     <title>{{usuario.nome}} {{usuario.sobrenome}}</title>
+
+    
 </head>
 <body>
-
-
     <aside class="menu-lateral d-flex justify-content-center flex-column" id="header">
-        <img src="/static/img/logo.png" alt="" class="img-fluid pt-3 alto" alt="logo" >
+        <img src="/static/img/logo.png"  alt="" class="img-fluid pt-3 alto" alt="logo" >
         <nav class="d-flex justify-content-center">
             <ul class="nav flex-column text-center menu p-0 text-white">
                 <li class="nav-item ">
@@ -64,7 +67,7 @@
                 <div class="col-md-4">
                     <div class="row d-flex justify-content-center m-0">
                         <div class="col-md-4 m-0 d-flex justify-content-center flex-column">
-                            <img src="/get-image/{{usuario.image[0]}}" alt="" class="img-fluid rounded-circle img-perfil pt-2" height="200px" width="200px">
+                            <img src="/get-image/{{usuario.image[0]}}" onerror="this.onerror=null;this.src='/static/img/user_noimage.jpg';" alt="" class="img-fluid rounded-circle img-perfil pt-2" height="200px" width="200px">
                         </div>
                         <div class="col-md-8 m-0 d-flex justify-content-end flex-column">
                             <h5 >Bem-vindo, {{usuario.nome}}</h5>
@@ -305,7 +308,7 @@
                     <div class="col-md-4 p-4">
                         <div class="avatar-conta card-painel p-4 text-center">
                             <p style="font-size: 23px;">Olá, {{usuario.nome}}</p>
-                            <img src="/get-image/{{usuario.image[0]}}" alt="" class="img-fluid rounded-circle img-perfil pt-2" height="200px" width="200px">
+                            <img src="/get-image/{{usuario.image[0]}}" onerror="this.onerror=null;this.src='/static/img/user_noimage.jpg';" alt="" class="img-fluid rounded-circle img-perfil pt-2" height="200px" width="200px">
                             
                             <!-- Botão para trocar a imagem -->
                             <button class="btn btn-outline-dark mt-3" id="button_image_{{usuario.id}}" onclick="document.getElementById('image_input_{{usuario.id}}').click();">
@@ -374,9 +377,6 @@
             </div>
         </section>
     </main>
-
-
-
     <script src="../static/painel.js"></script>
 </body>
 </html>

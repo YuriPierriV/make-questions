@@ -167,5 +167,4 @@ class Usuario:
             mydb.close()
             return True
         except Exception as e:
-            print(e)
             return False

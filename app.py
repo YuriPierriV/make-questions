@@ -16,7 +16,6 @@ app = Flask(__name__)
 app.secret_key = 'toor'
 
 
-
 @app.route("/")
 def index():
     if "user_id" in session:
@@ -45,9 +44,9 @@ def index():
                 return render_template("index.html")
     else:
         return render_template("index.html")
+    
         
 
-    
 
 
 @app.route("/cadastro")
@@ -361,7 +360,7 @@ def new_link():
 
             mydb.commit()
             mydb.close()
-            return redirect(f'/form/{forms.id}/edit')
+            return redirect(f'/form/{form_id}/edit')
         except Exception as e:
             print(e)
             return str(e)  
@@ -448,10 +447,10 @@ def upload_image_user(id_user):
 
 @app.route('/get-image/<int:image_id>')
 def get_image(image_id):
-    conn = db()  # Certifique-se de que 'db' está corretamente definido para criar uma conexão
+    conn = db() 
     cursor = conn.cursor()
     try:
-        cursor.execute("SELECT image_data FROM images WHERE id = %s", (image_id,))  # %s está correto para psycopg2 (PostgreSQL)
+        cursor.execute("SELECT image_data FROM images WHERE id = %s", (image_id,)) 
         row = cursor.fetchone()
         if row:
             image_data = base64.b64decode(row[0])  # Supondo que a imagem está armazenada como BLOB
@@ -460,11 +459,11 @@ def get_image(image_id):
                 mimetype='image/jpeg'  
             )
     except Exception as e:
-        return Response(f"Erro ao recuperar a imagem: {e}", status=500)
+        return print(f"Erro ao recuperar a imagem: {e}", status=500)
     finally:
         cursor.close()
         conn.close()
-    return Response("Imagem não encontrada", status=404)
+    return print("Imagem não encontrada", status=404)
 
 
 @app.route("/logout", methods=["POST"])
