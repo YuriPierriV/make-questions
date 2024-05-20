@@ -32,7 +32,8 @@ body{
 main{
     margin-left: 115px;
     background-color: #48416C;
-    height: 100vh;
+    min-height: 100vh;
+    height:max-content;
 }
 
 .lateral-direita{
