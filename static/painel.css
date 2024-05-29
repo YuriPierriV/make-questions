@@ -334,3 +334,7 @@ main{
     width: 125px !important;
     min-width: 125px !important;
 }
+
+.icon-default{
+    font-size: 15px;
+}

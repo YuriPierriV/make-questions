@@ -35,7 +35,7 @@
                         <a class="nav-link text-gray pe-0" href="#"><i style="font-size: 22px;" class="bi bi-gear"></i></a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link text-gray ps-0 ms-0" style="font-size: 22px;" href="#">{{usuario.nome}} <img src="/get-image/{{usuario.image[0]}}" alt="" class="img-fluid rounded-circle img-perfil " height="35px" width="35px"></a>
+                        <a class="nav-link text-gray ps-0 ms-0" href="#">{{usuario.nome}} <img src="/get-image/{{usuario.image[0]}}" onerror="this.onerror=null;this.src='/static/img/user_noimage.jpg';" alt="" class="img-fluid rounded-circle img-perfil" height="50px" width="50px"></a>
                     </li>
                 </ul>
             </nav>
@@ -94,7 +94,7 @@
                     
                     
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2 sticky">
                     <div class="card card-header p-3 sticky">
                         <H4>Questões</H4>
                         <div class="row ">

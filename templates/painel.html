@@ -144,11 +144,11 @@
                         <div class="card_form p-3 pb-1">
                             <p class="text-start">{{form.nome}}</p>
                             <div class="d-inline">
-                                <a href="{{ url_for('exibir_formulario', id_forms=form.id) }}"><i class="bi bi-pencil-square color-gray"></i></a>
-                                <a href="/form/link/{{form.link}}"><i class="bi bi-eye color-gray"></i></a>
+                                <a href="{{ url_for('exibir_formulario', id_forms=form.id) }}" class="icon-default"><i class="bi bi-pencil-square color-gray "></i></a>
+                                <a href="/form/link/{{form.link}}" class="icon-default"><i class="bi bi-eye color-gray"></i></a>
                                 <form class="d-inline" method="post" action="{{ url_for('excluir_formulario', id_forms=form.id) }}">
-                                    <button type="submit" class="btn" style="border: none; padding: 0; margin: 0; cursor: pointer;">
-                                        <i class="bi bi-trash-fill color-gray"></i>
+                                    <button type="submit" class="btn icon-default" style="border: none; padding: 0; margin: 0; cursor: pointer;">
+                                        <i class="bi bi-trash-fill color-gray icon-default"></i>
                                     </button>
                                 </form>
                             </div>
@@ -185,13 +185,7 @@
                         <div class="card_form p-3 pb-1">
                             <p class="text-start">{{form.nome}}</p>
                             <div class="d-inline">
-                                <a href="{{ url_for('exibir_formulario', id_forms=form.id) }}"><i class="bi bi-pencil-square color-gray"></i></a>
-                                <a href="/form/link/{{form.link}}"><i class="bi bi-eye color-gray"></i></a>
-                                <form class="d-inline" method="post" action="{{ url_for('excluir_formulario', id_forms=form.id) }}">
-                                    <button type="submit" class="btn" style="border: none; padding: 0; margin: 0; cursor: pointer;">
-                                        <i class="bi bi-trash-fill color-gray"></i>
-                                    </button>
-                                </form>
+                                <a href="/form/link/{{form.link}}" class="icon-default"><i class="bi bi-box-arrow-in-right color-gray" ></i></a>
                             </div>
                         </div>
                         
