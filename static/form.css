@@ -5,6 +5,7 @@ body{
 
 .nav-color{
     background-color: #48416C ;
+    box-shadow: 0px 0px 20px #EDC18D;
 }
 
 .text-gray{
@@ -31,22 +32,45 @@ main{
     color: #EDC18D !important;
 }
 
+
 .card-header{
-    border: 0;
     background-color: #48416C;
-    border-radius: 5px !important;
+    border-radius: 5px;
+    color: #CCC9DC;
+}
+
+.card-header-esquerda{
+    background-color: #48416C;
+    border-radius: 5px;
+    border-top: 3px #EDC18D solid ;
+    color: #CCC9DC;
+}
+
+.card-header-questoes{
+    background-color: #48416C;
+    border-radius: 5px;
     border-top: 5px #EDC18D solid ;
     color: #CCC9DC;
 }
 
 .inputTextquestion{
-    font-size: 32px;
+    font-size: 12pt;
     overflow-wrap:break-word;
 }
 
 .inputTextanswer{
-    font-size: 24px;
+    font-size: 14px;
     overflow-wrap:break-word;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden; /* Esconde a barra de rolagem */
+    min-height: 2em;
+    line-height: 2em;
+
+}
+
+.inputOption{
+    font-size: 11pt;
 }
 
 .contador{
@@ -174,7 +198,7 @@ form {
 .sticky {
     position: -webkit-sticky; /* Para suporte ao Safari */
     position: sticky;
-    top: 150px; /* Distância do topo do viewport */
+    top: 140px; /* Distância do topo do viewport */
     z-index: 1000; /* Garante que o elemento fique sobre os outros conteúdos durante o scroll */
 }
 
@@ -189,4 +213,35 @@ header{
     position: fixed;
     width: 100%;
     z-index: 99999;
+}
+
+.number_question {
+    position: relative;
+    display: inline-block;
+    z-index: 0;
+    text-align: center;
+    line-height: 2em; /* Ajuste conforme necessário para centralizar verticalmente */
+    color: white; /* Cor do texto para melhor contraste */
+    font-weight: bold; /* Opcional: para um texto mais destacado */
+    padding-right: 1em; /* Ajuste para dar espaço suficiente para o arredondamento */
+}
+
+.number_question::before {
+    content: '';
+    position: absolute;
+    top: 50%; /* Alinha o topo do pseudo-elemento ao meio do span */
+    left: 0;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    width: 10em; /* Ajuste conforme necessário */
+    height: 50%; /* Ajuste conforme necessário */
+    background-color: #393358;
+    border-top-right-radius: 15px; /* Usar pixels em vez de porcentagem pode ajudar */
+    border-bottom-right-radius: 15px; /* Usar pixels em vez de porcentagem pode ajudar */
+    padding-right: 1em; /* Ajuste para dar espaço suficiente para o arredondamento */
+}
+
+.number_question span {
+    padding: 0 1em; /* Espaçamento interno para o texto */
+    display: block;
 }

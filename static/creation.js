@@ -46,7 +46,8 @@ function edicao_habilitar(id) {
             questao_in_lateral = document.getElementById('card_lateral_' + question.id);
             questao_in.style.display = "inline";
             questao_in_menu.style.borderTop = '5px #EDC18D solid';
-            questao_in_lateral.style.borderTop = '5px #EDC18D solid';
+            
+            questao_in_lateral.style.borderTop = '2px #EDC18D solid';
         }
     })
 }
@@ -130,7 +131,6 @@ questions.forEach(question => {
     });
     document.getElementById('question_type_' + question.id + '_multi').addEventListener('click', function () {
         document.getElementById('question_type_' + question.id).value = 'mult_escolha';
-        console.log(document.getElementById('question_type_' + question.id).value);
         enviarAtualizacao_question('multimult_escolha', question.id, 'question_type');
 
     });
@@ -145,6 +145,8 @@ questions.forEach(question => {
     });
     document.getElementById('card_lateral_' + question.id).addEventListener('click', function () {
         edicao_habilitar(question.id);
+        document.getElementById("question_controle_"+question.id).tabIndex = "-1";
+        document.getElementById("question_text_"+question.id).focus();
     })
 
 
@@ -171,6 +173,9 @@ questions.forEach(question => {
         }
 
     })
+
+
+    
 });
 
 
@@ -289,6 +294,7 @@ spans.forEach(function (span) {
 document.addEventListener("DOMContentLoaded", function () {
     const visible = localStorage.getItem("visible");
     const menu = localStorage.getItem("menu");
+    edicao_habilitar(null);
 
     if (visible === "true") {
         
@@ -307,13 +313,20 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     const textareas = document.querySelectorAll('.inputTextquestion');
-
+    const inputTextanswer = document.querySelectorAll('.inputTextanswer');
+    
     function autoResize() {
         this.style.height = 'auto';
         this.style.height = this.scrollHeight + 'px';
     }
 
     
+
+    textareas.forEach(textarea => {
+        autoResize.call(textarea);  
+        textarea.addEventListener('input', autoResize);  
+    });
+
     textareas.forEach(textarea => {
         autoResize.call(textarea);  
         textarea.addEventListener('input', autoResize);  
@@ -415,4 +428,6 @@ function uploadFile(file, questionId) {
         console.error('Erro durante o envio do arquivo:', error);
     });
 }
+
+
 

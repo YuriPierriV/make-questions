@@ -5,6 +5,7 @@ body{
 
 .nav-color{
     background-color: #48416C ;
+    box-shadow: 0px 0px 20px #EDC18D;
 }
 
 .text-gray{
@@ -66,7 +67,7 @@ body{
 
 main{
     background-color: #393358;
-    
+    padding-top: 98px;
 }
 
 .nav-item{
@@ -88,12 +89,12 @@ main{
 }
 
 .inputTextquestion{
-    font-size: 32px;
+    font-size: 12pt;
     overflow-wrap:break-word;
 }
 
 .inputTextanswer{
-    font-size: 24px;
+    font-size: 14px;
     overflow-wrap:break-word;
 }
 
@@ -146,7 +147,7 @@ main{
 
 .contador{
     background-color: #393358;
-    height: 3rem;
+    min-height: 3rem;
     vertical-align: middle;
     border-bottom-left-radius: 5px !important;
     border-bottom-right-radius: 5px !important;
@@ -180,6 +181,10 @@ label {
 
 .geral:checked + .inputOption {
     background-color: #edc08d46;
+}
+
+.inputOption{
+    font-size: 11pt;
 }
 
 .inputOption:hover {
@@ -335,6 +340,54 @@ input[type='checkbox'] {
 .sticky {
     position: -webkit-sticky; /* Para suporte ao Safari */
     position: sticky;
-    top: 100px; /* Distância do topo do viewport */
+    top: 140px; /* Distância do topo do viewport */
     z-index: 1000; /* Garante que o elemento fique sobre os outros conteúdos durante o scroll */
+}
+
+
+.img-perfil{
+    height: 50px !important;
+    width: 50px !important;
+    min-width: 50px !important;
+}
+
+header{
+    position: fixed;
+    width: 100%;
+    z-index: 99999;
+}
+
+.number_question {
+    position: relative;
+    display: inline-block;
+    z-index: 0;
+    text-align: center;
+    line-height: 2em; /* Ajuste conforme necessário para centralizar verticalmente */
+    color: white; /* Cor do texto para melhor contraste */
+    font-weight: bold; /* Opcional: para um texto mais destacado */
+    padding-right: 1em; /* Ajuste para dar espaço suficiente para o arredondamento */
+}
+
+.number_question::before {
+    content: '';
+    position: absolute;
+    top: 50%; /* Alinha o topo do pseudo-elemento ao meio do span */
+    left: 0;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    width: 10em; /* Ajuste conforme necessário */
+    height: 50%; /* Ajuste conforme necessário */
+    background-color: #393358;
+    border-top-right-radius: 15px; /* Usar pixels em vez de porcentagem pode ajudar */
+    border-bottom-right-radius: 15px; /* Usar pixels em vez de porcentagem pode ajudar */
+    padding-right: 1em; /* Ajuste para dar espaço suficiente para o arredondamento */
+}
+
+.number_question span {
+    padding: 0 1em; /* Espaçamento interno para o texto */
+    display: block;
+}
+
+.second_click{
+    cursor:  text !important;
 }

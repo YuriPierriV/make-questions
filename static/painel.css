@@ -325,7 +325,7 @@ main{
     border-color: #EDC18D;
     border-style: solid;
     background-color: #393358;
-    border-bottom-right-radius: 5px;
+    border-bottom-right-radius: 0px;
     border-bottom: #EDC18D 1px solid;
 }
 

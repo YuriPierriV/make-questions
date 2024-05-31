@@ -23,8 +23,8 @@
         <div class="container ">
             <nav class="nav d-flex justify-content-between p-3">
                 <ul class="nav justify-content-start align-items-center">
-                    <li class="nav-brand nav-item pe-3 ">
-                        <a href="/"><i class="bi bi-house-down text-gray " style="font-size: 30px;"></i></a>
+                    <li class="nav-item  pe-3 ">
+                        <a href="/" class="nav-link text-gray "><i class="bi bi-house-down " style="font-size: 30px;"></i></a>
                     </li>
                     <li class="nav-item">
                         <span class="inputTitulo text-gray" id="nameInput" style="font-size: 25px; width: 100%;">{{ form.nome }}</span>
@@ -35,7 +35,7 @@
                         <a class="nav-link text-gray pe-0" href="#"><i style="font-size: 22px;" class="bi bi-gear"></i></a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link text-gray ps-0 ms-0" href="#">{{usuario.nome}} <img src="/get-image/{{usuario.image[0]}}" onerror="this.onerror=null;this.src='/static/img/user_noimage.jpg';" alt="" class="img-fluid rounded-circle img-perfil" height="50px" width="50px"></a>
+                        <a class="nav-link text-gray ps-0 ms-0" href="#"><img src="/get-image/{{usuario.image[0]}}" onerror="this.onerror=null;this.src='/static/img/user_noimage.jpg';" alt="" class="img-fluid rounded-circle img-perfil" height="50px" width="50px"></a>
                     </li>
                 </ul>
             </nav>
@@ -46,25 +46,30 @@
         <div class="container-fluid p-5">
             <div class="row">
                 <div class="col-md-3">
-                    <div class="card card-header p-3 gap-2 sticky">
+                    <div class="card card-header card-header-esquerda p-3 gap-2 sticky">
                         <h4 class="inputTitulo  text-gray" style="font-size: 32px; width: 100%;">{{ form.titulo }}</h4>
                         <p class="inputTitulo  text-gray" style="font-size: 18px; width: 100%;">{{ form.descricao }}</p>
                     </div>
                 </div>
                 <div class="col-md-7">
+                    {% set num_questao = namespace(value=1) %}
                     {% for question in questions %}
                     <div class="card mb-4" id="questions">
                         
-                        <div class="card-header p-4 " id="question_controle_{{question.id}}">
+                        <div class="card-header card-header-questoes p-4 " id="question_controle_{{question.id}}">
+                            <div class="row mb-2">
+                                <div class="col d-flex justify-content-start mt-0 pt-0 number_question"><span class="p-2">{{num_questao.value}}</span></div>
                             {% if question.required == True %}
-                                <div class="d-flex justify-content-end mt-0 pt-0"><i class="bi bi-asterisk" style="font-size: 8px;color: #EDC18D;"></i></div>
+                                <div class=" col d-flex justify-content-end mt-0 pt-0"><i class="bi bi-asterisk" style="font-size: 8px;color: #EDC18D;"></i></div>
                             {% endif %}
-                            <div class="mb-3 d-flex justify-content-center">
-                                <img class="img-fluid"  src="/get-image/{{question.image[0]}}" alt="">
                             </div>
                             <div class="mb-3">
-                                <h4 class="inputTextquestion w-100 text-gray {{question.type}} mb-5" type="text" id="question_text_{{question.id}}">{{ question.text }}</h4>
+                                <h4 class="inputTextquestion w-100 text-gray {{question.type}}" type="text" id="question_text_{{question.id}}">{{ question.text }}</h4>
                             </div>
+                            <div class="mb-3 d-flex justify-content-center ps-4 pe-4">
+                                <img class="img-fluid"  src="/get-image/{{question.image[0]}}" alt="">
+                            </div>
+                            
                             
                             {% if question.type == 'text' %}
                             
@@ -75,12 +80,12 @@
                                 </div>
                             {% endif %}
                             {% if question.type == 'multimult_escolha' %}
-                                <div class="question_multi border_box">
+                                <div class="question_multi border_box" id="mark_{{question.id}}">
                                     <div class="container border_box">
                                         <form class="border_box">
                                             {% for option in question.options %}
-                                                    <label class="border_box">
-                                                        <input class="border_box geral" type="radio" name="radio">
+                                                    <label class="border_box" >
+                                                        <input class="border_box geral" type="radio" name="radio" id="option_{{option.id}}_question_{{question.id}}">
                                                         <span class="border_box inputOption editable" id="edit_option_{{option.id}}_question_{{question.id}}">{{option.option_text}}</span>
                                                     </label>
                                             {% endfor %}
@@ -90,26 +95,26 @@
                             {% endif %}
                         </div>  
                     </div>
+                    {% set num_questao.value = num_questao.value + 1 %}
                     {% endfor %}
                     
                     
                 </div>
-                <div class="col-md-2 sticky">
-                    <div class="card card-header p-3 sticky">
-                        <H4>Questões</H4>
-                        <div class="row ">
-                            {% set count = namespace(value=1) %}
-                            {% for question in questions %}
-                                <div class="col-md-2  mt-2 d-flex justify-content-center ">
-                                    <div class="card card-header p-3 text-center contador d-flex justify-content-center align-items-center" id="card_lateral_{{question.id}}">
-                                        <p>{{ count.value }}</p>
-                        
+                <div class="col-md-2 ">
+                    <div class="card card-header card-header-esquerda p-1  sticky text-gray">
+                        <div class="container text-center">
+                            <div class="row align-items-center">
+                                {% set count = namespace(value=1) %}
+                                {% for question in questions %}
+                                    <div class="col  mt-3 pb-3 d-flex justify-content-center col-sm-3  ">
+                                        <div class="card card-header p-3 text-center contador d-flex justify-content-center align-items-center " id="card_lateral_{{question.id}}">
+                                            <p class="mb-1">{{ count.value }}</p>
+                                        </div>
                                     </div>
-                                </div>
-                                {% set count.value = count.value + 1 %}
-                            {% endfor %}
+                                    {% set count.value = count.value + 1 %}
+                                {% endfor %}
+                            </div>
                         </div>
-                        
                     </div>
                 </div>
             </div>
