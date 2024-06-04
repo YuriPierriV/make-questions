@@ -202,6 +202,12 @@ form {
     z-index: 1000; /* Garante que o elemento fique sobre os outros conteúdos durante o scroll */
 }
 
+.sticky-more {
+    position: -webkit-sticky; /* Para suporte ao Safari */
+    position: sticky;
+    top: calc(140px + 45vh); /* Distância do topo do viewport */
+    z-index: 1200; /* Garante que o elemento fique sobre os outros conteúdos durante o scroll */
+}
 
 .img-perfil{
     height: 50px !important;
@@ -244,4 +250,24 @@ header{
 .number_question span {
     padding: 0 1em; /* Espaçamento interno para o texto */
     display: block;
+}
+
+.btn-outline-dark{
+    border-color: #EDC18D;
+    color: #CCC9DC;
+    background-color: #48416C;
+}
+
+.btn-outline-dark:hover{
+    border-color: #EDC18D;
+    color: #CCC9DC;
+    background-color: #48416C;
+}
+
+
+#btn-loading{
+    display: none;
+    border-color: #EDC18D;
+    color: #CCC9DC;
+    background-color: #48416C;
 }

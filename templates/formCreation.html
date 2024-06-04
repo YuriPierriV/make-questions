@@ -215,13 +215,13 @@
                     
                 </div>
                 <div class="col-md-2 ">
-                    <div class="card card-header p-1  sticky text-gray">
+                    <div class="card card-header card-header-esquerda p-1 sticky  text-gray" style="max-height: 45vh; overflow-y: auto;">
                         <div class="container text-center">
                             <div class="row align-items-center">
                                 {% set count = namespace(value=1) %}
                                 {% for question in questions %}
-                                    <div class="col  mt-3 pb-2 d-flex justify-content-center col-sm-3  ">
-                                        <div class="card card-header p-3 text-center contador d-flex justify-content-center align-items-center " id="card_lateral_{{question.id}}">
+                                    <div class="col mt-3 pb-3 d-flex justify-content-center col-sm-3">
+                                        <div class="card card-header p-3 text-center contador d-flex justify-content-center align-items-center" id="card_lateral_{{question.id}}">
                                             <p class="mb-1">{{ count.value }}</p>
                                         </div>
                                     </div>
@@ -230,6 +230,8 @@
                             </div>
                         </div>
                     </div>
+                    
+
                 </div>
             </div>
             

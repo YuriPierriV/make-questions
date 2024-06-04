@@ -57,6 +57,8 @@ textareas.forEach(textarea => {
         else{
             questao_in_lateral = document.getElementById('card_lateral_' + questionId);
             questao_in_lateral.style.borderTop = '2px #EDC18D solid';
+            const quest = document.getElementById("question_controle_" + questionId);
+            quest.style.borderTop = '5px #EDC18D solid';
         }
     });
 });
@@ -73,6 +75,8 @@ radioButtons.forEach(radio => {
         const questionId = ids[3];
         const optionId = ids[1];
         questao_in_lateral = document.getElementById('card_lateral_' + questionId);
+        const quest = document.getElementById("question_controle_" + questionId);
+        quest.style.borderTop = '5px #EDC18D solid';
         questao_in_lateral.style.borderTop = '2px #EDC18D solid';
         saveOption(questionId, optionId);
     });
@@ -80,10 +84,132 @@ radioButtons.forEach(radio => {
 
 
 
-function checkRequired(id) {
-    
+function checkRequired() {
+    let allRequiredFilled = true;
+
+    questions.forEach(question => {
+        if (question.required) {
+            if (question.question_type == "multimult_escolha") {
+                const form = document.getElementById('form_question_' + question.id);
+                const inputs = form.querySelectorAll('input');
+                const isAnyChecked = Array.from(inputs).some(input => input.checked);
+
+                if (!isAnyChecked) {
+                    
+                    allRequiredFilled = false;
+                }
+                
+            }
+
+            if (question.question_type == "text") {
+                const textArea = document.getElementById('answer_text_' + question.id);
+                if (textArea.value.trim() === "") {
+                    
+                    allRequiredFilled = false;
+                }
+                
+            }
+        }
+    });
+
+    return allRequiredFilled;
 }
 
+
+function markQuestion() {
+    questions.forEach(question => {
+        if (question.required) {
+            if (question.question_type == "multimult_escolha") {
+                const form = document.getElementById('form_question_' + question.id);
+                const inputs = form.querySelectorAll('input');                        
+                const isAnyChecked = Array.from(inputs).some(input => input.checked);
+                if (!isAnyChecked) {
+                    
+                    const quest = document.getElementById("question_controle_" + question.id);
+                    quest.tabIndex = "-1";
+                    quest.style.borderTop = '5px #aa341c solid';
+                    quest.focus();
+                    quest.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+    
+            if (question.question_type == "text") {
+                const textArea = document.getElementById('answer_text_' + question.id);
+                if (textArea.value.trim() === "") {
+                    const quest = document.getElementById("question_controle_" + question.id);
+                    quest.tabIndex = "-1";
+                    quest.style.borderTop = '5px #aa341c solid';
+                    quest.focus();
+                    quest.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+        }
+    });
+
+}
+
+
+function answer(question_id, selected_id, response_text) {
+    var data = 'question_id=' + encodeURIComponent(question_id) + '&' +
+        'selected_id=' + encodeURIComponent(selected_id)+ '&' +'response_text=' + encodeURIComponent(response_text);
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/send_answer', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            
+        }
+    };
+    xhr.send(data);
+}
+
+
+function enviarResposta() {
+    
+    questions.forEach(question => {
+        if (question.question_type == "multimult_escolha") {
+            const form = document.getElementById('form_question_' + question.id);
+            const inputs = form.querySelectorAll('input');                        
+            inputs.forEach(input =>{
+                if(input.checked){
+                    split_input = input.id.split('_');
+                    const selected_id = split_input[1];
+                    answer(question.id, selected_id, null)
+                }
+            })
+            
+        }
+
+        if (question.question_type == "text") {
+            const textArea = document.getElementById('answer_text_' + question.id);
+            answer(question.id, 0, textArea.value)
+        }
+    });
+
+}
+
+
+
+
+const botaoEnviar = document.getElementById('enviarRespostas');
+const btnLoading = document.querySelector('#btn-loading');
+
+botaoEnviar.addEventListener('click', function () {
+    const allRequiredFilled = checkRequired();
+    if(allRequiredFilled){
+        // Desabilita o botão e adiciona a animação de loading
+        btnLoading.style.display = 'block';
+        botaoEnviar.style.display = 'none';
+        enviarResposta();
+        // Espera 5 segundos antes de enviar a resposta
+        setTimeout(function() {
+            window.location.href = "/";    
+        }, 500);
+    }
+    else{
+        markQuestion();
+    }
+});
 
 
 
@@ -93,6 +219,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
 
     const inputTextanswer = document.querySelectorAll('.inputTextanswer');
+    
     
     function autoResize() {
         this.style.height = 'auto'; 

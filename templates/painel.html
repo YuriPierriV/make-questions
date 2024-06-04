@@ -206,7 +206,7 @@
                 <div class="col-md-3">
                     <div class="row ps-1 pe-1 d-flex align-items-center justify-content-center">
                         <div class="col-md-10">
-                            <h3 class="nome-forms h-100">Finalizados</h3>
+                            <h3 class="nome-forms h-100">Respondido</h3>
                         </div>
                         <div class="col-md-2 text-start d-flex justify-content-end align-items-center mb-2">
                             <a href=""><i class="bi bi-plus color-gray"></i></a>
@@ -214,7 +214,7 @@
                         </div>
                     </div>
                 
-                    {% for form in finalizados %}
+                    {% for form in respondido %}
                     <div class="card card-resume mb-2 color-gray">
                         <div class="card_form p-3 pb-1">
                             <p class="text-start">{{form.nome}}</p>

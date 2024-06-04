@@ -17,6 +17,7 @@ class Usuario:
         self.image = None
         self.participando = []
         self.editor = []
+        self.respondido = []
         self.created_at = None
         
         
@@ -27,6 +28,9 @@ class Usuario:
                 return True
         for editor in self.editor:
             if editor == form_id:
+                return True
+        for respondido in self.respondido:
+            if respondido == form_id:
                 return True
         return False
 
@@ -119,6 +123,16 @@ class Usuario:
                 # Consulta para obter IDs de formulários onde o usuário é editor
                 cursor.execute("SELECT forms_id FROM permission WHERE usuarios_id = %s AND permission = 2;", (self.id,))
                 self.editor = [row[0] for row in cursor.fetchall()]
+
+                cursor.execute("""
+                                SELECT DISTINCT f.id 
+                                FROM answers a
+                                JOIN questions q ON a.question_id = q.id
+                                JOIN forms f ON q.form_id = f.id
+                                WHERE a.user_id = %s
+                            """, (self.id,))
+
+                self.respondido = [row[0] for row in cursor.fetchall()]
                 return True
             else:
                 flash("Usuário não encontrado.")

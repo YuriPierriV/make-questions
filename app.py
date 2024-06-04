@@ -31,14 +31,21 @@ def index():
             if usuario:
                 forms = usuario.formularios()
                 participando = []
+                respondido = []
                 for p in usuario.participando:
                     new = Forms()
                     new.getForms(p)
                     new.setDono(new.usuarios_id)
                     new.getLink()
                     participando.append(new)
+                for r in usuario.respondido:
+                    new = Forms()
+                    new.getForms(r)
+                    new.setDono(new.usuarios_id)
+                    new.getLink()
+                    respondido.append(new)
                     
-                return render_template("painel.html", usuario=usuario, forms=forms, participando=participando)
+                return render_template("painel.html", usuario=usuario, forms=forms, participando=participando, respondido=respondido)
         else:
                 flash("Usuário não encontrado.")
                 return render_template("index.html")
@@ -222,21 +229,29 @@ def excluir_formulario(id_forms):
         mydb = db()
         cursor = mydb.cursor()
 
-        
+        # Seleciona todos os ids das questões relacionadas ao formulário
         cursor.execute("SELECT id FROM questions WHERE form_id = %s", (id_forms,))
         question_ids = cursor.fetchall()
 
+        # Exclui todos os registros da tabela `link` relacionados ao formulário
         cursor.execute("DELETE FROM `link` WHERE `forms_id` = %s", (id_forms,))
 
+        # Para cada questão, exclui os registros relacionados nas tabelas `options`, `answers` e `question_images`
         for question_id in question_ids:
+            cursor.execute("DELETE FROM `answers` WHERE `question_id` = %s", (question_id[0],))
             cursor.execute("DELETE FROM `options` WHERE `question_id` = %s", (question_id[0],))
+            cursor.execute("DELETE FROM `question_images` WHERE `question_id` = %s", (question_id[0],))
 
+        # Exclui as questões relacionadas ao formulário
         cursor.execute("DELETE FROM `questions` WHERE `form_id` = %s", (id_forms,))
 
+        # Exclui todos os registros da tabela `permission` relacionados ao formulário
+        cursor.execute("DELETE FROM `permission` WHERE `forms_id` = %s", (id_forms,))
+
+        # Exclui o formulário
         cursor.execute("DELETE FROM `forms` WHERE `id` = %s", (id_forms,))
-        
 
-
+        # Confirma as alterações e fecha a conexão com o banco de dados
         mydb.commit()
         mydb.close()
 
@@ -245,6 +260,7 @@ def excluir_formulario(id_forms):
     except Exception as e:
         print(f"Erro ao remover formulário: {e}")
         abort(500)  # Internal Server Error
+
 
 
 
@@ -464,6 +480,29 @@ def get_image(image_id):
         cursor.close()
         conn.close()
     return print("Imagem não encontrada", status=404)
+
+
+
+@app.route('/send_answer', methods=['POST'])
+def send_answer():
+    if request.method == 'POST':
+        question_id = request.form.get('question_id')
+        user_id = session["user_id"]
+        selected_id = request.form.get('selected_id')
+        response_text = request.form.get('response_text')
+        try:
+            conn = db() 
+            cursor = conn.cursor()
+
+            cursor.execute("INSERT INTO answers (question_id,user_id,response_text,enviado,selected_id) VALUES (%s,%s,%s,%s,%s);",
+                            (question_id,user_id,response_text,1,selected_id))
+            return redirect(url_for("index"))
+        except Exception as e:
+            return print(f"Erro ao enviar resposta: {e}")
+        finally:
+            conn.commit()
+            conn.close()
+    return redirect(url_for("index"))
 
 
 @app.route("/logout", methods=["POST"])
