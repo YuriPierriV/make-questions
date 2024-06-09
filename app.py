@@ -396,7 +396,7 @@ def link(token):
             if usuario.getUsuario(session["user_id"]):
                 usuario.get_image()
                 if usuario.check_permission(form.id):
-                    answer = Answer()
+                    
                     questions_json = form.get_questions_json()
                     questions = form.get_questions()
                     for question in questions:
@@ -405,8 +405,7 @@ def link(token):
                         question.get_image()
                     return render_template("form.html",usuario=usuario, form=form, questions_json=questions_json, questions=questions)
                 else:
-                    answer = Answer()
-                    answer.blank(form.id,usuario.id,1)
+                    
                     questions_json = form.get_questions_json()
                     questions = form.get_questions()
                     for question in questions:

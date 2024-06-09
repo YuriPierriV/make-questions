@@ -133,6 +133,11 @@ class Usuario:
                             """, (self.id,))
 
                 self.respondido = [row[0] for row in cursor.fetchall()]
+
+                if len(self.respondido) > 0:
+                    self.participando.append(self.respondido)
+
+                
                 return True
             else:
                 flash("Usuário não encontrado.")
