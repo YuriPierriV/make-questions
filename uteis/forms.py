@@ -1,6 +1,7 @@
 from uteis.mydb import db
 from flask import session,flash
 from uteis.questions import Questions
+from uteis.usuario import Usuario
 import secrets
 from datetime import datetime, timedelta
 
@@ -8,7 +9,7 @@ class Forms:
     
     def __init__(self):
         self.id = None
-        self.user_id = None
+        self.usuarios_id = None
         self.nome = 'Formulário sem Nome'
         self.titulo = 'Formulário sem Titulo'
         self.descricao = 'Descrição'
@@ -18,11 +19,25 @@ class Forms:
         
         
     def setDono(self,userId):
-        from uteis.usuario import Usuario
-        usuario = Usuario()
-        usuario.getUsuario(userId)
-        self.dono = usuario.nome
-        return True
+        try:
+            mydb = db()
+            # Usar um cursor bufferizado para evitar o problema de resultados não lidos
+            cursor = mydb.cursor(buffered=True)
+            cursor.execute("SELECT nome FROM usuarios WHERE id = %s", (userId,))
+            usuario_tupla = cursor.fetchone()
+
+            if usuario_tupla:
+                self.dono = usuario_tupla[0]
+            
+            return True
+        except Exception as e:
+            print(e)
+            return False
+        finally:
+            if mydb.is_connected():  # Verifica se a conexão ainda está aberta antes de fechar
+                cursor.close()  # É uma boa prática fechar o cursor
+                mydb.close()
+        
 
     def cria_form(self):
         try:
@@ -105,6 +120,7 @@ class Forms:
             if form_tupla:
                 self.getForms(form_tupla[0])
                 permission = form_tupla[1]
+
                 return True, permission
 
         except Exception as e:
@@ -150,21 +166,4 @@ class Forms:
         except Exception as e:
             print(e)
 
-    #Não faz sentido usar
-    def att_forms(self,parametro,new):
-        try:
-            mydb = db()
-            cursor = mydb.cursor()
-
-            # Atualize o campo no banco de dados
-            cursor.execute(f"UPDATE forms SET {parametro} = %s WHERE id = %s", (new, self.id))
-
-            # Commit e feche a conexão
-            mydb.commit()
-            mydb.close()
-
-            return f"Campo {nome_param} do formulário atualizado com sucesso."
-
-        except mysql.connector.Error as err:
-            print(f"Erro no MySQL: {err}")
-            return f"Erro ao atualizar campo {nome_param} do formulário. Por favor, tente novamente."
+    

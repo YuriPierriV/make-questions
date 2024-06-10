@@ -18,39 +18,55 @@ app.secret_key = 'toor'
 
 @app.route("/")
 def index():
-    if "user_id" in session:
-        usuario = Usuario()
-        usuario.getUsuario(session["user_id"])
-        usuario.get_image()
-        try:
-            if "token" in session:
-                token = session["token"]
-                del session["token"]
-            return redirect(f'/form/link/{token}')
-        except Exception:
-            if usuario:
-                forms = usuario.formularios()
-                participando = []
-                respondido = []
-                for p in usuario.participando:
-                    new = Forms()
-                    new.getForms(p)
-                    new.setDono(new.usuarios_id)
-                    new.getLink()
-                    participando.append(new)
-                for r in usuario.respondido:
-                    new = Forms()
-                    new.getForms(r)
-                    new.setDono(new.usuarios_id)
-                    new.getLink()
-                    respondido.append(new)
-                    
-                return render_template("painel.html", usuario=usuario, forms=forms, participando=participando, respondido=respondido)
-        else:
-                flash("Usuário não encontrado.")
-                return render_template("index.html")
-    else:
+    if "user_id" not in session:
         return render_template("index.html")
+
+    usuario = Usuario()
+    if not usuario.getUsuario(session["user_id"]):
+        flash("Usuário não encontrado.")
+        return render_template("index.html")
+
+    usuario.get_image()
+
+    if "token" in session:
+        token = session["token"]
+        try:
+            form = Forms()
+            form.byLink(token)
+            if usuario.setPermission(form.id):
+                del session["token"]
+                return redirect(f'/form/link/{token}')
+            else:
+                flash("Erro ao definir permissões.")
+                return render_template("index.html")
+        except Exception as e:
+            flash(f"Ocorreu um erro: {e}")
+            return render_template("index.html")
+
+    forms = usuario.formularios()
+    participando = []
+    respondido = []
+
+    for p in usuario.participando:
+        form = Forms()
+        form.getForms(p)
+        form.setDono(form.usuarios_id)
+        form.getLink()
+        participando.append(form)
+
+    for r in usuario.respondido:
+        form = Forms()
+        form.getForms(r)
+        form.setDono(form.usuarios_id)
+        form.getLink()
+        respondido.append(form)
+    
+
+    return render_template("painel.html", 
+                           usuario=usuario, 
+                           forms=forms, 
+                           participando=participando, 
+                           respondido=respondido)
     
         
 
@@ -390,13 +406,13 @@ def link(token):
     verification,permission = form.byLink(token)
     
     if verification:
+        
         if "user_id" in session:
             usuario = Usuario()
             
             if usuario.getUsuario(session["user_id"]):
                 usuario.get_image()
                 if usuario.check_permission(form.id):
-                    
                     questions_json = form.get_questions_json()
                     questions = form.get_questions()
                     for question in questions:
@@ -405,14 +421,8 @@ def link(token):
                         question.get_image()
                     return render_template("form.html",usuario=usuario, form=form, questions_json=questions_json, questions=questions)
                 else:
-                    
-                    questions_json = form.get_questions_json()
-                    questions = form.get_questions()
-                    for question in questions:
-                        question.correct_id = "Não tente fazer isso, s2"
-                        question.get_options()
-                        question.get_image()
-                    return render_template("form.html",usuario=usuario, form=form, questions_json=questions_json, questions=questions)
+                    session["token"] = token
+                    return redirect(url_for('index'))
             else:
                 flash("Usuário não encontrado. Ou permissão insuficiente")
                 session["token"] = token

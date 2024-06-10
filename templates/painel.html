@@ -142,11 +142,11 @@
                     {% for form in forms %}
                     <div class="card card-resume mb-2 color-gray">
                         <div class="card_form p-3 pb-1">
-                            <p class="text-start">{{form.nome}}</p>
+                            <p class="text-start">{{form.formulario.nome}}</p>
                             <div class="d-inline">
-                                <a href="{{ url_for('exibir_formulario', id_forms=form.id) }}" class="icon-default"><i class="bi bi-pencil-square color-gray "></i></a>
-                                <a href="/form/link/{{form.link}}" class="icon-default"><i class="bi bi-eye color-gray"></i></a>
-                                <form class="d-inline" method="post" action="{{ url_for('excluir_formulario', id_forms=form.id) }}">
+                                <a href="{{ url_for('exibir_formulario', id_forms=form.formulario.id) }}" class="icon-default"><i class="bi bi-pencil-square color-gray "></i></a>
+                                <a href="/form/link/{{form.formulario.link}}" class="icon-default"><i class="bi bi-eye color-gray"></i></a>
+                                <form class="d-inline" method="post" action="{{ url_for('excluir_formulario', id_forms=form.formulario.id) }}">
                                     <button type="submit" class="btn icon-default" style="border: none; padding: 0; margin: 0; cursor: pointer;">
                                         <i class="bi bi-trash-fill color-gray icon-default"></i>
                                     </button>
@@ -157,7 +157,7 @@
                         <div class="card-body form_card p-1 pt-1 m-0 align-items-center d-flex justify-content-center w-100">
                             <div class="row w-100 d-flex justify-content-center">
                                 <div class="col-md-6">
-                                    Criado:{{form.created}}
+                                    Criado:{{form.formulario.created}}
                                 </div>
                                 <div class="col-md-6 text-end">
                                     Dono:{{usuario.nome}}
@@ -192,10 +192,10 @@
                         <div class="card-body form_card p-1 pt-1 m-0 align-items-center d-flex justify-content-center w-100">
                             <div class="row w-100 d-flex justify-content-center">
                                 <div class="col-md-6">
-                                    Criado:{{form.created}}
+                                    Criado: {{form.created}}
                                 </div>
                                 <div class="col-md-6 text-end">
-                                    Dono:{{form.dono}}
+                                    Dono: {{form.dono}}
                                 </div>
                             </div>
                         </div>
@@ -231,11 +231,11 @@
                         
                         <div class="card-body form_card p-1 pt-1 m-0 align-items-center d-flex justify-content-center w-100">
                             <div class="row w-100 d-flex justify-content-center">
-                                <div class="col-md-8">
+                                <div class="col-md-6">
                                     Criado: {{form.created}}
                                 </div>
-                                <div class="col-md-4">
-                                    Dono: {{usuario.nome}}
+                                <div class="col-md-6 text-end">
+                                    Dono: {{form.dono}}
                                 </div>
                             </div>
                         </div>
@@ -288,12 +288,83 @@
         </section>
         <section id="formularios-section" class="pt-5 text-white container">
             <div class="container">
-                <h1>Formularios</h1>
+                {% for form in forms %}
+                    <div class="card card-resume mb-2 color-gray">
+                        <div class="card_form p-3 pb-1">
+                            <p class="text-start">{{form.formulario.nome}}</p>
+                            <div class="d-inline">
+                                <a href="{{ url_for('exibir_formulario', id_forms=form.formulario.id) }}" class="icon-default"><i class="bi bi-pencil-square color-gray "></i></a>
+                                <a href="/form/link/{{form.formulario.link}}" class="icon-default"><i class="bi bi-eye color-gray"></i></a>
+                                <form class="d-inline" method="post" action="{{ url_for('excluir_formulario', id_forms=form.formulario.id) }}">
+                                    <button type="submit" class="btn icon-default" style="border: none; padding: 0; margin: 0; cursor: pointer;">
+                                        <i class="bi bi-trash-fill color-gray icon-default"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        
+                        <div class="card-body form_card p-1 pt-1 m-0 align-items-center d-flex justify-content-center w-100">
+                            <div class="row w-100 d-flex justify-content-center">
+                                <div class="col-md-6">
+                                    Criado:{{form.formulario.created}}
+                                </div>
+                                <div class="col-md-6 text-end">
+                                    Dono:{{usuario.nome}}
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    {% if form.respostas %}
+                    <div class="card-body">
+                        <h5>Respostas:</h5>
+                        <ul>
+                            {% for resposta in form.respostas %}
+                                <li>{{ resposta.text }} (Tipo de questão: {{ resposta.question_type }})</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+                
             </div>
         </section>
         <section id="relatorios-section" class="pt-5 text-white container">
             <div class="container">
-                <h1>Relatorios</h1>
+                {% for item in forms %}
+                    <div class="card card-resume mb-2 color-gray">
+                        <div class="card_form p-3 pb-1">
+                            <p class="text-start">{{ item.formulario.nome }}</p>
+                            <div class="d-inline">
+                                <a href="{{ url_for('exibir_formulario', id_forms=item.formulario.id) }}" class="icon-default"><i class="bi bi-pencil-square color-gray "></i></a>
+                                <a href="/form/link/{{ item.formulario.link }}" class="icon-default"><i class="bi bi-eye color-gray"></i></a>
+                                <form class="d-inline" method="post" action="{{ url_for('excluir_formulario', id_forms=item.formulario.id) }}">
+                                    <button type="submit" class="btn icon-default" style="border: none; padding: 0; margin: 0; cursor: pointer;">
+                                        <i class="bi bi-trash-fill color-gray icon-default"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                            <!-- Exibir questões e respostas associadas ao formulário -->
+                            {% if item.questoes %}
+                            <div class="card-body form_card p-1 pt-1 m-0 align-items-center d-flex justify-content-center">
+                                <h5>Questões:</h5>
+                                <ul>
+                                    {% for questao in item.questoes %}
+                                        <li>
+                                            {{ questao.question_text }} (Tipo: {{ questao.question_type }})
+                                            <ul>
+                                                {% for resposta in questao.respostas %}
+                                                    <li>{{ resposta.response_text }} (Tipo de resposta: {{ resposta.question_type }})</li>
+                                                {% endfor %}
+                                            </ul>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
             </div>
         </section>
         <section id="usuario-section" class="pt-5 text-white container">

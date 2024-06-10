@@ -76,7 +76,6 @@ class Usuario:
             id = cursor.fetchone()
             usuario = Usuario()
             usuario.getUsuario(id[0])
-            print(usuario.senha_hash)
             if check_password_hash(usuario.senha_hash, senha):
                 
                 session["user_id"] = usuario.id
@@ -134,10 +133,8 @@ class Usuario:
 
                 self.respondido = [row[0] for row in cursor.fetchall()]
 
-                if len(self.respondido) > 0:
-                    self.participando.append(self.respondido)
-
                 
+                    
                 return True
             else:
                 flash("Usuário não encontrado.")
@@ -153,6 +150,7 @@ class Usuario:
 
     def formularios(self):
         from uteis.forms import Forms
+        from uteis.answer import Answer
         mydb = db()
         cursor = mydb.cursor()
 
@@ -161,15 +159,52 @@ class Usuario:
         
         
 
-        formularios = []
+        formularios_detalhados = []
+
         for form_tupla in forms_tuplas:
             form = Forms()
-            formulario = dict(zip(['id', 'usuarios_id','nome', 'titulo', 'descricao', 'created_at'], form_tupla))
+            formulario = dict(zip(['id', 'usuarios_id', 'nome', 'titulo', 'descricao', 'created_at'], form_tupla))
             form.getForms(formulario['id'])
             form.getLink()
-            formularios.append(form)
 
-        return formularios
+            # Obter todas as questões para o formulário atual
+            cursor.execute("SELECT * FROM questions WHERE form_id = %s", (formulario['id'],))
+            questoes_tuplas = cursor.fetchall()
+
+            questoes_detalhadas = []
+
+            for questao_tupla in questoes_tuplas:
+                questao = dict(zip([desc[0] for desc in cursor.description], questao_tupla))
+
+                # Obter as respostas para a questão atual
+                cursor.execute("""
+                    SELECT a.*, q.question_type
+                    FROM answers a
+                    JOIN questions q ON a.question_id = q.id
+                    WHERE a.question_id = %s
+                """, (questao['id'],))
+
+                respostas_tuplas = cursor.fetchall()
+
+                respostas_detalhadas = []
+                for resposta_tupla in respostas_tuplas:
+                    resposta = dict(zip([desc[0] for desc in cursor.description], resposta_tupla))
+                    respostas_detalhadas.append(resposta)
+
+                questao['respostas'] = respostas_detalhadas
+                questoes_detalhadas.append(questao)
+
+            formulario_completo = {
+                'formulario': formulario,
+                'questoes': questoes_detalhadas
+            }
+
+            formularios_detalhados.append(formulario_completo)
+
+        mydb.commit()
+        mydb.close()
+
+        return formularios_detalhados
 
     def get_image(self):
 
@@ -187,3 +222,27 @@ class Usuario:
             return True
         except Exception as e:
             return False
+        
+
+    def setPermission(self,form_id):
+        try:
+            mydb = db()
+            cursor = mydb.cursor()
+            
+
+            query = """
+                INSERT INTO permission (usuarios_id, forms_id, permission)
+                VALUES (%s, %s, %s)
+            """
+            cursor.execute(query, (self.id, form_id, 1))  # arrumar para dar permissão desejada  
+
+            mydb.commit()
+
+            flash("Permissão concedida", "cadastro")
+            return True  
+
+        except Exception as e:
+            flash(str(e))
+            return False  # Retorna False se houver algum erro durante o cadastro
+        finally:
+            mydb.close()
